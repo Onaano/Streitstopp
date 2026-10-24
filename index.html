@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Streit-Stopp – Konflikte erkennen &amp; Lösungen finden</title>
+<style>
+:root{--bg:#f8f0e1;--paper:#fffaf0;--ink:#3d2f28;--ink2:#6b5a4f;--line:#e2d3bb;--teal:#2f6a72;--tealL:#dcecec;--terra:#c9764a;--terraL:#f8e1d3;--green:#3f7f55;--greenL:#dcefdf;--plum:#8c5a86;--plumL:#efe0ee;--sun:#e9b949;--sunL:#fbefc9;--red:#b8453a;--redL:#f6dcd7;--blue:#3d6fa3;--blueL:#dce8f4;--shadow:0 3px 0 rgba(90,64,51,.12),0 8px 18px rgba(90,64,51,.12);--r:20px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:clamp(16px,1.05vw + 11px,22px);line-height:1.4;overflow-x:hidden;min-height:100vh;background-image:radial-gradient(circle at 12% 8%,rgba(233,185,73,.16),transparent 38%),radial-gradient(circle at 92% 90%,rgba(201,118,74,.13),transparent 40%)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:4px solid #1d4e8f;outline-offset:3px;border-radius:12px}
+[hidden]{display:none!important}
+#app{max-width:1280px;margin:0 auto;padding:12px 16px 40px;width:100%}
+.screen{width:100%}
+h1,h2,h3,p{margin:0}
+.ico{width:1.3em;height:1.3em;display:block;flex:none}
+/* ---- Kopf ---- */
+.topline{display:flex;justify-content:flex-end;gap:8px;margin-bottom:6px}
+.iconbtn{display:inline-flex;align-items:center;gap:8px;min-height:48px;min-width:48px;padding:6px 14px;border-radius:999px;border:2px solid var(--line);background:var(--paper);box-shadow:0 2px 0 rgba(90,64,51,.1);font-weight:700;justify-content:center}
+.iconbtn:hover{border-color:var(--teal)}
+.iconbtn .ico{width:24px;height:24px}
+body.nospeech .spk,body.mute .spk{display:none!important}
+body.nospeech #sndBtn{display:none}
+/* ---- Start ---- */
+.hero{text-align:center;padding:10px 0 4px}
+.hero h1{font-size:clamp(2.1rem,6vw,3.7rem);letter-spacing:.5px;line-height:1.05;color:var(--teal);display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
+.hero h1 .ico{width:1.1em;height:1.1em}
+.hero .sub{font-size:clamp(1.1rem,2.6vw,1.6rem);font-weight:700;color:var(--terra);margin-top:6px}
+.hero .intro{font-size:clamp(1rem,2vw,1.25rem);color:var(--ink2);margin:10px auto 0;max-width:34em}
+.steps{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0 4px}
+.step{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:var(--paper);border:2px solid var(--line);font-weight:800;letter-spacing:.5px;font-size:.95rem}
+.step svg{width:34px;height:34px;flex:none}
+.step small{display:block;font-weight:600;letter-spacing:0;color:var(--ink2);font-size:.72em;line-height:1.1}
+.step.on{border-color:var(--teal);background:var(--tealL)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin:18px 0}
+.mcard{position:relative;display:flex;flex-direction:column;text-align:left;border-radius:var(--r);background:var(--paper);border:3px solid var(--acc);box-shadow:var(--shadow);overflow:hidden;padding:0;transition:transform .15s}
+.mcard:hover{transform:translateY(-3px)}
+.mcard .art{background:var(--accL);border-bottom:3px solid var(--acc);display:block;line-height:0}
+.mcard .art svg{width:100%;height:auto;display:block}
+.mcard .txt{padding:12px 16px 16px;display:block}
+.mcard .nm{font-size:1.35em;font-weight:900;color:var(--acc);letter-spacing:.4px;display:flex;align-items:center;gap:8px}
+.mcard .nm svg{width:30px;height:30px}
+.mcard .ds{display:block;color:var(--ink);margin-top:4px;font-size:1em}
+.mcard .go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--acc);color:#fff;border-radius:999px;padding:6px 16px;font-weight:800}
+.mcard .go .ico{width:20px;height:20px}
+.a-check{--acc:#2f6a72;--accL:#dcecec}.a-regler{--acc:#b8582e;--accL:#f8e1d3}.a-loesung{--acc:#3a7a50;--accL:#dcefdf}.a-sag{--acc:#7c4a77;--accL:#efe0ee}
+.startfoot{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.bigbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:10px 26px;border-radius:999px;border:3px solid var(--teal);background:var(--teal);color:#fff;font-weight:900;font-size:1.1em;box-shadow:0 4px 0 rgba(47,106,114,.35)}
+.bigbtn:hover{filter:brightness(1.07)}
+.bigbtn:disabled{background:#c9bfae;border-color:#c9bfae;box-shadow:none;color:#fff;cursor:not-allowed}
+.bigbtn.alt{background:var(--paper);color:var(--teal)}
+.bigbtn .ico{width:24px;height:24px}
+/* ---- Spielkopf ---- */
+.gbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.gbar .steps{margin:0;gap:6px;flex:1;justify-content:center}
+.gbar .step{padding:3px 12px 3px 4px;font-size:.82rem;opacity:.75}
+.gbar .step svg{width:30px;height:30px}
+.gbar .step.on{opacity:1}
+.prog{font-weight:900;color:var(--ink2);display:flex;flex-direction:column;align-items:center;gap:4px;min-width:130px}
+.dots{display:flex;gap:5px}
+.dots i{width:12px;height:12px;border-radius:50%;border:2px solid var(--teal);background:transparent;display:block}
+.dots i.d{background:var(--teal)}.dots i.c{background:var(--sun);border-color:var(--terra)}
+.stage{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+@media(min-width:1000px){.stage{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}.stage .scene{position:sticky;top:12px}}
+.scene{border-radius:var(--r);overflow:hidden;border:3px solid var(--line);box-shadow:var(--shadow);background:var(--paper)}
+.bubrow{display:grid;gap:6px;padding:10px 8px 0;align-items:end;min-height:12px}
+.bcol{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
+.bub{position:relative;max-width:100%;background:#fff;border:3px solid #5a4033;border-radius:18px;padding:6px 12px;font-weight:700;font-size:clamp(.82rem,1.7vw,1.1rem);line-height:1.2;text-align:center;overflow-wrap:anywhere;hyphens:auto;margin-bottom:12px}
+.bub::after{content:"";position:absolute;left:50%;bottom:-13px;width:16px;height:16px;background:inherit;border-right:3px solid #5a4033;border-bottom:3px solid #5a4033;transform:translateX(-50%) rotate(45deg) skew(8deg,8deg);border-bottom-right-radius:4px}
+.bub.shout{font-weight:900;border-width:4px;text-transform:none;letter-spacing:.2px}
+.bub.act{font-style:italic;font-weight:600;background:#f5ead6;border-style:dashed}
+.bub.react{background:var(--sunL)}
+.bub.mine{background:var(--greenL);animation:pop .45s ease}
+.bub.mine.warn{background:var(--redL)}.bub.mine.alt{background:var(--tealL)}.bub.mine.help{background:var(--blueL)}
+.bub.old{opacity:.0;transform:scale(.7);transition:all .3s}
+.scene .scn{display:block;width:100%;height:auto;max-height:68vh}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.07)}100%{transform:scale(1);opacity:1}}
+/* ---- Panel ---- */
+.panel{background:var(--paper);border:3px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px 16px;min-width:0}
+.situ{display:flex;gap:10px;align-items:flex-start;font-size:1.08em;font-weight:700}
+.situ span{flex:1}
+.q{font-size:1.2em;font-weight:900;color:var(--acc,var(--teal));margin:10px 0 8px}
+.spk{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid var(--teal);background:#fff;color:var(--teal);display:inline-flex;align-items:center;justify-content:center;padding:0}
+.spk .ico{width:24px;height:24px}
+.spk.mini{width:38px;height:38px}
+.spk:hover{background:var(--tealL)}
+.work{display:flex;flex-direction:column;gap:10px}
+.fb{margin-top:12px;border-radius:16px;padding:10px 14px;background:var(--sunL);border:2px solid var(--sun);font-weight:600}
+.fb:empty{display:none}
+.fb b{display:block;font-size:1.05em;margin-bottom:2px}
+.fb .hl{display:flex;gap:8px;align-items:flex-start;margin-top:6px;background:var(--blueL);border:2px solid var(--blue);border-radius:12px;padding:6px 10px}
+.actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
+/* ---- Check ---- */
+.pool{display:flex;flex-direction:column;gap:8px}
+.cardw{position:relative;display:flex;gap:6px;align-items:stretch}
+.stm{flex:1;text-align:left;padding:10px 14px;border-radius:14px;border:3px solid var(--line);background:#fff;font-weight:600;min-height:52px;display:flex;align-items:center;gap:10px}
+.stm:hover{border-color:var(--teal)}
+.stm[aria-pressed=true]{border-color:var(--teal);background:var(--tealL);box-shadow:0 0 0 3px rgba(47,106,114,.25);transform:translateX(4px)}
+.cardw .spk{align-self:center}
+.zones{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+@media(max-width:560px){.zones{grid-template-columns:1fr}}
+.zone{border-radius:16px;border:3px dashed var(--acc);background:var(--accL);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:120px}
+.zone.know{--acc:#3a7a50;--accL:#e8f4ea}.zone.guess{--acc:#b8582e;--accL:#fbeee3}
+.zhead{width:100%;text-align:left;border:0;background:transparent;padding:4px 4px 6px;font-weight:900;color:var(--acc);display:flex;gap:8px;align-items:flex-start;line-height:1.15;border-radius:10px}
+.zhead small{display:block;font-weight:600;color:var(--ink2);font-size:.78em;margin-top:2px}
+.zhead svg{width:30px;height:30px;flex:none}
+.zone.target .zhead{background:rgba(255,255,255,.7);box-shadow:0 0 0 3px var(--acc)}
+.placed{display:flex;flex-direction:column;gap:6px}
+.stm.placed{background:#fff;border-color:var(--acc);font-size:.95em;width:100%}
+.stm.ok{border-color:var(--green);background:var(--greenL)}
+.stm.moved{border-color:var(--sun);background:var(--sunL)}
+.stm .why{display:block;font-weight:500;font-size:.88em;color:var(--ink2);margin-top:2px}
+.mk{width:26px;height:26px;flex:none}
+/* ---- Regler ---- */
+.gauge{width:100%;max-width:440px;margin:0 auto}
+.gauge svg{width:100%;height:auto;display:block;overflow:visible}
+.needle{transform-origin:150px 150px;transition:transform 1.1s cubic-bezier(.34,1.45,.5,1)}
+.glegend{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;font-weight:800;font-size:.72em;margin-top:2px}
+.glegend span{padding:4px 2px;border-radius:10px;border:2px solid transparent;line-height:1.1}
+.glegend span.on{border-color:var(--ink);background:#fff}
+.react{display:flex;align-items:center;gap:10px;background:var(--sunL);border:2px solid var(--sun);border-radius:14px;padding:8px 12px;font-weight:700}
+.react span{flex:1}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:560px){.three{grid-template-columns:1fr}}
+.rb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;min-height:76px;padding:8px 6px;border-radius:16px;border:3px solid var(--acc);background:#fff;font-weight:900;line-height:1.1;font-size:.92em}
+.rb svg{width:34px;height:34px}
+@media(max-width:560px){.rb{flex-direction:row;justify-content:flex-start;text-align:left;padding:8px 14px}}
+.rb.up{--acc:#b8453a}.rb.down{--acc:#3a7a50}.rb.var{--acc:#3d6fa3}
+.rb:hover:not(:disabled){background:var(--accL,#fff6ee);transform:translateY(-2px)}
+.rb:disabled{opacity:.55;cursor:default}
+.rb.picked{opacity:1;background:var(--sunL);box-shadow:0 0 0 4px var(--acc)}
+/* ---- Lösungen / Sag's anders ---- */
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{position:relative;display:flex;gap:6px;align-items:stretch}
+.ob{flex:1;text-align:left;display:flex;gap:10px;align-items:center;padding:10px 14px 10px 10px;border-radius:6px 16px 16px 6px;border:3px solid #8a6a4d;background:#fff6e6;font-weight:700;min-height:58px;position:relative}
+.ob::before{content:"";width:12px;align-self:stretch;margin:-10px 0 -10px -10px;background:#8a6a4d;border-radius:3px;flex:none}
+.ob .sg{width:26px;height:26px;flex:none;color:#8a6a4d}
+.ob:hover{border-color:var(--teal)}
+.ob[aria-pressed=true]{border-color:var(--teal);background:var(--tealL);box-shadow:0 0 0 3px rgba(47,106,114,.25)}
+.ob .t{flex:1}
+.ob .lab{display:flex;gap:6px;align-items:center;font-size:.85em;font-weight:900;margin-top:3px}
+.ob .lab svg{width:22px;height:22px;flex:none}
+.ob .why{display:block;font-weight:500;font-size:.88em;color:var(--ink2)}
+.ob.r-gut{border-color:var(--green);background:var(--greenL)}.ob.r-gut .lab{color:var(--green)}
+.ob.r-auch{border-color:var(--teal);background:var(--tealL)}.ob.r-auch .lab{color:var(--teal)}
+.ob.r-hilfe{border-color:var(--blue);background:var(--blueL)}.ob.r-hilfe .lab{color:var(--blue)}
+.ob.r-vorsicht{border-color:var(--terra);background:var(--terraL)}.ob.r-vorsicht .lab{color:#a34e22}
+.ob.sel{box-shadow:0 0 0 4px var(--ink)}
+.opt .spk{align-self:center}
+.hint{color:var(--ink2);font-size:.9em;font-weight:600}
+/* ---- Ende / Modal ---- */
+.endbox{max-width:760px;margin:20px auto;text-align:center;background:var(--paper);border:3px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:26px 20px}
+.endbox h1{font-size:clamp(1.9rem,5vw,3rem);color:var(--teal)}
+.endbox p{font-size:1.15em;margin:10px 0}
+.endbox .steps{margin:14px 0}
+.endbox .btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:16px}
+.modal{position:fixed;inset:0;background:rgba(61,47,40,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.mbox{background:var(--paper);border-radius:24px;max-width:640px;width:100%;max-height:90vh;overflow:auto;padding:20px;border:3px solid var(--teal);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.mbox h2{color:var(--teal);margin-bottom:8px}
+.mbox ul{padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px;margin:10px 0}
+.mbox li{display:flex;gap:10px;align-items:flex-start}
+.mbox li svg{width:40px;height:40px;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(max-width:420px){#app{padding:8px 10px 30px}.gbar .step span.lbl{display:none}.gbar .step{padding:3px}.panel{padding:12px 12px 14px}}
+
+.stepi{width:32px;height:32px;flex:none}
+.zi{width:30px;height:30px;flex:none}
+.mcard .txt{flex:1}
+.glegend b{font-size:1.15em}.glegend span{font-size:.95em}
+.zones{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.zone,.stm,.cardw,.placed{min-width:0}
+.stm span,.zhead span{overflow-wrap:anywhere}
+@media(min-width:1000px) and (max-width:1340px){.zones{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.zones{grid-template-columns:minmax(0,1fr)}}
+.ob.r-gut .lab{color:#2d6a43}.ob.r-hilfe .lab{color:#2a5888}.zone.guess{--acc:#a34e22}.zone.know{--acc:#2d6a43}
+.fb .hl b{color:#2a5888}
+.phase{border:3px solid var(--acc);border-radius:16px;padding:8px;background:var(--accL);display:flex;flex-direction:column;gap:8px}
+.phase.know{--acc:#2d6a43;--accL:#e8f4ea}.phase.guess{--acc:#a34e22;--accL:#fbeee3}
+.ph{display:flex;gap:10px;align-items:flex-start;color:var(--acc);font-weight:900;line-height:1.2}.ph small{display:block;color:var(--ink);font-weight:600;font-size:.88em;margin-top:2px}
+.ph svg{width:32px;height:32px;flex:none}
+.stm.selc{border-color:var(--green);background:var(--greenL);box-shadow:0 0 0 3px rgba(63,127,85,.3)}
+.stm.dim{display:none}
+.stm.guessed{border-color:var(--terra);background:var(--terraL)}
+.stm:disabled{opacity:1;color:var(--ink)}
+.phase.concl{--acc:#3a7a50;--accL:#eef6ee}.sum{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.92em}
+.sum>div{background:#fff;border-radius:12px;padding:6px 10px;border:2px solid var(--line)}.sum ul{margin:4px 0 0;padding-left:18px}
+@media(max-width:560px){.sum{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<filter id="gd-wob" filterUnits="userSpaceOnUse" x="-20" y="-20" width="280" height="330"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter>
+</defs></svg>
+<main id="app">
+<section id="start" class="screen" aria-label="Startbildschirm"></section>
+<section id="game" class="screen" aria-label="Spiel" hidden></section>
+<section id="end" class="screen" aria-label="Rundenende" hidden></section>
+</main>
+<div id="modal" class="modal" hidden></div>
+<noscript>Dieses Spiel braucht JavaScript.</noscript>
+<script>
+/* ===== Figurensystem „Gefühlsdetektive“ – rein SVG, modular ===== */
+const GDLIB=(function(){
+'use strict';
+const CX=120, CY=96, SY=158, NY=148, HEM=252, VW=240, VH=280;
+const OUT='#5a4033', OW=2.3;
+const UL=44, FL=40;
+
+const SKIN=[null,
+ {b:'#fbdcc4',s:'#eeb89a'},{b:'#f4c7a1',s:'#e3a47c'},{b:'#e8b186',s:'#d3926a'},{b:'#d89b6c',s:'#bf7c52'},
+ {b:'#bd7d4f',s:'#a2623a'},{b:'#9a5f3a',s:'#814b2b'},{b:'#764226',s:'#5f321b'},{b:'#573019',s:'#442310'}];
+
+const HEADS={
+ round:{hw:33,hh:35,jaw:21,ck:.14},
+ oval:{hw:29,hh:38,jaw:16,ck:.08},
+ wide:{hw:36,hh:33,jaw:25,ck:.2},
+ heart:{hw:33,hh:36,jaw:9,ck:-.02},
+ square:{hw:32,hh:34,jaw:28,ck:.3},
+ egg:{hw:31,hh:37,jaw:19,ck:.12}
+};
+const BUILDS={
+ small:{sw:44,aw:14.5,hip:39,k:.93},
+ slim:{sw:46,aw:15.5,hip:40,k:.98},
+ normal:{sw:50,aw:17,hip:45,k:1},
+ sturdy:{sw:55,aw:19,hip:51,k:1.04}
+};
+
+const r1=n=>Math.round(n*10)/10;
+function rng(seed){let s=(seed*7919+13)%233280;return ()=>{s=(s*9301+49297)%233280;return s/233280;};}
+function shade(h,a){const n=parseInt(h.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const t=a<0?0:255,p=Math.abs(a);
+ r=Math.round(r+(t-r)*p);g=Math.round(g+(t-g)*p);b=Math.round(b+(t-b)*p);return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);}
+const ST=(w=OW)=>`stroke="${OUT}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
+
+/* ---------- Kopf ---------- */
+function headPath(H){const {cx,cy,hw,hh,jaw,ck}=H,top=cy-hh,chin=cy+hh;
+ return `M${cx},${top} C${cx+hw*.62},${top} ${cx+hw},${cy-hh*.38} ${cx+hw},${r1(cy+hh*ck)} C${cx+hw},${r1(cy+hh*.72)} ${cx+jaw},${chin} ${cx},${chin} C${cx-jaw},${chin} ${cx-hw},${r1(cy+hh*.72)} ${cx-hw},${r1(cy+hh*ck)} C${cx-hw},${cy-hh*.38} ${cx-hw*.62},${top} ${cx},${top}Z`;}
+
+/* ---------- Haare ---------- */
+function capPath(H,o={}){const {cx,cy,hw,hh}=H,top=cy-hh;
+ const ot=top-(o.vol??5),so=o.side??2,ty=cy+(o.temple??-2),hl=cy-hh*(o.hl??.5),sw=o.sweep??0,hlc=o.hlc??0,low=o.low??0;
+ return `M${cx-hw-so},${ty+low} C${cx-hw-so-3},${ot+12} ${cx-hw*.5},${ot} ${cx},${ot} C${cx+hw*.5},${ot} ${cx+hw+so+3},${ot+12} ${cx+hw+so},${ty+low} L${cx+hw-1},${ty-2} C${cx+hw-4},${hl+8} ${cx+hw*.45},${hl+sw} ${cx+sw*2},${hl+hlc} C${cx-hw*.45},${hl-sw} ${cx-hw+4},${hl+8} ${cx-hw+1},${ty-2}Z`;}
+function blob(circles,c){
+ return circles.map(([x,y,r])=>`<circle cx="${r1(x)}" cy="${r1(y)}" r="${r1(r)}" fill="${c}" stroke="${OUT}" stroke-width="${OW*2}"/>`).join('')+
+        circles.map(([x,y,r])=>`<circle cx="${r1(x)}" cy="${r1(y)}" r="${r1(r)}" fill="${c}"/>`).join('');}
+function arcCircles(cx,cy,rx,ry,a0,a1,n,r0,rnd,jit=3){const out=[];for(let i=0;i<n;i++){const a=(a0+(a1-a0)*i/(n-1))*Math.PI/180;
+ out.push([cx+Math.cos(a)*rx+(rnd()-.5)*jit,cy+Math.sin(a)*ry+(rnd()-.5)*jit,r0+(rnd()-.5)*3]);}return out;}
+function strands(d,col,w=1.4,op=.5){return `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" opacity="${op}"/>`;}
+function braidChain(x0,y0,x1,y1,bend,c,rnd,n=7,sz=1){
+ let s='';const pts=[];for(let i=0;i<n;i++){const t=i/(n-1);const x=x0+(x1-x0)*t+Math.sin(t*Math.PI)*bend,y=y0+(y1-y0)*t;pts.push([x,y]);}
+ const el=(x,y,i)=>`<ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${8.2*sz}" ry="${6.3*sz}" transform="rotate(${i%2?38:-38} ${r1(x)} ${r1(y)})"`;
+ s+=pts.map((p,i)=>el(p[0],p[1],i)+` fill="${c}" stroke="${OUT}" stroke-width="${OW*2}"/>`).join('');
+ s+=pts.map((p,i)=>el(p[0],p[1],i)+` fill="${c}"/>`).join('');
+ s+=pts.map((p,i)=>`<path d="M${r1(p[0]-4)},${r1(p[1]+(i%2?-3:3))} L${r1(p[0]+4)},${r1(p[1]+(i%2?3:-3))}" stroke="${shade(c,-.28)}" stroke-width="1.3" opacity=".6" stroke-linecap="round"/>`).join('');
+ return {svg:s,end:pts[pts.length-1]};}
+
+function hairSvg(style,H,col,rnd,o){
+ const {cx,cy,hw,hh}=H,top=cy-hh,d=shade(col,-.3),acc=o.acc||'#e9a1ad';
+ const F=`fill="${col}" ${ST()}`;
+ let back='',front='';
+ switch(style){
+ case 'sideSwept':{ // kurz, Seitenscheitel
+  front=`<path d="${capPath(H,{vol:6,hl:.52,sweep:-5,hlc:-3})}" ${F}/>`+
+   `<path d="M${cx-hw*.2},${top-4} C${cx+10},${top+6} ${cx+hw*.55},${top+14} ${cx+hw-3},${cy-22}" fill="none" stroke="${OUT}" stroke-width="1.6" opacity=".55"/>`+
+   strands(`M${cx-hw*.6},${top+3} C${cx-hw*.5},${top+10} ${cx-hw*.45},${top+16} ${cx-hw*.5},${cy-24}`,d)+strands(`M${cx+hw*.2},${top+4} C${cx+hw*.4},${top+10} ${cx+hw*.55},${top+18} ${cx+hw*.7},${cy-24}`,d);
+  break;}
+ case 'curlsShort':{
+  const a=arcCircles(cx,cy-4,hw+3,hh+2,170,370,10,11.5,rnd,3);
+  back=blob(a,col);
+  const f=arcCircles(cx,cy-hh*.5-2,hw-9,10,200,340,6,8.6,rnd,2);
+  f.push([cx-hw+1,cy-8,7],[cx+hw-1,cy-8,7]);
+  front=blob(f,col);break;}
+ case 'afro':{
+  const a=arcCircles(cx,cy-8,hw+13,hh+11,160,380,13,16,rnd,3);
+  back=`<ellipse cx="${cx}" cy="${cy-14}" rx="${hw+12}" ry="${hh+4}" fill="${col}" ${ST(OW*2)}/>`+blob(a,col)+`<ellipse cx="${cx}" cy="${cy-14}" rx="${hw+12}" ry="${hh+4}" fill="${col}"/>`;
+  const f=arcCircles(cx,cy-hh*.5-1,hw-7,9,200,340,7,8.4,rnd,2);f.push([cx-hw+2,cy-8,7.5],[cx+hw-2,cy-8,7.5]);
+  front=blob(f,col);break;}
+ case 'braids':{
+  front=`<path d="${capPath(H,{vol:4,hl:.5,sweep:-1})}" ${F}/><path d="M${cx},${top-2} L${cx},${cy-hh*.5}" stroke="${OUT}" stroke-width="1.8" opacity=".6"/>`+
+   strands(`M${cx-hw*.55},${top+3} Q${cx-hw*.7},${cy-30} ${cx-hw+2},${cy-14}`,d)+strands(`M${cx+hw*.55},${top+3} Q${cx+hw*.7},${cy-30} ${cx+hw-2},${cy-14}`,d);
+  const bl=braidChain(cx-hw-5,cy+14,cx-hw-3,186,-4,col,rnd,7), br=braidChain(cx+hw+5,cy+14,cx+hw+3,186,4,col,rnd,7);
+  front+=`<path d="M${cx-hw+1},${cy-12} Q${cx-hw-10},${cy+4} ${cx-hw-6},${cy+16}" fill="${col}" ${ST()}/><path d="M${cx+hw-1},${cy-12} Q${cx+hw+10},${cy+4} ${cx+hw+6},${cy+16}" fill="${col}" ${ST()}/>`+bl.svg+br.svg+
+   `<circle cx="${r1(bl.end[0])}" cy="${r1(bl.end[1]+6)}" r="5" fill="${acc}" ${ST(1.8)}/><circle cx="${r1(br.end[0])}" cy="${r1(br.end[1]+6)}" r="5" fill="${acc}" ${ST(1.8)}/>`;
+  break;}
+ case 'ponytail':{
+  const bx=cx+hw*.62, by=cy-hh*.66;
+  back=`<path d="M${bx-6},${by} C${bx+22},${by-10} ${cx+hw+34},${cy-6} ${cx+hw+26},${cy+24} C${cx+hw+22},${cy+44} ${cx+hw+10},${cy+52} ${cx+hw+8},${cy+56} C${cx+hw+8},${cy+34} ${cx+hw+8},${cy+14} ${bx-2},${by+12}Z" fill="${col}" ${ST()}/>`+
+   strands(`M${bx+10},${by+2} C${cx+hw+20},${cy-4} ${cx+hw+24},${cy+20} ${cx+hw+16},${cy+44}`,d,1.5,.55);
+  front=`<path d="${capPath(H,{vol:6,hl:.54,sweep:-3,hlc:-2})}" ${F}/>`+strands(`M${cx-hw*.4},${top+3} C${cx-hw*.3},${top+12} ${cx-hw*.3},${top+18} ${cx-hw*.4},${cy-26}`,d)+
+   `<ellipse cx="${r1(bx+3)}" cy="${r1(by+4)}" rx="5.5" ry="8" transform="rotate(-30 ${r1(bx+3)} ${r1(by+4)})" fill="${acc}" ${ST(1.9)}/>`;
+  break;}
+ case 'bob':{
+  back=`<path d="M${cx-hw-6},${cy-12} C${cx-hw-10},${cy+8} ${cx-hw-9},${cy+26} ${cx-hw-4},${cy+34} Q${cx},${cy+42} ${cx+hw+4},${cy+34} C${cx+hw+9},${cy+26} ${cx+hw+10},${cy+8} ${cx+hw+6},${cy-12} C${cx+hw+4},${top-7} ${cx-hw-4},${top-7} ${cx-hw-6},${cy-12}Z" fill="${col}" ${ST()}/>`;
+  front=`<path d="${capPath(H,{vol:5,hl:.36,sweep:0,hlc:5})}" ${F}/>`+
+   `<path d="M${cx-hw-2},${cy-4} C${cx-hw-6},${cy+12} ${cx-hw-4},${cy+28} ${cx-hw+1},${cy+37} Q${cx-hw+10},${cy+36} ${cx-hw+10},${cy+26} C${cx-hw+10},${cy+14} ${cx-hw+6},${cy+4} ${cx-hw+4},${cy-8}Z" fill="${col}" ${ST()}/>`+
+   `<path d="M${cx+hw+2},${cy-4} C${cx+hw+6},${cy+12} ${cx+hw+4},${cy+28} ${cx+hw-1},${cy+37} Q${cx+hw-10},${cy+36} ${cx+hw-10},${cy+26} C${cx+hw-10},${cy+14} ${cx+hw-6},${cy+4} ${cx+hw-4},${cy-8}Z" fill="${col}" ${ST()}/>`+
+   strands(`M${cx-hw*.5},${top+4} Q${cx-hw*.55},${cy-34} ${cx-hw*.45},${cy-20}`,d)+strands(`M${cx+hw*.4},${top+4} Q${cx+hw*.5},${cy-34} ${cx+hw*.4},${cy-20}`,d);
+  break;}
+ case 'longStraight':{
+  back=`<path d="M${cx-hw-9},${cy-14} C${cx-hw-16},${cy+30} ${cx-hw-12},${cy+66} ${cx-hw-8},${cy+82} L${cx+hw+8},${cy+82} C${cx+hw+12},${cy+66} ${cx+hw+16},${cy+30} ${cx+hw+9},${cy-14} C${cx+hw+6},${top-8} ${cx-hw-6},${top-8} ${cx-hw-9},${cy-14}Z" fill="${col}" ${ST()}/>`;
+  const pl=(s)=>{const x=cx+s*hw;return `<path d="M${x+s*1},${cy-10} C${x+s*13},${cy+12} ${x+s*15},${cy+50} ${x+s*11},${cy+88} Q${x+s*3},${cy+95} ${x-s*5},${cy+88} C${x-s*6},${cy+58} ${x-s*1},${cy+26} ${x-s*2},${cy+2}Z" fill="${col}" ${ST()}/>`;};
+  front=`<path d="${capPath(H,{vol:6,hl:.52,sweep:4,hlc:-2})}" ${F}/>`+pl(-1)+pl(1)+
+   strands(`M${cx-hw-6},${cy+10} C${cx-hw-6},${cy+40} ${cx-hw-4},${cy+60} ${cx-hw-3},${cy+80}`,d)+strands(`M${cx+hw+6},${cy+10} C${cx+hw+6},${cy+40} ${cx+hw+4},${cy+60} ${cx+hw+3},${cy+80}`,d)+
+   `<path d="M${cx+4},${top-4} C${cx-12},${top+8} ${cx-hw*.7},${top+14} ${cx-hw+4},${cy-20}" fill="none" stroke="${OUT}" stroke-width="1.6" opacity=".5"/>`;
+  break;}
+ case 'tousled':{
+  const n=9,pts=[];
+  for(let i=0;i<=n;i++){const a=(188+(172*i/n))*Math.PI/180;const tip=i%2===1;const rx=hw+(tip?6+rnd()*8:1),ry=hh+(tip?7+rnd()*9:2);
+   pts.push([cx+Math.cos(a)*rx,cy-4+Math.sin(a)*ry]);}
+  const poly=pts.map(p=>`${r1(p[0])},${r1(p[1])}`).join(' L');
+  front=`<path d="M${poly} L${cx+hw-1},${cy-4} C${cx+hw-3},${cy-22} ${cx+hw*.5},${top+12} ${cx+14},${top+13} L${cx+6},${top+19} L${cx-2},${top+12} L${cx-12},${top+20} L${cx-20},${top+13} C${cx-hw*.7},${top+14} ${cx-hw+5},${cy-20} ${cx-hw+1},${cy-4}Z" fill="${col}" ${ST()}/>`+
+   strands(`M${cx-hw*.3},${top-2} L${cx-hw*.2},${top+14}`,d)+strands(`M${cx+hw*.3},${top-3} L${cx+hw*.25},${top+12}`,d)+strands(`M${cx+hw*.7},${top+8} L${cx+hw*.62},${top+22}`,d);
+  break;}
+ case 'undercut':{
+  const sideP=capPath(H,{vol:1.5,hl:.7,temple:-2,side:1});
+  front=`<path d="${sideP}" fill="${shade(col,.1)}" ${ST()} />`+
+   `<path d="M${cx-hw+1},${cy-16} C${cx-hw-5},${top+2} ${cx-hw*.5},${top-14} ${cx+2},${top-14} C${cx+hw*.6},${top-14} ${cx+hw+5},${top+2} ${cx+hw-1},${cy-16} C${cx+hw*.6},${cy-24} ${cx+hw*.1},${cy-30} ${cx-hw*.4},${cy-25} C${cx-hw*.7},${cy-24} ${cx-hw+6},${cy-22} ${cx-hw+1},${cy-16}Z" fill="${col}" ${ST()}/>`+
+   strands(`M${cx-hw*.3},${top-6} C${cx-hw*.1},${top+2} ${cx},${top+8} ${cx+hw*.05},${cy-30}`,d,1.5)+strands(`M${cx+hw*.25},${top-6} C${cx+hw*.45},${top+2} ${cx+hw*.6},${top+8} ${cx+hw*.7},${cy-26}`,d,1.5)+strands(`M${cx-hw*.65},${top+2} C${cx-hw*.7},${top+10} ${cx-hw*.7},${top+16} ${cx-hw*.72},${cy-22}`,d,1.5)+
+   [..."123456789"].map((_,i)=>`<circle cx="${cx-hw+1+(i%2)*2}" cy="${cy-12+i*2.6}" r=".9" fill="${d}" opacity=".6"/><circle cx="${cx+hw-1-(i%2)*2}" cy="${cy-12+i*2.6}" r=".9" fill="${d}" opacity=".6"/>`).join('');
+  break;}
+ case 'spaceBuns':{
+  const bxL=cx-hw*.7,bxR=cx+hw*.7,by=top-5;
+  const bun=(x)=>`<circle cx="${r1(x)}" cy="${r1(by)}" r="14" fill="${col}" ${ST(OW*2)}/><circle cx="${r1(x)}" cy="${r1(by)}" r="14" fill="${col}"/><path d="M${r1(x-6)},${r1(by-2)} Q${r1(x)},${r1(by-9)} ${r1(x+6)},${r1(by)} Q${r1(x+1)},${r1(by+7)} ${r1(x-3)},${r1(by+3)}" fill="none" stroke="${d}" stroke-width="1.5" opacity=".6"/>`;
+  back=bun(bxL)+bun(bxR);
+  front=`<path d="${capPath(H,{vol:3,hl:.52,sweep:0})}" ${F}/><path d="M${cx},${top-1} L${cx},${cy-hh*.52}" stroke="${OUT}" stroke-width="1.8" opacity=".55"/>`+
+   `<rect x="${r1(bxL-9)}" y="${r1(by+9)}" width="18" height="6" rx="3" transform="rotate(-18 ${r1(bxL)} ${r1(by+12)})" fill="${acc}" ${ST(1.8)}/><rect x="${r1(bxR-9)}" y="${r1(by+9)}" width="18" height="6" rx="3" transform="rotate(18 ${r1(bxR)} ${r1(by+12)})" fill="${acc}" ${ST(1.8)}/>`+
+   strands(`M${cx-hw*.5},${top+4} Q${cx-hw*.7},${cy-34} ${cx-hw+3},${cy-16}`,d)+strands(`M${cx+hw*.5},${top+4} Q${cx+hw*.7},${cy-34} ${cx+hw-3},${cy-16}`,d);
+  break;}
+ case 'buzz':{
+  front=`<path d="${capPath(H,{vol:1,hl:.6,side:.5,temple:-4})}" fill="${col}" ${ST(1.9)}/>`+
+   Array.from({length:26},()=>{const a=Math.PI*(1+rnd()),r=.55+rnd()*.35;return `<circle cx="${r1(cx+Math.cos(a)*(hw)*r)}" cy="${r1(cy-6+Math.sin(a)*(hh)*r*.95)}" r=".8" fill="${shade(col,.35)}" opacity=".7"/>`;}).join('');
+  break;}
+ case 'longCurls':{
+  const side=(s)=>{const o=[];for(let i=0;i<7;i++){o.push([cx+s*(hw+3+rnd()*3+Math.sin(i/6*Math.PI)*4),cy-4+i*17,12+rnd()*2.5]);}return o;};
+  const top1=arcCircles(cx,cy-4,hw+3,hh+2,170,370,10,12,rnd,3);
+  back=blob(side(-1).concat(side(1)).concat(top1),col);
+  const f=arcCircles(cx,cy-hh*.5-2,hw-9,10,200,340,6,8.8,rnd,2);
+  const sd=(s)=>{const o=[];for(let i=0;i<4;i++)o.push([cx+s*(hw+1+rnd()*3),cy+20+i*15,9.5+rnd()*2]);return o;};
+  front=blob(f.concat(sd(-1)).concat(sd(1)),col);break;}
+ case 'pigtails':{
+  const tail=(s)=>{const bx=cx+s*(hw+1),by=cy-hh*.35;
+   return `<path d="M${bx-s*2},${by-9} C${bx+s*22},${by-14} ${bx+s*40},${by+8} ${bx+s*36},${by+32} C${bx+s*34},${by+48} ${bx+s*28},${by+54} ${bx+s*22},${by+58} C${bx+s*26},${by+42} ${bx+s*18},${by+26} ${bx+s*8},${by+12} L${bx-s*2},${by+10}Z" fill="${col}" ${ST()}/>`+
+     strands(`M${bx+s*10},${by-4} C${bx+s*26},${by} ${bx+s*30},${by+22} ${bx+s*26},${by+44}`,d,1.5,.55)+
+     `<ellipse cx="${bx+s*4}" cy="${by}" rx="6" ry="9.5" transform="rotate(${s*-14} ${bx+s*4} ${by})" fill="${acc}" ${ST(1.9)}/>`;};
+  back=tail(-1)+tail(1);
+  front=`<path d="${capPath(H,{vol:5,hl:.5,sweep:-2,hlc:-2})}" ${F}/><path d="M${cx},${top-2} L${cx},${cy-hh*.5}" stroke="${OUT}" stroke-width="1.8" opacity=".55"/>`+
+   strands(`M${cx-hw*.5},${top+3} Q${cx-hw*.7},${cy-32} ${cx-hw+2},${cy-14}`,d)+strands(`M${cx+hw*.5},${top+3} Q${cx+hw*.7},${cy-32} ${cx+hw-2},${cy-14}`,d);
+  break;}
+ case 'topKnot':{
+  back=`<circle cx="${cx+2}" cy="${top-9}" r="15" fill="${col}" ${ST(OW*2)}/><circle cx="${cx+2}" cy="${top-9}" r="15" fill="${col}"/>`+strands(`M${cx-6},${top-11} Q${cx+2},${top-20} ${cx+10},${top-10} Q${cx+3},${top-3} ${cx-3},${top-6}`,d,1.5,.6);
+  front=`<path d="${capPath(H,{vol:4,hl:.5,sweep:-3,hlc:-3})}" ${F}/>`+
+   `<rect x="${cx-9}" y="${top-1}" width="22" height="6" rx="3" transform="rotate(-4 ${cx} ${top+2})" fill="${acc}" ${ST(1.8)}/>`+
+   strands(`M${cx-hw*.55},${top+6} Q${cx-hw*.6},${cy-30} ${cx-hw*.5},${cy-20}`,d)+strands(`M${cx+hw*.55},${top+6} Q${cx+hw*.6},${cy-30} ${cx+hw*.5},${cy-20}`,d);
+  break;}
+ }
+ return {back,front};
+}
+
+/* ---------- Gesicht ---------- */
+function eyeSvg(x,y,side,E,F,id,skin){
+ const s=F.eyeSize||1,open=E.open??1;
+ if(E.closed==='up') return `<path d="M${r1(x-7*s)},${r1(y+2.5)} Q${r1(x)},${r1(y-7)} ${r1(x+7*s)},${r1(y+2.5)}" fill="none" ${ST(2.8)}/>`;
+ if(E.closed==='down') return `<path d="M${r1(x-7.5*s)},${r1(y-1.5)} Q${r1(x)},${r1(y+5.5)} ${r1(x+7.5*s)},${r1(y-1.5)}" fill="none" ${ST(2.8)}/>`+
+   `<path d="M${r1(x+side*7.5*s)},${r1(y-1.5)} l${side*3},-1.6" ${ST(1.8)}/>`;
+ const gx=E.gx||0,gy=E.gy||0,lid=E.lid||0,sl=E.slant||0;
+ let rx,ry,body='';
+ if(F.eyeStyle==='dot'){
+  rx=5*s;ry=6.3*s*open;
+  body=`<clipPath id="${id}"><ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${rx}" ry="${r1(ry)}"/></clipPath>
+  <ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${rx}" ry="${r1(ry)}" fill="#fff"/>
+  <g clip-path="url(#${id})"><ellipse cx="${r1(x+gx*1.7)}" cy="${r1(y+gy*2)}" rx="${r1(4.1*s*(E.pupil||1))}" ry="${r1(Math.max(5.2*s*(E.pupil||1),1))}" fill="#33231c"/><circle cx="${r1(x+gx*1.7-1.3)}" cy="${r1(y+gy*2-2)}" r="1.5" fill="#fff"/>${lidCover(x,y,rx,ry,lid,sl,side,skin)}</g>
+  <ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${rx}" ry="${r1(ry)}" fill="none" ${ST(1.5)}/>`;
+ } else {
+  rx=7.2*s;ry=8.2*s*open;const ir=5.1*s;
+  const ix=x+gx*(rx-ir*.62),iy=y+gy*Math.min(ry*.45,3.4);
+  body=`<clipPath id="${id}"><ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${r1(rx)}" ry="${r1(ry)}"/></clipPath>
+  <ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${r1(rx)}" ry="${r1(ry)}" fill="#fff"/>
+  <g clip-path="url(#${id})"><circle cx="${r1(ix)}" cy="${r1(iy)}" r="${r1(ir*(E.pupil>0&&E.pupil<1?1:1))}" fill="${F.iris||'#6a4a32'}"/><circle cx="${r1(ix)}" cy="${r1(iy)}" r="${r1(2.5*(E.pupil||1)+.4)}" fill="#2b1d17"/><circle cx="${r1(ix-1.7)}" cy="${r1(iy-2)}" r="1.5" fill="#fff"/>${E.sparkle?`<circle cx="${r1(ix+2)}" cy="${r1(iy+1.8)}" r=".9" fill="#fff"/>`:''}${lidCover(x,y,rx,ry,lid,sl,side,skin)}</g>
+  <ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${r1(rx)}" ry="${r1(ry)}" fill="none" ${ST(1.5)}/>`;
+ }
+ // Oberlid-Linie
+ const yb=y-ry+lid*2*ry;
+ const yl=side<0?yb-sl:yb+sl, yr=side<0?yb+sl:yb-sl;
+ const top=lid>0||sl
+  ? `<path d="M${r1(x-rx-.5)},${r1(yl)} L${r1(x+rx+.5)},${r1(yr)}" fill="none" ${ST(2.7)}/>`
+  : `<path d="M${r1(x-rx-.8)},${r1(y+.5)} Q${r1(x)},${r1(y-ry*1.38)} ${r1(x+rx+.8)},${r1(y+.5)}" fill="none" ${ST(2.6)}/>`;
+ return body+top;
+}
+function lidCover(x,y,rx,ry,lid,sl,side,skin){
+ if(!lid&&!sl) return '';
+ const yb=y-ry+Math.max(lid,0)*2*ry;
+ const yl=side<0?yb-sl:yb+sl, yr=side<0?yb+sl:yb-sl;
+ const xl=x-rx-2,xr=x+rx+2;
+ return `<path d="M${r1(xl)},${r1(y-ry-3)} L${r1(xr)},${r1(y-ry-3)} L${r1(xr)},${r1(yr)} L${r1(xl)},${r1(yl)}Z" fill="${skin}"/>`;
+}
+
+function browSvg(x,y,side,b,w,col){
+ const xi=x-side*8.5,xo=x+side*10;
+ const yi=y+b[0],yo=y+b[1],xm=(xi+xo)/2,ym=(yi+yo)/2-2*b[2];
+ return `<path d="M${r1(xi)},${r1(yi)} Q${r1(xm)},${r1(ym)} ${r1(xo)},${r1(yo)}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+}
+
+const RED='#8c2f35',TONG='#e8707c';
+const MOUTH={
+ grin:id=>{const p='M-13,-2 Q0,3 13,-2 Q12,15 0,15 Q-12,15 -13,-2Z';return `<clipPath id="${id}"><path d="${p}"/></clipPath><path d="${p}" fill="${RED}"/><g clip-path="url(#${id})"><path d="M-14,-3 L14,-3 L14,3.5 Q0,7 -14,3.5Z" fill="#fff"/><ellipse cx="0" cy="14" rx="7" ry="5" fill="${TONG}"/></g><path d="${p}" fill="none" ${ST(2.1)}/>`;},
+ grinBig:id=>{const p='M-15,-3 Q0,3 15,-3 Q14,19 0,19 Q-14,19 -15,-3Z';return `<clipPath id="${id}"><path d="${p}"/></clipPath><path d="${p}" fill="${RED}"/><g clip-path="url(#${id})"><path d="M-16,-4 L16,-4 L16,4 Q0,8 -16,4Z" fill="#fff"/><ellipse cx="0" cy="18" rx="8.5" ry="6.5" fill="${TONG}"/></g><path d="${p}" fill="none" ${ST(2.1)}/>`;},
+ smile:()=>`<path d="M-12,-1.5 Q0,10 12,-1.5" fill="none" ${ST(2.7)}/>`,
+ smileSoft:()=>`<path d="M-8,0 Q0,6.5 8,0" fill="none" ${ST(2.6)}/>`,
+ smirk:()=>`<path d="M-10,2 Q0,7.5 11,-2.5" fill="none" ${ST(2.7)}/><path d="M11,-2.5 l2,-2" ${ST(1.8)}/>`,
+ flat:()=>`<path d="M-8,0 Q0,1.5 8,0" fill="none" ${ST(2.6)}/>`,
+ frown:()=>`<path d="M-10,5 Q0,-5.5 10,5" fill="none" ${ST(2.7)}/>`,
+ pout:()=>`<path d="M-8,3.5 Q-1,-2.5 8,2" fill="none" ${ST(2.7)}/><path d="M-3,7 Q1,9 5,7" fill="none" ${ST(1.6)} opacity=".5"/>`,
+ o:()=>`<ellipse cx="0" cy="3" rx="5.2" ry="6.6" fill="${RED}" ${ST(2.1)}/><ellipse cx="0" cy="6.6" rx="3" ry="2" fill="${TONG}"/>`,
+ fear:id=>{const p='M-10,6 Q0,-5 10,6 Q6,13 0,13 Q-6,13 -10,6Z';return `<clipPath id="${id}"><path d="${p}"/></clipPath><path d="${p}" fill="${RED}"/><g clip-path="url(#${id})"><path d="M-12,-2 L12,-2 L12,3 Q0,-3 -12,3Z" fill="#fff"/></g><path d="${p}" fill="none" ${ST(2.1)}/>`;},
+ wobble:()=>`<path d="M-10,2 Q-5,-3.5 0,2 T10,2" fill="none" ${ST(2.6)}/>`,
+ grit:()=>`<rect x="-12" y="-4.5" width="24" height="10" rx="4.5" fill="#fff" ${ST(2.2)}/><path d="M-6,-4.5 V5.5 M0,-4.5 V5.5 M6,-4.5 V5.5 M-12,0.5 H12" ${ST(1.3)}/>`,
+ press:()=>`<path d="M-9,3 Q-4,-1 0,0 Q4,-1 9,3" fill="none" ${ST(2.8)}/>`,
+ side:()=>`<path d="M-9,4 Q-1,-1 4,-0.5 Q9,0 10,-3" fill="none" ${ST(2.7)}/>`,
+ sigh:()=>`<path d="M-9,0 Q0,3 9,0 Q7,9 0,9 Q-7,9 -9,0Z" fill="${RED}" ${ST(2.1)}/><ellipse cx="0" cy="7" rx="3.6" ry="1.9" fill="${TONG}"/>`,
+ shy:()=>`<path d="M-7,2 Q-2,6.5 3,3.5 Q6.5,1.5 8,-2" fill="none" ${ST(2.6)}/>`,
+ bored:()=>`<path d="M-5,2.5 L6,0.5" fill="none" ${ST(2.6)}/>`,
+ tight:()=>`<path d="M-8,0 Q-2,-2 3,0.5 Q7,2.5 9,6" fill="none" ${ST(2.7)}/>`,
+ pursed:()=>`<path d="M-6,1 Q0,-2 6,1 Q0,5 -6,1Z" fill="#c4756a" ${ST(2)}/>`
+};
+
+/* ---------- Hände ---------- */
+function handSvg(type,sk,sh){
+ const A=`fill="${sk}" ${ST(1.9)}`;
+ switch(type){
+ case 'fist': return `<path d="M-7,-1 C-10,5 -10,13 -5,17 Q1,20 7,16 C10.5,11 9,4 6.5,-1Z" ${A}/><path d="M-8.5,8.5 Q-1,10.5 8.5,8.5 M-8.5,13 Q-1,15 8,13" fill="none" ${ST(1.3)}/><path d="M-6.5,3 Q-1,6 5,4" fill="none" ${ST(1.3)} opacity=".8"/>`;
+ case 'spread':{
+  let f='';[-40,-17,6,28].forEach((a,i)=>{f+=`<ellipse cx="0" cy="${r1(6+13)}" rx="2.9" ry="${i===1||i===2?7.6:6.6}" transform="rotate(${a} 0 6)" ${A}/>`;});
+  f+=`<ellipse cx="3.4" cy="14.5" rx="3.2" ry="6.6" transform="rotate(62 3 5)" ${A}/>`;
+  return f+`<circle cx="0" cy="6.5" r="7.8" ${A}/><circle cx="0" cy="7.2" r="7.2" fill="${sk}"/>`;}
+ case 'point': return `<ellipse cx="-1.5" cy="20" rx="2.9" ry="7.5" ${A}/><path d="M-7,-1 C-10,5 -10,11 -5,14 Q1,16 7,13 C10.5,9 9,4 6.5,-1Z" ${A}/><path d="M-8,9 Q-1,11 8,9" fill="none" ${ST(1.3)}/>`;
+ case 'thumb': return `<path d="M-7,-1 C-10,5 -10,13 -5,17 Q1,20 7,16 C10.5,11 9,4 6.5,-1Z" ${A}/><path d="M-8,10 Q-1,12 8,10 M-8,14 Q-1,16 7,14" fill="none" ${ST(1.3)}/><ellipse cx="7.8" cy="4" rx="3.2" ry="6.2" transform="rotate(-24 7.8 4)" ${A}/>`;
+ case 'flat': return `<path d="M-7,-1 C-9,5 -9.5,13 -6,18.5 Q0,21.5 6,18.5 C9.5,13 9,5 7,-1Z" ${A}/><path d="M-2.4,13 V19.5 M2.4,13 V19.5" fill="none" ${ST(1.2)}/><path d="M6,3 C11,5 13.5,9.5 12,13 C9.5,14 7.5,11 6.5,8Z" ${A}/>`;
+ default: return `<path d="M-6.5,-1 C-8,5 -8.5,12 -5,16.5 Q0,19.5 5,16.5 C8.5,12 8,5 6.5,-1Z" ${A}/><path d="M5.5,3 C10.5,4 13.5,9.5 11.5,13.5 C9,14.8 7,12 6,9Z" ${A}/><path d="M-1.8,12 V17.8 M2,12.2 V17.6" fill="none" ${ST(1.2)}/>`;
+ }}
+
+/* ---------- Arme (IK) ---------- */
+function ik(S,W,u,f,bend){
+ let dx=W[0]-S[0],dy=W[1]-S[1],d=Math.hypot(dx,dy);const mx=u+f-.8;
+ if(d>mx){dx*=mx/d;dy*=mx/d;d=mx;W=[S[0]+dx,S[1]+dy];}
+ if(d<8){d=8;}
+ const a=(u*u-f*f+d*d)/(2*d),h=Math.sqrt(Math.max(u*u-a*a,0)),ux=dx/d,uy=dy/d;
+ const c=[[S[0]+a*ux-h*uy,S[1]+a*uy+h*ux],[S[0]+a*ux+h*uy,S[1]+a*uy-h*ux]];
+ let k=0;
+ if(bend==='out') k=Math.abs(c[0][0]-CX)>=Math.abs(c[1][0]-CX)?0:1;
+ else if(bend==='in') k=Math.abs(c[0][0]-CX)<=Math.abs(c[1][0]-CX)?0:1;
+ else if(bend==='up') k=c[0][1]<=c[1][1]?0:1;
+ else k=c[0][1]>=c[1][1]?0:1;
+ return {E:c[k],W};
+}
+function armSvg(S,spec,B,T,sk,sh,patch){
+ const k=B.k;let E,W;
+ if(spec.a){const a1=spec.a[0]*Math.PI/180,a2=spec.a[1]*Math.PI/180;E=[S[0]+UL*k*Math.sin(a1),S[1]+UL*k*Math.cos(a1)];W=[E[0]+FL*k*Math.sin(a2),E[1]+FL*k*Math.cos(a2)];}
+ else {const r=ik(S,spec.w,UL*k*(spec.u||1),FL*k,spec.bend||'out');E=r.E;W=r.W;}
+ const aw=B.aw,aws=aw-3.6;
+ const dxF=W[0]-E[0],dyF=W[1]-E[1],lf=Math.hypot(dxF,dyF)||1,ux=dxF/lf,uy=dyF/lf;
+ const P=(a,b,c2)=>`M${r1(a[0])},${r1(a[1])} L${r1(b[0])},${r1(b[1])} L${r1(c2[0])},${r1(c2[1])}`;
+ const sl=T.sleeve||'long';
+ let s='';
+ const Wc=[W[0]-ux*6,W[1]-uy*6];
+ const pathFull=P(S,E,W);
+ if(sl==='long'){
+  s+=`<path d="${P(S,E,Wc)}" fill="none" stroke="${OUT}" stroke-width="${aw+OW*2}" stroke-linecap="round" stroke-linejoin="round"/>`+
+     `<path d="${P(S,E,Wc)}" fill="none" stroke="${T.c}" stroke-width="${aw}" stroke-linecap="round" stroke-linejoin="round"/>`+
+     `<path d="M${r1(Wc[0]-uy*aw/2)},${r1(Wc[1]+ux*aw/2)} L${r1(Wc[0]+uy*aw/2)},${r1(Wc[1]-ux*aw/2)}" stroke="${shade(T.c,-.22)}" stroke-width="3.4" stroke-linecap="butt"/>`+
+     `<path d="M${r1(Wc[0]-uy*aw/2)},${r1(Wc[1]+ux*aw/2)} L${r1(Wc[0]+uy*aw/2)},${r1(Wc[1]-ux*aw/2)}" stroke="${OUT}" stroke-width="1.6" opacity=".8"/>`;
+ } else if(sl==='short'){
+  const M=[S[0]+(E[0]-S[0])*.7,S[1]+(E[1]-S[1])*.7];
+  s+=`<path d="${pathFull}" fill="none" stroke="${OUT}" stroke-width="${aws+OW*2}" stroke-linecap="round" stroke-linejoin="round"/>`+
+     `<path d="M${r1(S[0])},${r1(S[1])} L${r1(M[0])},${r1(M[1])}" fill="none" stroke="${OUT}" stroke-width="${aw+OW*2}" stroke-linecap="round"/>`+
+     `<path d="${pathFull}" fill="none" stroke="${sk}" stroke-width="${aws}" stroke-linecap="round" stroke-linejoin="round"/>`+
+     `<path d="M${r1(S[0])},${r1(S[1])} L${r1(M[0])},${r1(M[1])}" fill="none" stroke="${T.c}" stroke-width="${aw}" stroke-linecap="round"/>`;
+ } else {
+  s+=`<path d="${pathFull}" fill="none" stroke="${OUT}" stroke-width="${aws+OW*2}" stroke-linecap="round" stroke-linejoin="round"/>`+
+     `<path d="${pathFull}" fill="none" stroke="${sk}" stroke-width="${aws}" stroke-linecap="round" stroke-linejoin="round"/>`;
+ }
+ const ang=Math.atan2(dxF,dyF)*180/Math.PI;
+ const mirror=spec.mirror?'scale(-1,1)':'';
+ const hand=`<g transform="translate(${r1(W[0])},${r1(W[1])}) rotate(${r1(-ang+(spec.hr||0))}) ${mirror}">${handSvg(spec.hand||'open',sk,sh)}</g>`;
+ return {svg:s+hand+(patch||''),W,E};
+}
+
+/* ---------- Oberkörper & Kleidung ---------- */
+function torsoPath(sw,hip,shL,shR,dip,nx=13){
+ const syL=SY-shL,syR=SY-shR,L=CX-sw,R=CX+sw;
+ return `M${CX-nx},${NY} Q${r1(CX-sw*.55)},${NY+1} ${L},${syL+3} Q${L-5},${syL+16} ${L-1},${syL+40} L${CX-hip-1},${HEM-4} Q${CX},${HEM+4} ${CX+hip+1},${HEM-4} L${R+1},${syR+40} Q${R+5},${syR+16} ${R},${syR+3} Q${r1(CX+sw*.55)},${NY+1} ${CX+nx},${NY} Q${CX},${NY+dip} ${CX-nx},${NY}Z`;
+}
+function pantsSvg(P,B,sw){
+ const w=B.hip+3;
+ if(P.type==='skirt'){
+  const c=P.c;
+  return `<path d="M${CX-w+2},${HEM-22} L${CX-w-20},${VH+4} L${CX+w+20},${VH+4} L${CX+w-2},${HEM-22}Z" fill="${c}" ${ST()}/>`+
+   [-.6,-.2,.2,.6].map(t=>`<path d="M${CX+t*w*.8},${HEM-6} L${CX+t*(w+22)},${VH+2}" stroke="${shade(c,-.2)}" stroke-width="1.5" opacity=".7"/>`).join('');
+ }
+ const c=P.c;
+ return `<path d="M${CX-w},${HEM-24} L${CX-w-2},${VH+4} L${CX+w+2},${VH+4} L${CX+w},${HEM-24}Z" fill="${c}" ${ST()}/>`+
+  `<path d="M${CX},${HEM-6} L${CX},${VH+3}" stroke="${shade(c,-.25)}" stroke-width="1.6" opacity=".7"/>`;
+}
+function topSvg(T,id,sw,hip,shL,shR,skin){
+ const st=T.style;
+ let dip=7;if(st==='hoodie')dip=11;if(st==='vneck'||st==='cardigan')dip=20;if(st==='turtle')dip=2;if(st==='polo')dip=9;if(st==='jacket')dip=6;
+ const nx=st==='turtle'?15:13;
+ const D=torsoPath(sw,hip,shL,shR,dip,nx);
+ const c=T.c,c2=T.c2||shade(c,-.2);
+ let inner='',outer='';
+ const top=SY-4;
+ switch(st){
+  case 'stripes':
+   for(let y=top+10;y<HEM+4;y+=17) inner+=`<rect x="${CX-sw-12}" y="${y}" width="${2*sw+24}" height="7.5" fill="${c2}"/>`;break;
+  case 'hoodie':
+   inner+=`<path d="M${CX-26},${NY-2} Q${CX},${NY+27} ${CX+26},${NY-2}" fill="${shade(c,-.1)}" stroke="${OUT}" stroke-width="2"/>`+
+    `<path d="M${CX-hip+6},${HEM-34} L${CX+hip-6},${HEM-34} L${CX+hip-2},${HEM+4} L${CX-hip+2},${HEM+4}Z" fill="${shade(c,-.07)}" stroke="${OUT}" stroke-width="1.8"/>`+
+    `<path d="M${CX-8},${NY+18} L${CX-9},${NY+42} M${CX+8},${NY+18} L${CX+9},${NY+42}" stroke="${c2}" stroke-width="2.6" stroke-linecap="round"/><circle cx="${CX-9}" cy="${NY+44}" r="2.4" fill="${c2}"/><circle cx="${CX+9}" cy="${NY+44}" r="2.4" fill="${c2}"/>`;break;
+  case 'sweater':
+   inner+=`<path d="M${CX-sw-6},${SY+54} L${CX+sw+6},${SY+54} L${CX+sw+6},${SY+68} L${CX-sw-6},${SY+68}Z" fill="${c2}" opacity=".95"/>`+
+    Array.from({length:Math.ceil((2*sw+12)/12)},(_,i)=>`<path d="M${CX-sw-6+i*12},${SY+68} l6,-14 l6,14" fill="none" stroke="${c}" stroke-width="2.2"/>`).join('')+
+    `<path d="M${CX-sw-6},${HEM-14} L${CX+sw+6},${HEM-14}" stroke="${shade(c,-.18)}" stroke-width="2.2"/>`;break;
+  case 'overalls':
+   inner+=`<path d="M${CX-sw*.62},${SY+54} L${CX+sw*.62},${SY+54} L${CX+sw*.7},${HEM+8} L${CX-sw*.7},${HEM+8}Z" fill="${c2}" stroke="${OUT}" stroke-width="2"/>`+
+    `<path d="M${CX-sw*.62+3},${SY+54} L${CX-sw*.55},${SY-4} M${CX+sw*.62-3},${SY+54} L${CX+sw*.55},${SY-4}" stroke="${OUT}" stroke-width="9.5" stroke-linecap="round"/><path d="M${CX-sw*.62+3},${SY+54} L${CX-sw*.55},${SY-4} M${CX+sw*.62-3},${SY+54} L${CX+sw*.55},${SY-4}" stroke="${c2}" stroke-width="6" stroke-linecap="round"/>`+
+    `<rect x="${CX-12}" y="${SY+68}" width="24" height="15" rx="3" fill="${shade(c2,-.1)}" stroke="${OUT}" stroke-width="1.6"/><circle cx="${CX-sw*.56}" cy="${SY+52}" r="3.2" fill="${shade(c2,.3)}" stroke="${OUT}" stroke-width="1.3"/><circle cx="${CX+sw*.56}" cy="${SY+52}" r="3.2" fill="${shade(c2,.3)}" stroke="${OUT}" stroke-width="1.3"/>`;break;
+  case 'polo':
+   inner+=`<path d="M${CX},${NY+8} L${CX},${NY+40}" stroke="${OUT}" stroke-width="1.8"/><circle cx="${CX+3}" cy="${NY+20}" r="1.8" fill="${c2}"/><circle cx="${CX+3}" cy="${NY+32}" r="1.8" fill="${c2}"/>`+
+    `<path d="M${CX-14},${NY-1} L${CX-4},${NY+17} L${CX-1},${NY+6}Z M${CX+14},${NY-1} L${CX+4},${NY+17} L${CX+1},${NY+6}Z" fill="${c2}" stroke="${OUT}" stroke-width="1.9" stroke-linejoin="round"/>`;break;
+  case 'turtle':
+   outer+=`<path d="M${CX-16},${NY-14} L${CX-16},${NY+4} Q${CX},${NY+11} ${CX+16},${NY+4} L${CX+16},${NY-14}" fill="${c}" stroke="${OUT}" stroke-width="${OW}" stroke-linejoin="round"/><path d="M${CX-14},${NY-6} Q${CX},${NY} ${CX+14},${NY-6} M${CX-14},${NY-1} Q${CX},${NY+5} ${CX+14},${NY-1}" fill="none" stroke="${shade(c,-.2)}" stroke-width="1.5"/>`;break;
+  case 'cardigan':
+   inner+=`<path d="M${CX-18},${NY-2} L${CX-6},${HEM+6} L${CX+6},${HEM+6} L${CX+18},${NY-2}Z" fill="${c2}"/>`+
+    `<path d="M${CX-18},${NY-2} L${CX-6},${HEM+6} M${CX+18},${NY-2} L${CX+6},${HEM+6}" stroke="${OUT}" stroke-width="2"/>`+
+    [0,1,2].map(i=>`<circle cx="${CX+10-i*0}" cy="${NY+30+i*20}" r="0"/>`).join('')+
+    `<path d="M${CX+sw-14},${HEM-34} L${CX+sw-14},${HEM-14}" stroke="${shade(c,-.2)}" stroke-width="1.5" opacity="0"/>`+
+    `<path d="M${CX-sw+8},${HEM-32} Q${CX-sw+8},${HEM-14} ${CX-sw+22},${HEM-14} M${CX+sw-8},${HEM-32} Q${CX+sw-8},${HEM-14} ${CX+sw-22},${HEM-14}" fill="none" stroke="${shade(c,-.25)}" stroke-width="1.8" opacity=".7"/>`+
+    [0,1,2].map(i=>`<circle cx="${CX-9+i*0}" cy="${NY+26+i*22}" r="2.6" fill="${shade(c,-.3)}" stroke="${OUT}" stroke-width="1.2" transform="translate(${-i*0.6},0)"/>`).join('');break;
+  case 'vneck':
+   inner+=`<path d="M${CX-13},${NY} Q${CX},${NY+22} ${CX+13},${NY}" fill="none" stroke="${c2}" stroke-width="4"/>`;break;
+  case 'jacket':
+   inner+=`<path d="M${CX},${NY+6} L${CX},${HEM+6}" stroke="${OUT}" stroke-width="2"/>`+`<path d="M${CX-15},${NY-2} L${CX-3},${NY+20} L${CX-2},${NY+3}Z M${CX+15},${NY-2} L${CX+3},${NY+20} L${CX+2},${NY+3}Z" fill="${c2}" stroke="${OUT}" stroke-width="1.9" stroke-linejoin="round"/>`+
+    `<path d="M${CX-sw+12},${HEM-34} L${CX-sw+30},${HEM-30}" stroke="${OUT}" stroke-width="1.8"/><path d="M${CX+sw-12},${HEM-34} L${CX+sw-30},${HEM-30}" stroke="${OUT}" stroke-width="1.8"/>`+
+    `<rect x="${CX-3}" y="${NY+22}" width="6" height="8" rx="2" fill="${c2}" stroke="${OUT}" stroke-width="1.3"/>`;break;
+  case 'print':{
+   const sx=CX+(T.px||0),sy=SY+34;
+   let pr='';
+   if(T.print==='heart') pr=`<path d="M${sx},${sy+13} C${sx-20},${sy-2} ${sx-8},${sy-14} ${sx},${sy-4} C${sx+8},${sy-14} ${sx+20},${sy-2} ${sx},${sy+13}Z" fill="${c2}"/>`;
+   else if(T.print==='moon') pr=`<path d="M${sx+6},${sy-12} A14,14 0 1 0 ${sx+12},${sy+9} A11,11 0 1 1 ${sx+6},${sy-12}Z" fill="${c2}"/>`;
+   else if(T.print==='bolt') pr=`<path d="M${sx+3},${sy-14} L${sx-9},${sy+3} L${sx-1},${sy+3} L${sx-5},${sy+16} L${sx+10},${sy-3} L${sx+2},${sy-3}Z" fill="${c2}"/>`;
+   else {let p=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?6.5:15;p.push(`${r1(sx+Math.cos(a)*r)},${r1(sy+Math.sin(a)*r)}`);}pr=`<path d="M${p.join(' L')}Z" fill="${c2}" stroke="${c2}" stroke-width="2" stroke-linejoin="round"/>`;}
+   inner+=pr;break;}
+  case 'dress':
+   inner+=`<path d="M${CX-sw},${SY+50} L${CX+sw},${SY+50}" stroke="${c2}" stroke-width="7"/><path d="M${CX-sw},${SY+50} L${CX+sw},${SY+50}" stroke="${OUT}" stroke-width="1.2" opacity=".6" transform="translate(0,3.6)"/>`;break;
+  default: // tee
+   inner+=`<path d="M${CX-sw+9},${SY+36} Q${CX-sw+20},${SY+48} ${CX-sw+10},${SY+62}" fill="none" stroke="${shade(c,-.18)}" stroke-width="1.7" opacity=".6"/><path d="M${CX+sw-9},${SY+38} Q${CX+sw-20},${SY+50} ${CX+sw-10},${SY+64}" fill="none" stroke="${shade(c,-.18)}" stroke-width="1.7" opacity=".6"/>`;
+ }
+ // Saum
+ inner+=`<path d="M${CX-sw-8},${HEM-12} Q${CX},${HEM-6} ${CX+sw+8},${HEM-12}" fill="none" stroke="${shade(c,-.15)}" stroke-width="1.6" opacity=".55"/>`;
+ return {D,inner,c,nx,clip:`<clipPath id="${id}"><path d="${D}"/></clipPath>`,
+  body:`<path d="${D}" fill="${c}" />`+`<g clip-path="url(#${id})">${inner}</g>`+`<path d="${D}" fill="none" ${ST()}/>`+outer,dip};
+}
+
+/* ---------- Accessoires ---------- */
+function glassesSvg(G,ex,ey,F){
+ const col=G.c||'#3d4a6b',w=2.5;
+ const lens=(x)=>G.shape==='square'?`<rect x="${r1(x-10.5)}" y="${r1(ey-9)}" width="21" height="17.5" rx="5" fill="#cfe8f0" fill-opacity=".28" stroke="${col}" stroke-width="${w}"/>`:
+   `<circle cx="${r1(x)}" cy="${r1(ey)}" r="10.5" fill="#cfe8f0" fill-opacity=".28" stroke="${col}" stroke-width="${w}"/>`;
+ return lens(CX-ex)+lens(CX+ex)+`<path d="M${r1(CX-ex+10.5)},${r1(ey-2)} Q${CX},${r1(ey-5)} ${r1(CX+ex-10.5)},${r1(ey-2)}" fill="none" stroke="${col}" stroke-width="${w}"/>`+
+  `<path d="M${r1(CX-ex-10.5)},${r1(ey-2)} L${r1(CX-ex-15)},${r1(ey-3)} M${r1(CX+ex+10.5)},${r1(ey-2)} L${r1(CX+ex+15)},${r1(ey-3)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+}
+
+/* ---------- Figur ---------- */
+let COUNTER=0;
+function blobBg(col,i){
+ const shapes=[
+  'M120,26 C170,14 222,50 220,112 C218,176 196,230 128,248 C64,262 20,214 20,150 C20,92 56,38 120,26Z',
+  'M112,20 C176,8 226,64 214,128 C206,188 170,252 108,250 C46,248 14,190 22,128 C30,70 64,28 112,20Z',
+  'M124,30 C184,24 224,80 214,140 C206,200 168,246 112,244 C52,242 20,196 26,136 C32,78 70,36 124,30Z'];
+ return `<path d="${shapes[i%3]}" fill="${col}"/>`;
+}
+
+function figure(cfg,emo,variant,opt={}){
+ const uid=++COUNTER,id='f'+uid;
+ const R=opt.rig||(GDLIB.EMO[emo]||[])[variant||0];
+ if(!R) throw new Error('Emotion fehlt: '+emo+' '+variant);
+ const sk=SKIN[cfg.skin].b,sh=SKIN[cfg.skin].s;
+ const H=Object.assign({cx:CX,cy:CY},HEADS[cfg.head]);
+ const B=BUILDS[cfg.build||'normal'];
+ const rnd=rng(cfg.seed||uid*13);
+ const T=cfg.top,Pn=cfg.pants;
+ const sw=B.sw+(R.chest||0);
+ const shL=R.shL||0,shR=R.shR||0;
+ const hairCol=cfg.hair.c,hairD=shade(hairCol,-.38);
+ const E=Object.assign({},R.eyes);
+ const ex=H.hw*.46*(cfg.eyeGap||1),ey=CY+3;
+ const F={eyeStyle:cfg.eyes.style,eyeSize:cfg.eyes.size||1,iris:cfg.eyes.iris};
+ const hair=hairSvg(cfg.hair.s,H,hairCol,rnd,{acc:cfg.hair.acc});
+ let hairBack=hair.back,hairFront=cfg.cap?'':hair.front,hairFar='';
+ if(cfg.hair.s==='longStraight'||cfg.hair.s==='longCurls'){
+  const cut=NY-8;
+  hairFar=`<clipPath id="${id}hf"><rect x="0" y="${cut-1}" width="${VW}" height="${VH}"/></clipPath><g clip-path="url(#${id}hf)">${hair.back}</g>`;
+  hairBack=`<clipPath id="${id}hb"><rect x="0" y="0" width="${VW}" height="${cut+1.5}"/></clipPath><g clip-path="url(#${id}hb)">${hair.back}</g>`;
+ }
+
+ /* Torso */
+ const top=topSvg(T,id+'t',sw,B.hip,shL,shR,sk);
+ const neckBot=NY+(T.style==='vneck'||T.style==='cardigan'?26:14);
+ const neck=`<path d="M${CX-10},${CY+H.hh-8} L${CX-10},${neckBot} L${CX+10},${neckBot} L${CX+10},${CY+H.hh-8}Z" fill="${sk}" ${ST()}/>`+
+   `<path d="M${CX-9},${CY+H.hh-8} L${CX+9},${CY+H.hh-8} L${CX+9},${CY+H.hh+10} Q${CX},${CY+H.hh+18} ${CX-9},${CY+H.hh+10}Z" fill="${sh}" opacity=".75"/>`;
+ const straps=cfg.pack?`<path d="M${CX-sw*.5},${NY-2} C${CX-sw*.62},${SY+20} ${CX-sw*.7},${SY+40} ${CX-sw*.62},${SY+62}" fill="none" stroke="${OUT}" stroke-width="${10.4}" stroke-linecap="round"/><path d="M${CX+sw*.5},${NY-2} C${CX+sw*.62},${SY+20} ${CX+sw*.7},${SY+40} ${CX+sw*.62},${SY+62}" fill="none" stroke="${OUT}" stroke-width="10.4" stroke-linecap="round"/>`+
+  `<path d="M${CX-sw*.5},${NY-2} C${CX-sw*.62},${SY+20} ${CX-sw*.7},${SY+40} ${CX-sw*.62},${SY+62}" fill="none" stroke="${cfg.pack}" stroke-width="6.6" stroke-linecap="round"/><path d="M${CX+sw*.5},${NY-2} C${CX+sw*.62},${SY+20} ${CX+sw*.7},${SY+40} ${CX+sw*.62},${SY+62}" fill="none" stroke="${cfg.pack}" stroke-width="6.6" stroke-linecap="round"/>`:'';
+ const necklace=cfg.necklace?`<path d="M${CX-12},${NY+2} Q${CX},${NY+24} ${CX+12},${NY+2}" fill="none" stroke="${cfg.necklace}" stroke-width="2.4"/><circle cx="${CX}" cy="${NY+19}" r="3.6" fill="${cfg.necklace}" stroke="${OUT}" stroke-width="1.3"/>`:'';
+ const medal=R.medal?`<path d="M${CX-10},${NY+3} L${CX-3},${SY+28} L${CX+5},${SY+26} L${CX-1},${NY+2}Z" fill="#d9574a" stroke="${OUT}" stroke-width="1.6"/><path d="M${CX+10},${NY+3} L${CX+3},${SY+28} L${CX-5},${SY+26} L${CX+1},${NY+2}Z" fill="#e9b949" stroke="${OUT}" stroke-width="1.6"/><circle cx="${CX}" cy="${SY+36}" r="9.5" fill="#f2c94c" stroke="${OUT}" stroke-width="2"/><path d="M${CX},${SY+30} l2.2,4.6 5,.7 -3.6,3.5 .9,5 -4.5,-2.4 -4.5,2.4 .9,-5 -3.6,-3.5 5,-.7z" fill="#fff3b0" stroke="#c99a1f" stroke-width="1"/>`:'';
+ /* Arme */
+ const SL=[CX-sw+6,SY+7-shL],SR=[CX+sw-6,SY+7-shR];
+ const mkPatch=(side)=>{const syT=SY-(side<0?shL:shR);const x0=side<0?CX-sw-14:CX+sw-16,pid=id+(side<0?'pL':'pR');
+  const L_=CX+side*sw,sy=syT;
+  const slope=`M${CX+side*top.nx},${NY} Q${r1(CX+side*sw*.55)},${NY+1} ${L_},${sy+3} Q${L_+side*5},${sy+16} ${L_+side},${sy+40}`;
+  return `<clipPath id="${pid}"><rect x="${x0}" y="${sy-30}" width="30" height="56"/></clipPath><g clip-path="url(#${pid})"><g clip-path="url(#${id}t)"><path d="${top.D}" fill="${T.c}"/>${top.inner}</g><path d="${slope}" fill="none" ${ST()}/></g>`;};
+ const noPatch=T.sleeve==='none';
+ const armL=armSvg(SL,R.armL,B,T,sk,sh,noPatch?'':mkPatch(-1)),armR=armSvg(SR,Object.assign({mirror:true},R.armR),B,T,sk,sh,noPatch?'':mkPatch(1));
+ const raisedL=!R.behind&&armL.W[1]<150,raisedR=!R.behind&&armR.W[1]<150;
+ const armsBefore=(raisedL?'':armL.svg)+(raisedR?'':armR.svg);
+ const armsAfter=(raisedL?armL.svg:'')+(raisedR?armR.svg:'');
+ const armsBehindHead=R.behind?armL.svg+armR.svg:'';
+
+ /* Gesicht */
+ const bw=cfg.brow||3.4,browCol=cfg.hair.s==='buzz'||cfg.hair.s==='afro'?shade(hairCol,-.1):shade(hairCol,-.38);
+ const br=R.brows||{};const bL=br.L||br.b||[0,0,0],bR=br.R||br.b||bL;
+ const fdx=R.fdx||0,fdy=R.fdy||0;
+ const eyes=eyeSvg(CX-ex,ey,-1,E,F,id+'eL',sk)+eyeSvg(CX+ex,ey,1,E,F,id+'eR',sk);
+ const nose={dot:`<path d="M${CX-3},${ey+12} Q${CX},${ey+15} ${CX+3.2},${ey+12}" fill="none" stroke="${sh}" stroke-width="2.3" stroke-linecap="round"/>`,
+  hook:`<path d="M${CX+1.5},${ey+5} Q${CX-2.5},${ey+12} ${CX+2.6},${ey+14}" fill="none" stroke="${sh}" stroke-width="2.3" stroke-linecap="round"/>`,
+  button:`<ellipse cx="${CX}" cy="${ey+12}" rx="3.8" ry="2.7" fill="${sh}" opacity=".85"/>`}[cfg.nose||'dot'];
+ const my=CY+H.hh*.56+(R.mdy||0);
+ const mouthFn=MOUTH[R.mouth];
+ const mouth=`<g transform="translate(${CX+(R.mdx||0)},${r1(my)}) scale(${R.ms||1})">${mouthFn(id+'m')}</g>`;
+ const blush=(R.blush||cfg.blush||0)>0?`<ellipse cx="${CX-H.hw*.58}" cy="${CY+17}" rx="8.5" ry="5.5" fill="${R.flush||'#ef7f78'}" opacity="${Math.min(.75,(R.blush||0)+.1)}"/><ellipse cx="${CX+H.hw*.58}" cy="${CY+17}" rx="8.5" ry="5.5" fill="${R.flush||'#ef7f78'}" opacity="${Math.min(.75,(R.blush||0)+.1)}"/>`:'';
+ const frk=cfg.freckles?[[-20,14],[-14,11],[-9,16],[-22,19],[-15,18],[20,14],[14,11],[9,16],[22,19],[15,18],[-3,10],[4,9]].map(([a,b])=>`<circle cx="${CX+a*H.hw/33}" cy="${CY+b}" r="1.25" fill="${shade(sh,-.25)}"/>`).join(''):'';
+ let tears='';
+ if(R.tear){const tx=(R.tear==='L'?-1:1)*ex;tears=`<path d="M${CX+tx},${ey+10} q-3.6,6.2 0,10 q3.6,-3.8 0,-10z" fill="#9fd4ee" stroke="#4d8db0" stroke-width="1.4"/>`;
+  if(R.tear==='LR')tears=[-1,1].map(s=>`<path d="M${CX+s*ex},${ey+10} q-3.6,6.2 0,10 q3.6,-3.8 0,-10z" fill="#9fd4ee" stroke="#4d8db0" stroke-width="1.4"/>`).join('');}
+ const sweat=R.sweat?`<path d="M${CX+H.hw-3},${CY-30} q-5,9 0,13 q5,-4 0,-13z" fill="#bfe3f2" stroke="#4d8db0" stroke-width="1.4"/>`:'';
+ const glasses=cfg.glasses?glassesSvg(cfg.glasses,ex,ey,F):'';
+ const browSvgs=browSvg(CX-ex,ey-14,-1,bL,bw,browCol)+browSvg(CX+ex,ey-14,1,bR,bw,browCol);
+ const ears=`<ellipse cx="${CX-H.hw+.5}" cy="${CY+6}" rx="5.4" ry="7.2" fill="${sk}" ${ST(2)}/><ellipse cx="${CX+H.hw-.5}" cy="${CY+6}" rx="5.4" ry="7.2" fill="${sk}" ${ST(2)}/>`+
+   `<path d="M${CX-H.hw-1},${CY+3} q-2,3 0,6 M${CX+H.hw+1},${CY+3} q2,3 0,6" fill="none" stroke="${sh}" stroke-width="1.3"/>`;
+ const earring=cfg.earring?`<circle cx="${CX-H.hw}" cy="${CY+15}" r="2.8" fill="${cfg.earring}" stroke="${OUT}" stroke-width="1.2"/><circle cx="${CX+H.hw}" cy="${CY+15}" r="2.8" fill="${cfg.earring}" stroke="${OUT}" stroke-width="1.2"/>`:'';
+ const face=`<g transform="translate(${fdx},${fdy})">${blush}${frk}${eyes}${nose}${mouth}${tears}</g>`;
+ const faceTop=`<g transform="translate(${fdx},${fdy})">${glasses}${browSvgs}</g>`;
+
+ /* Accessoires am Kopf */
+ let headAcc='';
+ const top0=CY-H.hh;
+ if(cfg.cap){
+  const cc=cfg.cap.c,cc2=cfg.cap.c2||shade(cc,-.2);
+  headAcc=`<path d="${capPath(H,{vol:8,hl:.72,side:3,temple:-9,hlc:0})}" fill="${cc}" ${ST()}/>`+
+   `<path d="M${CX},${top0-7} Q${CX+4},${CY-hhFix(H,.95)} ${CX},${CY-hhFix(H,.72)}" fill="none" stroke="${OUT}" stroke-width="1.5" opacity=".45"/>`+
+   `<circle cx="${CX}" cy="${top0-6}" r="3.2" fill="${cc2}" ${ST(1.5)}/>`+
+   `<path d="M${CX-H.hw-3},${CY-25} C${CX-H.hw*.6},${CY-13} ${CX+H.hw*.6},${CY-13} ${CX+H.hw+3},${CY-25} C${CX+H.hw*.5},${CY-19} ${CX-H.hw*.5},${CY-19} ${CX-H.hw-3},${CY-25}Z" fill="${cc2}" ${ST()}/>`;
+ }
+ if(cfg.band) headAcc+=`<path d="M${CX-H.hw+1},${CY-14} Q${CX},${CY-H.hh*.7} ${CX+H.hw-1},${CY-14}" fill="none" stroke="${OUT}" stroke-width="9" stroke-linecap="round"/><path d="M${CX-H.hw+1},${CY-14} Q${CX},${CY-H.hh*.7} ${CX+H.hw-1},${CY-14}" fill="none" stroke="${cfg.band}" stroke-width="5.4" stroke-linecap="round"/>`;
+ if(cfg.clip) headAcc+=`<g transform="translate(${CX+H.hw*.5},${CY-H.hh*.55}) rotate(18)"><path d="M0,0 L-9,-6 L-9,6Z M0,0 L9,-6 L9,6Z" fill="${cfg.clip}" ${ST(1.7)}/><circle r="3" fill="${shade(cfg.clip,-.2)}" ${ST(1.4)}/></g>`;
+
+ const head=`<path d="${headPath(H)}" fill="${sk}" ${ST()}/>`;
+ const headTransform=`translate(${R.hx||0},${R.hy||0}) rotate(${R.tilt||0},${CX},132)`;
+ const headG=`<g transform="${headTransform}">${hairBack}${ears}${earring}${head}${face}${hairFront}${headAcc}${faceTop}${sweat}</g>`;
+ const upperT=`translate(0,${R.dy||0}) translate(${CX},${VH}) rotate(${R.lean||0}) scale(${R.sc||1}) translate(${-CX},${-VH})`;
+
+ const motion=R.motion?[armL,armR].map((a,i)=>{const s=i?1:-1,x=a.W[0],y=a.W[1];return `<g stroke="${OUT}" stroke-width="2.2" stroke-linecap="round" opacity=".55"><path d="M${x+s*14},${y-6} l${s*7},-5"/><path d="M${x+s*16},${y+3} l${s*8},0"/><path d="M${x+s*13},${y+11} l${s*7},4"/></g>`;}).join(''):'';
+
+ const bg=opt.noBg?'':blobBg(cfg.bg||'#f3dcc7',cfg.blob??uid);
+ const defs=top.clip;
+ let hot='';
+ if(opt.hot){
+  const F0='fill="rgba(255,255,255,0.001)"';
+  const hs=(area,label,shape)=>`<g class="hs" data-area="${area}" role="button" tabindex="0" aria-label="${label}">${shape}</g>`;
+  const rc=(x,y,w,h)=>`<rect class="hsh" x="${r1(x)}" y="${r1(y)}" width="${r1(w)}" height="${r1(h)}" rx="9" ${F0}/>`;
+  const ci=(x,y,r)=>`<circle class="hsh" cx="${r1(x)}" cy="${r1(y)}" r="${r}" ${F0}/>`;
+  const headHot=`<g transform="${headTransform}"><g transform="translate(${fdx},${fdy})">`+
+   hs('brauen','Augenbrauen',rc(CX-ex-12,ey-29,2*(ex+12),19))+
+   hs('augen','Augen',rc(CX-ex-11,ey-10,2*(ex+11),21))+
+   hs('mund','Mund',rc(CX+(R.mdx||0)-17,my-9,34,27))+`</g></g>`;
+  const hc=(a)=>{const dx=a.W[0]-a.E[0],dy=a.W[1]-a.E[1],l=Math.hypot(dx,dy)||1;return [a.W[0]+dx/l*8,a.W[1]+dy/l*8];};
+  const hL=hc(armL),hR=hc(armR);
+  hot=`<g transform="${upperT}">`+
+   hs('haltung','Körperhaltung',`<ellipse class="hsh" cx="${CX}" cy="${SY+52}" rx="${sw-10}" ry="42" ${F0}/>`)+
+   hs('schultern','Schultern',ci(SL[0]+2,SL[1]-2,15)+ci(SR[0]-2,SR[1]-2,15))+
+   hs('arme','Arme',ci(armL.E[0],armL.E[1],14)+ci(armR.E[0],armR.E[1],14))+
+   hs('haende','Hände',ci(hL[0],hL[1],13)+ci(hR[0],hR[1],13))+
+   headHot+`</g>`;
+ }
+ const vb=opt.view||`0 24 ${VW} ${VH-24}`;
+ const svg=`<svg class="fig" viewBox="${vb}" role="${opt.hot?'group':'img'}" aria-label="${opt.label||'Kind'}" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs>${bg}<g filter="url(#gd-wob)">`+
+  pantsSvg(Pn,B,sw)+
+  `<g transform="${upperT}">${hairFar}${armsBehindHead}${neck}${top.body}${necklace}${medal}${straps}${armsBefore}${headG}${armsAfter}${motion}</g></g>${hot}</svg>`;
+ return svg;
+}
+function hhFix(H,hl){return H.hh*hl;}
+
+return {figure,SKIN,HEADS,BUILDS,shade,CX,CY,VH,EMO:{}};
+})();
+
+/* ===== Gefühle als bewusst definierte Zustände: Haltung + Mimik + Hinweistexte ===== */
+(function(L){
+const mir=w=>[240-w[0],w[1]];
+const sym=(w,bend,hand,hr=0,u)=>({armL:{w,bend,hand,hr,u},armR:{w:mir(w),bend,hand,hr:-hr,u}});
+const fk=(a1,a2,hand='open',hr=0)=>({armL:{a:[-a1,-a2],hand,hr},armR:{a:[a1,a2],hand,hr:-hr}});
+const hang=(da=0,hand='open',hr=4)=>fk(5+da,3+da*.8,hand,hr);
+function mirror(R){
+ const m=JSON.parse(JSON.stringify(R));
+ const fa=a=>{const b=Object.assign({},a);if(a.a)b.a=[-a.a[0],-a.a[1]];else b.w=[240-a.w[0],a.w[1]];b.hr=-(a.hr||0);return b;};
+ m.armL=fa(R.armR);m.armR=fa(R.armL);
+ ['tilt','lean','fdx','mdx','hx'].forEach(k=>{if(m[k])m[k]=-m[k];});
+ if(m.eyes&&m.eyes.gx)m.eyes.gx=-m.eyes.gx;
+ if(m.brows&&m.brows.L){const t=m.brows.L;m.brows.L=m.brows.R;m.brows.R=t;}
+ if(R.shL!==undefined||R.shR!==undefined){m.shL=R.shR;m.shR=R.shL;}
+ return m;
+}
+const E={};
+const A=(...o)=>Object.assign({},...o);
+
+E.froehlich=[
+ A({dy:-4,shL:4,shR:4,tilt:3,fdy:-1,eyes:{open:1,gy:-.25,sparkle:1},brows:{b:[-3,-2,2]},mouth:'grinBig',blush:.3,
+  c:{augen:'Die Augen sind weit offen und strahlen.',mund:'Der Mund lacht weit.',arme:'Beide Arme sind hoch in der Luft.',haende:'Die Hände sind weit geöffnet.',haltung:'Der Körper streckt sich nach oben.'}},sym([40,92],'out','spread',-8)),
+ {dy:-1,shR:5,tilt:7,eyes:{open:1,gx:.35},brows:{b:[-3,-2,2]},mouth:'grin',blush:.25,armL:{a:[-6,-4],hand:'open',hr:0},armR:{w:[188,100],bend:'out',hand:'spread',hr:-10},
+  c:{mund:'Der Mund lacht.',arme:'Ein Arm ist erhoben und winkt.',haende:'Die Hand ist offen und winkt.',brauen:'Die Augenbrauen sind leicht gehoben.',haltung:'Der Kopf ist locker zur Seite geneigt.'}},
+ A({dy:-3,tilt:-4,fdy:-3,eyes:{open:1,gy:-.3,sparkle:1},brows:{b:[-4,-3,2.5]},mouth:'grin',blush:.35,shL:-1,shR:-1,
+  c:{mund:'Der Mund lacht offen.',arme:'Die Arme sind weit geöffnet.',haende:'Die Hände sind ausgestreckt.',haltung:'Der Kopf ist leicht zurückgelegt.',augen:'Die Augen blicken nach oben und glänzen.'}},sym([40,176],'down','spread',4)),
+ A({dy:0,shL:-1,shR:-1,tilt:3,eyes:{open:1,gx:.1},brows:{b:[-1,-1,1.5]},mouth:'smile',blush:.18,
+  c:{mund:'Der Mund lächelt ruhig.',schultern:'Die Schultern sind locker.',arme:'Die Arme hängen entspannt.',augen:'Die Augen schauen freundlich.',haltung:'Der Körper steht aufrecht und entspannt.'}},hang(0,'open',4)),
+ A({dy:-2,tilt:-3,fdy:-1,eyes:{open:1,gy:-.05},brows:{b:[-2,-1,2]},mouth:'smile',blush:.2,
+  c:{mund:'Der Mund lächelt.',arme:'Die Arme sind locker nach außen offen.',haende:'Die Hände sind offen.',haltung:'Der Körper ist aufrecht und entspannt.',brauen:'Die Augenbrauen sind leicht gehoben.'}},fk(20,23,'open',-16))
+];
+E.traurig=[
+ A({dy:10,sc:.98,shL:-8,shR:-8,tilt:-8,fdy:7,eyes:{open:.6,gy:1,lid:.38},brows:{b:[-10,4,.6]},mouth:'frown',ms:1,blush:.1,
+  c:{augen:'Der Blick geht nach unten.',brauen:'Die Augenbrauen sind innen nach oben gezogen.',schultern:'Die Schultern hängen.',arme:'Die Arme hängen schlaff herunter.',mund:'Die Mundwinkel zeigen nach unten.'}},hang(0,'open',6)),
+ A({dy:10,shL:-7,shR:-7,tilt:10,fdy:7,fdx:-1,eyes:{open:.58,gy:1,lid:.4},brows:{b:[-10,3.5,.4]},mouth:'frown',ms:1,blush:.14,
+  c:{augen:'Der Blick geht nach unten.',schultern:'Die Schultern sind nach vorn gezogen.',haende:'Die Hände halten sich fest.',haltung:'Der Kopf ist gesenkt und zur Seite geneigt.',brauen:'Die Augenbrauen sind innen nach oben gezogen.'}},sym([106,236],'out','open',10)),
+ {dy:7,shL:-4,shR:-4,tilt:-8,fdy:5,eyes:{open:.78,gy:.9,lid:.2},brows:{b:[-6,3,.5]},mouth:'frown',blush:.12,armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[146,128],bend:'out',u:.35,hand:'fist',hr:10},
+  c:{haende:'Eine Hand wischt am Auge.',augen:'Am Auge glänzt eine Träne.',brauen:'Die Augenbrauen sind innen nach oben gezogen.',mund:'Die Mundwinkel zeigen nach unten.',haltung:'Der Kopf ist zur Seite geneigt.'}}
+];
+E.wuetend=[
+ A({dy:3,sc:1.04,shL:6,shR:6,fdy:4,eyes:{open:.9,lid:.18,slant:5,gy:.15,pupil:.85},brows:{b:[6,-3,-1.5]},mouth:'grit',blush:.28,flush:'#e0574b',
+  c:{brauen:'Die Augenbrauen sind steil nach unten gezogen.',mund:'Die Zähne sind zusammengebissen.',haende:'Die Hände sind zu Fäusten geballt.',schultern:'Die Schultern sind hochgezogen.',haltung:'Der Körper wirkt sehr angespannt.'}},fk(15,10,'fist',-4)),
+ A({dy:2,sc:1.05,shL:5,shR:5,tilt:-3,fdy:4,eyes:{open:.9,lid:.15,slant:5.5,pupil:.85},brows:{b:[6.5,-3,-1.5]},mouth:'press',blush:.3,flush:'#e0574b',
+  c:{brauen:'Die Augenbrauen ziehen sich zusammen.',haende:'Die Fäuste sind vor der Brust geballt.',mund:'Die Lippen sind fest zusammengepresst.',haltung:'Der Oberkörper beugt sich nach vorn.',augen:'Die Augen schauen streng.'}},sym([92,178],'out','fist',-4)),
+ A({dy:2,sc:1.02,shL:3,shR:3,fdy:3,eyes:{open:.92,lid:.1,slant:3,pupil:.9},brows:{b:[4,-2,-1]},mouth:'press',blush:.12,flush:'#e0574b',
+  c:{brauen:'Die Augenbrauen sind zusammengezogen.',mund:'Die Lippen sind fest zusammengepresst.',haende:'Die Hände sind zu Fäusten geballt.',haltung:'Der Körper wirkt angespannt.',augen:'Der Blick ist streng.'}},fk(10,7,'fist',-4)),
+ A({dy:2,sc:1.02,shL:2,shR:2,tilt:-4,fdy:3,eyes:{open:.9,lid:.14,slant:3.5,gx:.2},brows:{b:[4,-2,-1]},mouth:'pout',blush:.1,
+  c:{brauen:'Die Augenbrauen sind nach unten gezogen.',arme:'Die Arme sind in die Hüften gestemmt.',mund:'Der Mund ist verzogen.',augen:'Der Blick ist zur Seite gerichtet und streng.',haltung:'Das Kinn ist nach vorn geschoben.'}},sym([82,226],'out','fist',10))
+];
+E.aengstlich=[
+ A({dy:3,sc:.96,shL:8,shR:8,tilt:6,fdx:-2,fdy:1,eyes:{open:1.18,gx:.55,pupil:.72},brows:{b:[-8,-3,2.5]},mouth:'fear',sweat:1,
+  c:{augen:'Die Augen sind weit aufgerissen.',brauen:'Die Augenbrauen sind hoch und innen zusammengezogen.',schultern:'Die Schultern sind hochgezogen.',haende:'Die Hände sind vor dem Hals.',mund:'Der Mund ist leicht geöffnet.'}},sym([110,156],'down','open',-6)),
+ {dy:4,sc:.95,lean:-4,shL:8,shR:7,tilt:-7,fdx:-7,fdy:2,eyes:{open:1.15,gx:-.75,gy:.15,pupil:.72},brows:{b:[-8,-3,2.5]},mouth:'fear',sweat:1,armL:{w:[154,188],bend:'down',hand:'open',hr:0},armR:{w:[92,176],bend:'down',hand:'open',hr:0},
+  c:{arme:'Die Arme sind fest vor dem Körper verschränkt.',augen:'Der Blick geht zur Seite, weg vom Betrachter.',schultern:'Die Schultern sind hochgezogen.',haltung:'Der Körper macht sich klein und weicht zurück.',brauen:'Die Augenbrauen sind hoch gezogen.'}},
+ A({dy:3,sc:.94,shL:7,shR:7,tilt:-4,fdx:-3,fdy:1,eyes:{open:1.2,gx:-.5,gy:-.2,pupil:.7},brows:{b:[-8,-3,2.5]},mouth:'fear',sweat:1,
+  c:{augen:'Die Augen sind weit offen, die Pupillen klein.',brauen:'Die Augenbrauen sind hochgezogen.',haende:'Die Hände sind abwehrend vor dem Körper.',arme:'Die Arme sind angewinkelt und schützend erhoben.',schultern:'Die Schultern sind hoch.'}},sym([88,176],'out','spread',-20))
+];
+E.ueberrascht=[
+ A({dy:-2,sc:.96,shL:3,shR:3,fdy:-1,eyes:{open:1.25,pupil:.8,gy:-.05},brows:{b:[-10,-9,4.5]},mouth:'o',
+  c:{augen:'Die Augen sind ganz weit offen.',brauen:'Die Augenbrauen sind hoch nach oben gezogen.',mund:'Der Mund ist rund und offen.',haende:'Die Hände liegen an den Wangen.',arme:'Die Ellbogen zeigen nach außen.'}},sym([86,138],'out','spread',-6)),
+ {dy:-3,sc:.97,shL:2,shR:5,tilt:-3,fdy:-1,eyes:{open:1.25,pupil:.8,gx:.2},brows:{b:[-10,-9,4.5]},mouth:'o',armL:{w:[40,150],bend:'down',hand:'spread',hr:8},armR:{w:[130,132],bend:'out',hand:'open',hr:-18},
+  c:{augen:'Die Augen sind ganz weit offen.',brauen:'Die Augenbrauen sind hoch nach oben gezogen.',haende:'Eine Hand liegt vor dem Mund.',arme:'Ein Arm ist zur Seite gestreckt.',haltung:'Der Körper ist erstarrt und leicht zurückgelehnt.'}},
+ A({dy:-3,sc:.97,shL:4,shR:4,eyes:{open:1.25,pupil:.8},brows:{b:[-10,-9,4.5]},mouth:'o',
+  c:{augen:'Die Augen sind ganz weit offen.',brauen:'Die Augenbrauen sind hoch nach oben gezogen.',mund:'Der Mund ist rund und offen.',haende:'Die Hände sind weit gespreizt.',arme:'Die Arme sind angewinkelt und weit offen.'}},sym([58,160],'out','spread',-10))
+];
+const STOLZ1={dy:-6,chest:4,tilt:-3,fdy:-4,eyes:{open:.85,lid:.14},brows:{b:[-2,-3,2]},mouth:'smile',blush:.15,medal:1,armL:{w:[82,226],bend:'out',hand:'open',hr:10},armR:{w:[142,184],bend:'out',hand:'thumb',hr:0},
+  c:{haende:'Der Daumen zeigt auf die eigene Brust.',haltung:'Der Körper ist aufrecht, das Kinn ist oben.',mund:'Der Mund lächelt breit.',augen:'Der Blick ist ruhig und selbstsicher.',arme:'Eine Hand ist an der Hüfte.'}};
+E.stolz=[
+ A({dy:-7,chest:5,shL:-1,shR:-1,tilt:2,fdy:-4,eyes:{open:.85,lid:.14,gy:-.1},brows:{b:[-2,-3,2]},mouth:'smirk',blush:.12,
+  c:{haltung:'Der Oberkörper ist aufrecht, die Brust ist vorn.',arme:'Die Arme sind in die Hüften gestemmt.',mund:'Der Mund lächelt zufrieden.',augen:'Der Blick ist ruhig und gerade.',schultern:'Die Schultern sind zurückgenommen.'}},sym([84,226],'out','open',10)),
+ STOLZ1,
+ Object.assign(mirror(STOLZ1),{medal:0})
+];
+E.enttaeuscht=[
+ A({dy:5,sc:.99,shL:-3,shR:-3,tilt:-9,fdy:4,fdx:-2,eyes:{open:.85,lid:.12,gx:-.8,gy:.35},brows:{b:[-1,1,0]},mouth:'pout',
+  c:{augen:'Die Lider sind schwer, der Blick geht nach unten.',schultern:'Die Schultern sacken nach unten.',arme:'Die Arme hängen locker, leicht vom Körper weg.',haende:'Die Hände sind offen und leer.',mund:'Der Mund ist leicht verzogen.'}},fk(15,13,'open',-12)),
+ A({dy:5,shL:-3,shR:-3,tilt:-8,fdy:4,fdx:-2,eyes:{open:.85,lid:.12,gx:.8,gy:.35},brows:{b:[-1,1,0]},mouth:'pout',
+  c:{augen:'Der Blick ist gesenkt, die Lider sind schwer.',schultern:'Die Schultern hängen.',haende:'Die Hände liegen locker aneinander.',haltung:'Der Kopf ist gesenkt.',mund:'Der Mund ist leicht verzogen.'}},sym([108,238],'out','open',8)),
+ {dy:7,shL:-5,shR:-5,tilt:6,fdx:-2,fdy:5,eyes:{open:.78,lid:.3,gx:.4,gy:.85},brows:{b:[-2.5,2,0]},mouth:'pout',armL:{w:[154,206],bend:'down',hand:'open',hr:0},armR:{a:[5,3],hand:'open',hr:-6},
+  c:{augen:'Der Blick geht schräg nach unten.',schultern:'Die Schultern sacken nach unten.',haende:'Eine Hand hält den anderen Arm fest.',haltung:'Der Kopf ist geneigt.',mund:'Der Mund ist leicht verzogen.'}}
+];
+E.unsicher=[
+ {dy:3,sc:.97,lean:3,shL:6,shR:6,tilt:5,fdx:3,fdy:2,eyes:{open:.95,gx:.8,gy:.55,pupil:.9},brows:{L:[-6,-2,3],R:[-1,1,0]},mouth:'wobble',mdx:2,sweat:1,blush:.15,
+  armL:{w:[110,212],bend:'out',hand:'open',hr:20},armR:{w:[126,208],bend:'out',hand:'open',hr:-20},
+  c:{augen:'Der Blick weicht zur Seite aus.',brauen:'Die Augenbrauen sind nicht gleich hoch.',schultern:'Die Schultern sind etwas hochgezogen.',haende:'Die Hände sind nah am Körper und nesteln.',mund:'Der Mund ist schief und zittrig.'}},
+ {dy:3,sc:.97,lean:-3,shL:6,shR:6,tilt:-5,fdx:-3,fdy:2,eyes:{open:.95,gx:-.8,gy:.5,pupil:.9},brows:{L:[-1,1,0],R:[-6,-2,3]},mouth:'wobble',mdx:-2,blush:.12,armL:{a:[-6,-4],hand:'open',hr:0},armR:{w:[92,206],bend:'down',hand:'open',hr:0},
+  c:{augen:'Der Blick geht zur Seite und nach unten.',brauen:'Die Augenbrauen sind nicht gleich hoch.',schultern:'Die Schultern sind etwas hochgezogen.',arme:'Ein Arm hält den anderen fest.',haltung:'Der Körper ist zurückhaltend und leicht schief.'}},
+ {dy:3,sc:.97,shL:5,shR:5,tilt:5,fdx:3,fdy:2,eyes:{open:.95,gx:.7,gy:.4,pupil:.9},brows:{L:[-6,-2,3],R:[-1,1,0]},mouth:'wobble',mdx:2,armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[138,136],bend:'out',u:.35,hand:'open',hr:-8},
+  c:{augen:'Der Blick weicht zur Seite aus.',brauen:'Die Augenbrauen sind nicht gleich hoch.',haende:'Eine Hand ist nah am Gesicht.',schultern:'Die Schultern sind etwas hochgezogen.',mund:'Der Mund ist schief und zittrig.'}}
+];
+E.aufgeregt=[
+ A({dy:-5,sc:1.06,shL:5,shR:5,tilt:4,fdy:-1,eyes:{open:1.3,gy:-.1,pupil:.75,sparkle:1},brows:{b:[-9,-9,3]},mouth:'grin',blush:.3,motion:1,
+  c:{augen:'Die Augen sind weit offen und aufmerksam.',brauen:'Die Augenbrauen sind hoch.',haende:'Die Hände sind zu Fäusten geballt.',haltung:'Der Oberkörper federt leicht nach vorn.',arme:'Die Arme sind angewinkelt und angespannt.'}},{armL:{a:[-34,172],hand:'fist',hr:0},armR:{a:[34,-172],hand:'fist',hr:0}}),
+ A({dy:-5,sc:1.03,shL:4,shR:4,tilt:7,fdy:-1,eyes:{open:1.2,gy:-.1,sparkle:1},brows:{b:[-6,-6,3]},mouth:'grin',blush:.3,motion:1,
+  c:{augen:'Die Augen sind weit offen und erwartungsvoll.',haende:'Die Finger sind gespreizt und zappeln.',arme:'Die Arme sind angewinkelt vor dem Körper.',schultern:'Die Schultern sind leicht hochgezogen.',haltung:'Der Körper ist in Bewegung.'}},{armL:{w:[84,196],bend:'out',hand:'spread',hr:0},armR:{w:[156,196],bend:'out',hand:'spread',hr:0}}),
+ A({dy:-3,sc:1.05,shL:5,shR:5,tilt:3,fdy:-1,eyes:{open:1.3,pupil:.75,sparkle:1},brows:{b:[-9,-9,3]},mouth:'grin',blush:.25,motion:1,
+  c:{augen:'Die Augen sind weit offen und aufmerksam.',brauen:'Die Augenbrauen sind hoch.',haende:'Die Fäuste sind nah vor der Brust.',schultern:'Die Schultern sind hochgezogen.',haltung:'Der Körper ist gespannt und leicht nach vorn gebeugt.'}},{armL:{w:[110,176],bend:'down',hand:'fist',hr:0},armR:{w:[130,176],bend:'down',hand:'fist',hr:0}})
+];
+const bored0={dy:5,shL:-2,shR:-2,tilt:10,fdy:2,fdx:2,eyes:{open:.62,lid:.42,gx:.55,gy:.2},brows:{b:[1,1,0]},mouth:'bored',mdx:3,
+  armL:{a:[-5,-3],hand:'open',hr:0},armR:{w:[158,134],bend:'out',u:.3,hand:'fist',hr:8},
+  c:{augen:'Die Augenlider sind halb geschlossen.',mund:'Der Mund ist gerade und unbewegt.',haende:'Der Kopf stützt sich auf die Faust.',haltung:'Der Kopf ist zur Seite geneigt.',brauen:'Die Augenbrauen sind flach und entspannt.'}};
+E.gelangweilt=[bored0,
+ A({dy:6,shL:-3,shR:-3,tilt:-7,fdy:1,eyes:{open:.6,lid:.45,gx:-.3,gy:-.8},brows:{b:[1,1,0]},mouth:'bored',
+  c:{augen:'Der Blick wandert nach oben, die Lider sind halb zu.',mund:'Der Mund ist gerade und unbewegt.',schultern:'Die Schultern sacken herab.',arme:'Die Arme hängen schlaff.',haltung:'Der Körper hängt durch.'}},hang(0,'open',4)),
+ mirror(bored0)
+];
+const gen0={dy:2,shL:3,shR:3,tilt:-6,fdy:-3,eyes:{open:.78,lid:.34,gx:.85,gy:-.75},brows:{L:[2,0,0],R:[-5,-4,2]},mouth:'side',
+  armL:{w:[152,190],bend:'down',hand:'open',hr:0},armR:{w:[88,198],bend:'down',hand:'open',hr:0},
+  c:{augen:'Die Augen schauen zur Seite nach oben.',brauen:'Eine Augenbraue ist hoch, die andere tiefer.',arme:'Die Arme sind vor der Brust verschränkt.',mund:'Die Lippen sind schief zusammengepresst.',haltung:'Der Kopf ist leicht zurückgelehnt.'}};
+E.genervt=[gen0,
+ A({dy:2,shL:4,shR:4,tilt:6,fdy:-2,eyes:{open:.75,lid:.36,gx:-.8,gy:-.8},brows:{L:[-5,-4,2],R:[2,0,0]},mouth:'press',
+  c:{augen:'Die Augen rollen nach oben zur Seite.',brauen:'Eine Augenbraue ist hoch, die andere tiefer.',mund:'Die Lippen sind fest zusammengepresst.',schultern:'Die Schultern sind leicht hochgezogen.',haltung:'Der Kopf ist zur Seite geneigt.'}},hang(0,'open',4)),
+ mirror(gen0)
+];
+const rel0={dy:3,shL:-5,shR:-5,tilt:5,fdy:1,eyes:{closed:'down'},brows:{b:[-3,0,1.5]},mouth:'sigh',blush:.2,
+  armL:{a:[-5,-3],hand:'open',hr:0},armR:{w:[130,186],bend:'out',hand:'flat',hr:-6},
+  c:{augen:'Die Augen sind geschlossen, das Gesicht ist entspannt.',mund:'Der Mund ist leicht offen, als würde das Kind ausatmen.',schultern:'Die Schultern sind gelöst und gesenkt.',haende:'Eine Hand liegt auf der Brust.',brauen:'Die Augenbrauen sind weich und leicht gehoben.'}};
+E.erleichtert=[rel0,
+ A({dy:4,shL:-6,shR:-6,tilt:4,fdy:1,eyes:{closed:'down'},brows:{b:[-3,0,1.5]},mouth:'sigh',blush:.2,
+  c:{augen:'Die Augen sind geschlossen, das Gesicht ist entspannt.',mund:'Der Mund ist leicht offen, als würde das Kind ausatmen.',schultern:'Die Schultern sinken herab.',arme:'Die Arme hängen locker.',haltung:'Der ganze Körper lässt los.'}},hang(0,'open',4)),
+ mirror(rel0)
+];
+E.verlegen=[
+ {dy:3,sc:.97,lean:4,shL:4,shR:3,tilt:8,fdx:-5,fdy:3,eyes:{open:.9,gx:-.8,gy:.6},brows:{b:[-4,0,1.5]},mouth:'shy',blush:.75,armL:{w:[134,206],bend:'down',hand:'open',hr:0},armR:{w:[170,98],bend:'out',hand:'open',hr:-20},
+  c:{augen:'Der Blick geht zur Seite.',mund:'Das Lächeln ist klein und schief.',haende:'Eine Hand fasst an den Kopf.',haltung:'Der Kopf ist weggedreht und geneigt.',schultern:'Die Schultern sind leicht hochgezogen.'}},
+ A({dy:3,sc:.97,lean:3,shL:4,shR:4,tilt:7,fdx:-4,fdy:3,eyes:{open:.9,gx:-.7,gy:.7},brows:{b:[-4,0,1.5]},mouth:'shy',blush:.75,
+  c:{augen:'Der Blick geht zur Seite und nach unten.',mund:'Das Lächeln ist klein und schief.',haende:'Die Hände sind vor dem Körper gefaltet.',haltung:'Der Kopf ist weggedreht und geneigt.',schultern:'Die Schultern sind leicht hochgezogen.'}},sym([112,226],'out','open',10)),
+ {dy:3,sc:.97,lean:3,shL:4,shR:4,tilt:6,fdx:-4,fdy:3,eyes:{open:.9,gx:-.8,gy:.5},brows:{b:[-4,0,1.5]},mouth:'shy',blush:.75,armL:{w:[86,214],bend:'out',hand:'open',hr:10},armR:{w:[152,126],bend:'out',u:.35,hand:'open',hr:0},
+  c:{augen:'Der Blick geht zur Seite.',mund:'Das Lächeln ist klein und schief.',haende:'Eine Hand liegt an der Wange.',haltung:'Der Kopf ist weggedreht und geneigt.',schultern:'Die Schultern sind leicht hochgezogen.'}}
+];
+E.zufrieden=[
+ {dy:2,sc:.99,shL:3,shR:3,tilt:3,fdy:-1,eyes:{closed:'up'},brows:{b:[-1,-1,1.5]},mouth:'smileSoft',blush:.28,behind:1,armL:{w:[93,98],bend:'out',hand:'open',hr:0},armR:{w:[147,98],bend:'out',hand:'open',hr:0},
+  c:{augen:'Die Augen sind friedlich geschlossen.',mund:'Der Mund lächelt weich.',arme:'Die Arme liegen entspannt hinter dem Kopf.',haltung:'Der Körper lehnt sich entspannt zurück.',brauen:'Die Augenbrauen sind glatt und entspannt.'}},
+ A({dy:1,shL:-2,shR:-2,tilt:3,fdy:-1,eyes:{closed:'up'},brows:{b:[-1,-1,1.5]},mouth:'smileSoft',blush:.28,
+  c:{augen:'Die Augen sind friedlich geschlossen.',mund:'Der Mund lächelt weich.',schultern:'Die Schultern sind locker.',arme:'Die Arme hängen entspannt.',brauen:'Die Augenbrauen sind glatt und entspannt.'}},hang(0,'open',4)),
+ A({dy:0,tilt:-2,fdy:-1,eyes:{open:.9,lid:.12,gx:.1},brows:{b:[-1,-1,1.5]},mouth:'smileSoft',blush:.2,
+  c:{augen:'Die Augen schauen ruhig und warm.',mund:'Der Mund lächelt weich.',schultern:'Die Schultern sind locker.',haltung:'Der Körper steht ruhig und aufrecht.',arme:'Die Arme hängen entspannt am Körper.'}},hang(-3,'open',2))
+];
+Object.assign(L.EMO,E);
+L.EMOS=Object.keys(E);
+L.LABEL={froehlich:'fröhlich',traurig:'traurig',wuetend:'wütend',aengstlich:'ängstlich',ueberrascht:'überrascht',stolz:'stolz',enttaeuscht:'enttäuscht',unsicher:'unsicher',aufgeregt:'aufgeregt',gelangweilt:'gelangweilt',genervt:'genervt',erleichtert:'erleichtert',verlegen:'verlegen',zufrieden:'zufrieden'};
+L.NOUN={froehlich:'Freude',traurig:'Traurigkeit',wuetend:'Wut',aengstlich:'Angst',ueberrascht:'Überraschung',stolz:'Stolz',enttaeuscht:'Enttäuschung',unsicher:'Unsicherheit',aufgeregt:'Aufregung',gelangweilt:'Langeweile',genervt:'Genervtsein',erleichtert:'Erleichterung',verlegen:'Verlegenheit',zufrieden:'Zufriedenheit'};
+})(GDLIB);
+
+(function(L){
+/* ===== Besetzung: 24 verschiedene Kinder ===== */
+const C=[];
+const P=(c,c2)=>({c,c2});
+L.CAST=[
+ {n:'Mia',g:'f',skin:2,head:'round',build:'normal',hair:{s:'pigtails',c:'#c3612e',acc:'#4f9aa0'},eyes:{style:'big',iris:'#4f8a5b'},freckles:1,nose:'dot',brow:3.2,top:{style:'hoodie',c:'#e9b949',c2:'#d9744e',sleeve:'long'},pants:{type:'jeans',c:'#5f86b3'},bg:'#f9dfc6'},
+ {n:'Ben',g:'m',skin:5,head:'wide',build:'sturdy',hair:{s:'curlsShort',c:'#2c211d'},eyes:{style:'dot'},nose:'button',brow:3.8,top:{style:'stripes',c:'#4f9aa0',c2:'#f5ead6',sleeve:'short'},pants:{type:'jeans',c:'#35507a'},bg:'#d9ecdf'},
+ {n:'Lena',g:'f',skin:1,head:'oval',build:'slim',hair:{s:'longStraight',c:'#e2b857'},eyes:{style:'big',iris:'#5a8fc4'},nose:'dot',brow:2.8,top:{style:'overalls',c:'#f5ead6',c2:'#5f86b3',sleeve:'long'},pants:{type:'jeans',c:'#5f86b3'},bg:'#dfe8f6',clip:'#ef8a7a'},
+ {n:'Samir',g:'m',skin:4,head:'heart',build:'normal',hair:{s:'sideSwept',c:'#241b19'},eyes:{style:'big',iris:'#5b3d2a'},glasses:{shape:'round',c:'#35507a'},nose:'hook',brow:3.8,top:{style:'sweater',c:'#35507a',c2:'#e9b949',sleeve:'long'},pants:{type:'jeans',c:'#4a4a52'},bg:'#e3e1f2'},
+ {n:'Ella',g:'f',skin:3,head:'egg',build:'slim',hair:{s:'bob',c:'#5a3524'},eyes:{style:'big',iris:'#7a5a3a'},nose:'dot',brow:3,top:{style:'cardigan',c:'#8bb08a',c2:'#f5ead6',sleeve:'long'},pants:{type:'skirt',c:'#8d5f8f'},bg:'#e8f0dc'},
+ {n:'Jamal',g:'m',skin:7,head:'square',build:'sturdy',hair:{s:'undercut',c:'#1f1b1a'},eyes:{style:'big',iris:'#3a2a24'},nose:'button',brow:4,top:{style:'tee',c:'#b95a46',sleeve:'short'},pants:{type:'jeans',c:'#4a4a52'},bg:'#f6d7cd'},
+ {n:'Sophie',g:'f',skin:2,head:'wide',build:'normal',hair:{s:'ponytail',c:'#9b5f34',acc:'#d9574a'},eyes:{style:'big',iris:'#4f8a5b'},freckles:1,nose:'dot',brow:3.2,top:{style:'jacket',c:'#8d5f8f',c2:'#b9a3d6',sleeve:'long'},pants:{type:'jeans',c:'#4a4a52'},bg:'#eadff0'},
+ {n:'Noah',g:'m',skin:1,head:'oval',build:'small',hair:{s:'tousled',c:'#7a4a2a'},eyes:{style:'big',iris:'#7b8f4a'},nose:'hook',brow:3.4,top:{style:'stripes',c:'#9cc7e2',c2:'#f5ead6',sleeve:'long'},pants:{type:'jeans',c:'#5f86b3'},bg:'#e1eef2',pack:'#d9744e'},
+ {n:'Yuki',g:'f',skin:3,head:'round',build:'slim',hair:{s:'bob',c:'#1f2230'},eyes:{style:'dot',size:1.05},nose:'button',brow:3,top:{style:'polo',c:'#9fd3c0',c2:'#f5ead6',sleeve:'short'},pants:{type:'skirt',c:'#35507a'},bg:'#dff0ea'},
+ {n:'Leo',g:'m',skin:6,head:'round',build:'normal',hair:{s:'afro',c:'#241b19'},eyes:{style:'big',iris:'#3a2a24'},glasses:{shape:'square',c:'#d9744e'},nose:'button',brow:3.6,top:{style:'print',print:'bolt',c:'#f0993f',c2:'#fff3b0',sleeve:'short'},pants:{type:'jeans',c:'#35507a'},bg:'#fbe6c8'},
+ {n:'Zoe',g:'f',skin:5,head:'heart',build:'slim',hair:{s:'braids',c:'#241b19',acc:'#e9b949'},eyes:{style:'big',iris:'#3a2a24'},nose:'dot',brow:3,top:{style:'print',print:'star',c:'#b9a3d6',c2:'#fff3b0',sleeve:'short'},pants:{type:'jeans',c:'#5f86b3'},bg:'#ebe3f5',earring:'#e9b949'},
+ {n:'Emil',g:'m',skin:2,head:'square',build:'sturdy',hair:{s:'sideSwept',c:'#d4a64c'},eyes:{style:'big',iris:'#5a8fc4'},nose:'hook',brow:3.4,top:{style:'polo',c:'#35507a',c2:'#f5ead6',sleeve:'short'},pants:{type:'jeans',c:'#9a9a4e'},bg:'#dde6f2'},
+ {n:'Aylin',g:'f',skin:3,head:'oval',build:'normal',hair:{s:'longCurls',c:'#4a3024'},eyes:{style:'big',iris:'#6a4a32'},nose:'dot',brow:3.2,top:{style:'vneck',c:'#4f9aa0',c2:'#f5ead6',sleeve:'long'},pants:{type:'jeans',c:'#4a4a52'},bg:'#d8eeee',necklace:'#e9b949'},
+ {n:'Finn',g:'m',skin:1,head:'egg',build:'small',hair:{s:'sideSwept',c:'#c3612e'},eyes:{style:'big',iris:'#7b8f4a'},freckles:1,nose:'button',brow:3,top:{style:'hoodie',c:'#8fb4c9',c2:'#f5ead6',sleeve:'long'},pants:{type:'jeans',c:'#5f86b3'},bg:'#e0ebf0'},
+ {n:'Nia',g:'f',skin:6,head:'round',build:'slim',hair:{s:'spaceBuns',c:'#241b19',acc:'#f0993f'},eyes:{style:'big',iris:'#3a2a24'},glasses:{shape:'round',c:'#8d5f8f'},nose:'button',brow:3,top:{style:'cardigan',c:'#e9b949',c2:'#f5ead6',sleeve:'long'},pants:{type:'jeans',c:'#35507a'},bg:'#fbeab8'},
+ {n:'Paul',g:'m',skin:2,head:'wide',build:'normal',hair:{s:'curlsShort',c:'#d4a64c'},eyes:{style:'dot'},nose:'dot',brow:3.2,top:{style:'tee',c:'#f0993f',sleeve:'short'},pants:{type:'jeans',c:'#35507a'},bg:'#fde2c4'},
+ {n:'Maja',g:'f',skin:4,head:'round',build:'normal',hair:{s:'topKnot',c:'#4a3024',acc:'#4f9aa0'},eyes:{style:'big',iris:'#5b3d2a'},nose:'dot',brow:3.2,top:{style:'overalls',c:'#f5ead6',c2:'#9a9a4e',sleeve:'short'},pants:{type:'jeans',c:'#9a9a4e'},bg:'#e6ecd3'},
+ {n:'Tim',g:'m',skin:3,head:'square',build:'normal',hair:{s:'buzz',c:'#4a3024'},eyes:{style:'dot'},nose:'hook',brow:4,top:{style:'hoodie',c:'#4f7d82',c2:'#f5ead6',sleeve:'long'},pants:{type:'jeans',c:'#4a4a52'},bg:'#dbe9e7'},
+ {n:'Ida',g:'f',skin:1,head:'heart',build:'slim',hair:{s:'longStraight',c:'#9b5f34'},eyes:{style:'big',iris:'#5a8fc4'},nose:'dot',brow:2.8,top:{style:'sweater',c:'#e9a1ad',c2:'#f5ead6',sleeve:'long'},pants:{type:'jeans',c:'#5f86b3'},bg:'#f9e0e4',band:'#4f9aa0'},
+ {n:'Karim',g:'m',skin:5,head:'oval',build:'normal',hair:{s:'undercut',c:'#2c211d'},eyes:{style:'big',iris:'#3a2a24'},nose:'hook',brow:3.8,top:{style:'tee',c:'#8bb08a',sleeve:'short'},pants:{type:'jeans',c:'#35507a'},bg:'#e0eed9'},
+ {n:'Lotta',g:'f',skin:1,head:'round',build:'small',hair:{s:'braids',c:'#e2b857',acc:'#ef8a7a'},eyes:{style:'big',iris:'#5a8fc4'},freckles:1,nose:'button',brow:2.8,top:{style:'dress',c:'#ef8a7a',c2:'#f5ead6',sleeve:'short'},pants:{type:'skirt',c:'#ef8a7a'},bg:'#fbe3dc'},
+ {n:'Mateo',g:'m',skin:4,head:'wide',build:'sturdy',hair:{s:'curlsShort',c:'#241b19'},cap:{c:'#d9744e',c2:'#b45e39'},eyes:{style:'big',iris:'#5b3d2a'},nose:'button',brow:3.8,top:{style:'polo',c:'#e9b949',c2:'#f5ead6',sleeve:'short'},pants:{type:'jeans',c:'#35507a'},bg:'#f7e7bd'},
+ {n:'Hanna',g:'f',skin:2,head:'oval',build:'normal',hair:{s:'bob',c:'#9b4b2a'},eyes:{style:'big',iris:'#4f8a5b'},nose:'dot',brow:3.2,top:{style:'jacket',c:'#5f86b3',c2:'#9cc7e2',sleeve:'long'},pants:{type:'jeans',c:'#4a4a52'},bg:'#e1e8f3'},
+ {n:'Elias',g:'m',skin:4,head:'egg',build:'slim',hair:{s:'tousled',c:'#241b19'},eyes:{style:'big',iris:'#3a2a24'},glasses:{shape:'square',c:'#35507a'},nose:'hook',brow:3.8,top:{style:'hoodie',c:'#8bb08a',c2:'#f5ead6',sleeve:'long'},pants:{type:'jeans',c:'#4a4a52'},bg:'#e0efdd'}
+];
+
+})(GDLIB);
+
+/* ===== Szenen-Rigs: Mimik (FACE) + Pose (POSE) frei kombinierbar ===== */
+(function(L){
+const FK=['dy','sc','shL','shR','tilt','fdx','fdy','eyes','brows','mouth','mdx','ms','blush','flush','sweat','tear','lean'];
+const cp=o=>JSON.parse(JSON.stringify(o));
+const face=(e,v)=>{const R=L.EMO[e][v],o={};FK.forEach(k=>{if(R[k]!==undefined)o[k]=cp(R[k]);});return o;};
+const FACE={
+ neutral:{eyes:{open:.95,gx:.15},brows:{b:[0,0,0]},mouth:'flat'},
+ freundlich:face('froehlich',3),
+ lachen:face('froehlich',1),
+ konzentriert:{dy:3,tilt:3,fdy:2,eyes:{open:.8,lid:.12,gy:.7},brows:{b:[2,0,0]},mouth:'flat'},
+ angespannt:{shL:6,shR:6,dy:1,eyes:{open:.95,gx:.3},brows:{b:[-3,-1,.5]},mouth:'tight'},
+ spott:{tilt:4,eyes:{open:.85,lid:.15,gx:.5},brows:{L:[-2,0,0],R:[-5,-4,2]},mouth:'smirk'},
+ entschlossen:{sc:1.02,eyes:{open:.95,lid:.06},brows:{b:[3,-1,0]},mouth:'press'},
+ genervt:face('genervt',1),
+ genervt2:face('genervt',0),
+ wuetend:face('wuetend',0),
+ wuetendMild:face('wuetend',2),
+ trotzig:face('wuetend',3),
+ enttaeuscht:face('enttaeuscht',0),
+ traurig:face('traurig',0),
+ unsicher:face('unsicher',0),
+ ueberrascht:face('ueberrascht',0),
+ erleichtert:face('erleichtert',0),
+ aengstlich:face('aengstlich',0),
+ verlegen:face('verlegen',0),
+ zufrieden:face('zufrieden',2)
+};
+/* Alle Posen gelten für „Partner steht rechts“. Gespiegelt wird beim Zusammenbau der Szene. */
+const H=(a1,a2,h='open',hr=4)=>({armL:{a:[-a1,-a2],hand:h,hr:hr},armR:{a:[a1,a2],hand:h,hr:-hr}});
+const POSE={
+ seite:H(5,3),
+ locker:H(9,7),
+ offen:{armL:{w:[68,208],bend:'out',hand:'open',hr:18},armR:{w:[172,208],bend:'out',hand:'open',hr:-18}},
+ verschraenkt:{armL:{w:[150,196],bend:'down',hand:'open',hr:0},armR:{w:[90,206],bend:'down',hand:'open',hr:0}},
+ zeigen:{armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[226,172],bend:'down',hand:'point',hr:0}},
+ zeigenHoch:{armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[222,148],bend:'down',hand:'point',hr:0}},
+ zeigenWeg:{armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[204,232],bend:'out',hand:'point',hr:0}},
+ stopp:{armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[190,134],bend:'out',hand:'flat',hr:0}},
+ stoppBeide:{armL:{w:[50,136],bend:'out',hand:'flat',hr:0},armR:{w:[190,136],bend:'out',hand:'flat',hr:0}},
+ abwehr:{armL:{w:[62,160],bend:'out',hand:'spread',hr:-8},armR:{w:[178,160],bend:'out',hand:'spread',hr:8}},
+ haelt:{armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[166,196],bend:'out',hand:'fist',hr:0}},
+ haeltLinks:{armL:{w:[74,196],bend:'out',hand:'fist',hr:0},armR:{a:[5,3],hand:'open',hr:-4}},
+ haeltBeide:{armL:{w:[104,206],bend:'out',hand:'fist',hr:0},armR:{w:[136,206],bend:'out',hand:'fist',hr:0}},
+ huefte:{armL:{w:[84,226],bend:'out',hand:'open',hr:10},armR:{w:[156,226],bend:'out',hand:'open',hr:-10}},
+ faeuste:{armL:{a:[-12,-9],hand:'fist',hr:-4},armR:{a:[12,9],hand:'fist',hr:4}},
+ tisch:{armL:{w:[92,224],bend:'out',hand:'open',hr:6},armR:{w:[148,224],bend:'out',hand:'open',hr:-6}},
+ tischZeigen:{armL:{w:[92,224],bend:'out',hand:'open',hr:6},armR:{w:[196,214],bend:'down',hand:'point',hr:0}},
+ schieben:{armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[222,166],bend:'down',hand:'flat',hr:0}},
+ zucken:{armL:{w:[64,184],bend:'out',hand:'open',hr:26},armR:{w:[176,184],bend:'out',hand:'open',hr:-26},shL:5,shR:5},
+ winken:{armL:{a:[-6,-4],hand:'open',hr:0},armR:{w:[188,100],bend:'out',hand:'spread',hr:-10}},
+ kopf:{armL:{a:[-5,-3],hand:'open',hr:4},armR:{w:[146,128],bend:'out',u:.35,hand:'fist',hr:10}}
+};
+/* Haltepunkte (in Figurkoordinaten) für Gegenstände */
+const HOLD={haelt:[166,198],haeltLinks:[74,198],haeltBeide:[120,208]};
+const GAZE={to:{gx:.78},away:{gx:-.78},down:{gx:.2,gy:.9},front:{gx:0,gy:0},up:{gx:.3,gy:-.7},toDown:{gx:.6,gy:.7},awayDown:{gx:-.6,gy:.7}};
+/* rig(face,pose,{gaze,lean,over}) -> Rig-Objekt */
+L.rigFor=function(f,p,o){o=o||{};
+ const R=Object.assign({},cp(FACE[f]||FACE.neutral),cp(POSE[p]||POSE.seite));
+ R.eyes=Object.assign({},R.eyes);
+ const g=GAZE[o.gaze||'to'];if(g&&!R.eyes.closed){if(g.gx!==undefined)R.eyes.gx=g.gx;if(g.gy!==undefined)R.eyes.gy=g.gy;if(R.eyes.closed)delete R.eyes.closed;}
+ if(o.lean!==undefined)R.lean=(R.lean||0)+o.lean;
+ if(o.over)Object.assign(R,cp(o.over));
+ return R;};
+L.HOLD=HOLD;L.FACEKEYS=Object.keys(FACE);L.POSEKEYS=Object.keys(POSE);
+})(GDLIB);
+
+/* ===== Szenensystem: Schauplätze, Gegenstände, Figurenplatzierung ===== */
+(function(L){
+const OUT='#5a4033',W=600,H=330;
+const st=(w=2.2)=>`stroke="${OUT}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
+const r1=n=>Math.round(n*10)/10;
+
+/* ---------- Gegenstände (Mittelpunkt 0,0, ca. 50 Einheiten groß) ---------- */
+const PROPS={
+ ball:()=>{const pent=(x,y,s)=>{let p=[];for(let i=0;i<5;i++){const a=-Math.PI/2+i*2*Math.PI/5;p.push(`${r1(x+Math.cos(a)*s)},${r1(y+Math.sin(a)*s)}`);}return `<path d="M${p.join(' L')}Z" fill="#3c3430"/>`;};
+  return `<circle r="24" fill="#fff" ${st(2.4)}/>${pent(0,0,9)}${pent(-17,-5,5)}${pent(17,-5,5)}${pent(-10,17,5)}${pent(10,17,5)}<path d="M0,-9 L0,-24 M-8.6,-3 L-17,-5 M8.6,-3 L17,-5 M-5,7 L-10,17 M5,7 L10,17" stroke="#3c3430" stroke-width="1.6" fill="none"/>`;},
+ rope:()=>`<path d="M-30,-8 C-40,18 -10,30 0,12 C10,-6 30,-12 36,10" fill="none" stroke="${OUT}" stroke-width="7.4" stroke-linecap="round"/><path d="M-30,-8 C-40,18 -10,30 0,12 C10,-6 30,-12 36,10" fill="none" stroke="#e0824f" stroke-width="4" stroke-linecap="round"/><rect x="-38" y="-22" width="9" height="20" rx="4" fill="#4f9aa0" ${st(1.8)}/><rect x="32" y="-4" width="9" height="20" rx="4" fill="#4f9aa0" ${st(1.8)}/>`,
+ stifte:()=>[-14,0,14].map((x,i)=>`<g transform="translate(${x},0) rotate(${(i-1)*9})"><rect x="-4.5" y="-24" width="9" height="40" fill="${['#e9b949','#d9574a','#4f9aa0'][i]}" ${st(1.8)}/><path d="M-4.5,16 L0,26 L4.5,16Z" fill="#f2d9b5" ${st(1.6)}/><path d="M-1.8,22 L0,26 L1.8,22Z" fill="${OUT}"/><rect x="-4.5" y="-24" width="9" height="6" fill="#e8a1ad" ${st(1.4)}/></g>`).join(''),
+ stift:()=>`<g transform="rotate(-30)"><rect x="-4.5" y="-24" width="9" height="40" fill="#e9b949" ${st(1.8)}/><path d="M-4.5,16 L0,26 L4.5,16Z" fill="#f2d9b5" ${st(1.6)}/><path d="M-1.8,22 L0,26 L1.8,22Z" fill="${OUT}"/><rect x="-4.5" y="-24" width="9" height="6" fill="#e8a1ad" ${st(1.4)}/></g>`,
+ stiftKaputt:()=>`<g transform="translate(-10,0) rotate(-32)"><rect x="-4.5" y="-6" width="9" height="22" fill="#d9574a" ${st(1.8)}/><path d="M-4.5,16 L0,22 L4.5,16Z" fill="#f2d9b5" ${st(1.6)}/><path d="M-4.5,-6 L-1,-10 L2,-6 L4.5,-9 L4.5,-6Z" fill="#f2d9b5" ${st(1.4)}/></g><g transform="translate(14,-10) rotate(40)"><rect x="-4.5" y="-14" width="9" height="20" fill="#d9574a" ${st(1.8)}/><rect x="-4.5" y="-14" width="9" height="6" fill="#e8a1ad" ${st(1.4)}/><path d="M-4.5,6 L-2,10 L1,6 L4.5,9 L4.5,6Z" fill="#f2d9b5" ${st(1.4)}/></g>`,
+ radierer:()=>`<g transform="rotate(-12)"><rect x="-17" y="-10" width="34" height="20" rx="4" fill="#f4a8b4" ${st(2)}/><rect x="-17" y="-10" width="15" height="20" rx="4" fill="#5f86b3" ${st(2)}/></g>`,
+ lineal:()=>`<g transform="rotate(-8)"><rect x="-44" y="-8" width="88" height="16" rx="2.5" fill="#f4e6b8" ${st(2)}/>${Array.from({length:12},(_,i)=>`<path d="M${-38+i*7},-8 v${i%2?4:7}" stroke="${OUT}" stroke-width="1.3"/>`).join('')}</g>`,
+ heft:()=>`<g transform="rotate(-6)"><rect x="-26" y="-32" width="52" height="64" rx="4" fill="#5f86b3" ${st(2.2)}/><rect x="-18" y="-22" width="36" height="20" rx="3" fill="#fff" ${st(1.6)}/><path d="M-12,-14 H12 M-12,-8 H4" stroke="${OUT}" stroke-width="1.4" opacity=".6"/><path d="M-26,-26 H-31 M-26,-6 H-31 M-26,14 H-31" stroke="#c9764a" stroke-width="3" stroke-linecap="round"/></g>`,
+ heftOffen:()=>`<g transform="rotate(-4)"><path d="M-46,-26 L0,-20 L46,-26 L46,26 L0,32 L-46,26Z" fill="#fff" ${st(2.2)}/><path d="M0,-20 V32" stroke="${OUT}" stroke-width="1.8"/><path d="M-36,-12 H-8 M-36,-4 H-8 M-36,4 H-14 M8,-12 H36 M8,-4 H30 M8,4 H36" stroke="#5f86b3" stroke-width="1.8" opacity=".7"/><path d="M12,14 q6,-8 12,0 t12,0" stroke="#d9574a" stroke-width="2" fill="none"/></g>`,
+ heftKritzel:()=>`<g transform="rotate(-4)"><path d="M-46,-26 L0,-20 L46,-26 L46,26 L0,32 L-46,26Z" fill="#fff" ${st(2.2)}/><path d="M0,-20 V32" stroke="${OUT}" stroke-width="1.8"/><path d="M-36,-12 H-8 M-36,-4 H-8 M8,-12 H36 M8,-4 H30" stroke="#5f86b3" stroke-width="1.8" opacity=".7"/><path d="M-40,10 q8,-16 14,0 t14,2 t14,-8 t16,6 t12,-6" stroke="#d9574a" stroke-width="3.4" fill="none" stroke-linecap="round"/></g>`,
+ buch:()=>`<g transform="rotate(-5)"><rect x="-30" y="-24" width="60" height="48" rx="3" fill="#8bb08a" ${st(2.2)}/><rect x="-30" y="-24" width="9" height="48" fill="#6f9570" ${st(2)}/><rect x="-12" y="-14" width="30" height="16" rx="2" fill="#f5ead6" ${st(1.5)}/></g>`,
+ buecher:()=>`<rect x="-30" y="2" width="60" height="16" rx="3" fill="#d9744e" ${st(2)}/><rect x="-26" y="-14" width="56" height="16" rx="3" fill="#e9b949" ${st(2)}/><rect x="-30" y="-30" width="58" height="16" rx="3" fill="#5f86b3" ${st(2)}/><path d="M-20,10 H4 M-16,-6 H8 M-22,-22 H2" stroke="#fff" stroke-width="2" opacity=".7"/>`,
+ maeppchen:()=>`<rect x="-34" y="-14" width="68" height="28" rx="14" fill="#d97b9a" ${st(2.2)}/><path d="M-26,-4 H26" stroke="${OUT}" stroke-width="1.8" stroke-dasharray="3 3"/><rect x="14" y="-7" width="10" height="7" rx="3" fill="#f5ead6" ${st(1.5)}/>`,
+ rucksack:()=>`<path d="M-26,-26 Q0,-40 26,-26 L30,26 Q0,34 -30,26Z" fill="#d9744e" ${st(2.4)}/><rect x="-18" y="-4" width="36" height="22" rx="6" fill="#e9b949" ${st(2)}/><path d="M-14,-24 Q0,-34 14,-24" fill="none" stroke="${OUT}" stroke-width="3"/><path d="M-12,4 H12" stroke="${OUT}" stroke-width="1.6"/>`,
+ jacke:()=>`<path d="M-8,-34 L-8,-24 Q0,-18 8,-24 L8,-34" fill="none" stroke="${OUT}" stroke-width="2.4"/><path d="M-22,-22 L-34,-8 L-30,22 L-22,22 L-22,40 L22,40 L22,22 L30,22 L34,-8 L22,-22 L8,-24 Q0,-16 -8,-24Z" fill="#5f86b3" ${st(2.4)}/><path d="M0,-17 V40" stroke="${OUT}" stroke-width="2"/><rect x="-18" y="14" width="12" height="9" rx="2" fill="none" stroke="${OUT}" stroke-width="1.6"/>`,
+ jackeRot:()=>`<path d="M-8,-34 L-8,-24 Q0,-18 8,-24 L8,-34" fill="none" stroke="${OUT}" stroke-width="2.4"/><path d="M-22,-22 L-34,-8 L-30,22 L-22,22 L-22,40 L22,40 L22,22 L30,22 L34,-8 L22,-22 L8,-24 Q0,-16 -8,-24Z" fill="#d9574a" ${st(2.4)}/><path d="M0,-17 V40" stroke="${OUT}" stroke-width="2"/><circle cx="-10" cy="-2" r="2.4" fill="#fff"/><circle cx="-10" cy="12" r="2.4" fill="#fff"/>`,
+ jackeGelb:()=>`<path d="M-8,-34 L-8,-24 Q0,-18 8,-24 L8,-34" fill="none" stroke="${OUT}" stroke-width="2.4"/><path d="M-22,-22 L-34,-8 L-30,22 L-22,22 L-22,40 L22,40 L22,22 L30,22 L34,-8 L22,-22 L8,-24 Q0,-16 -8,-24Z" fill="#e9b949" ${st(2.4)}/><path d="M0,-17 V40" stroke="${OUT}" stroke-width="2"/>`,
+ stuhl:()=>`<rect x="-20" y="-40" width="40" height="34" rx="5" fill="#e0824f" ${st(2.2)}/><rect x="-26" y="-6" width="52" height="12" rx="4" fill="#d9744e" ${st(2.2)}/><path d="M-20,6 V34 M20,6 V34" stroke="${OUT}" stroke-width="5" stroke-linecap="round"/>`,
+ karten:()=>[-18,0,18].map((x,i)=>`<g transform="translate(${x},0) rotate(${(i-1)*16})"><rect x="-14" y="-22" width="28" height="42" rx="4" fill="#fff" ${st(2)}/><circle cx="0" cy="-2" r="6" fill="${['#d9574a','#4f9aa0','#e9b949'][i]}"/><path d="M-9,-16 h6 M3,12 h6" stroke="${OUT}" stroke-width="1.6"/></g>`).join(''),
+ bausteine:()=>`<rect x="-26" y="2" width="26" height="22" rx="3" fill="#d9574a" ${st(2)}/><rect x="0" y="2" width="26" height="22" rx="3" fill="#4f9aa0" ${st(2)}/><rect x="-13" y="-20" width="26" height="22" rx="3" fill="#e9b949" ${st(2)}/><circle cx="-13" cy="-24" r="3" fill="#e9b949" ${st(1.4)}/><circle cx="13" cy="-24" r="3" fill="#e9b949" ${st(1.4)}/>`,
+ bausteineKaputt:()=>`<rect x="-34" y="6" width="26" height="20" rx="3" fill="#d9574a" transform="rotate(-10 -21 16)" ${st(2)}/><rect x="2" y="12" width="26" height="20" rx="3" fill="#4f9aa0" transform="rotate(14 15 22)" ${st(2)}/><rect x="-14" y="-6" width="26" height="20" rx="3" fill="#e9b949" transform="rotate(32 -1 4)" ${st(2)}/><rect x="26" y="-2" width="22" height="18" rx="3" fill="#8bb08a" transform="rotate(-24 37 7)" ${st(2)}/>`,
+ spiel:()=>`<rect x="-40" y="-30" width="80" height="60" rx="5" fill="#f5ead6" ${st(2.2)}/><path d="M-40,0 H40 M0,-30 V30" stroke="${OUT}" stroke-width="1.6"/><circle cx="-20" cy="-15" r="7" fill="#d9574a"/><circle cx="20" cy="15" r="7" fill="#4f9aa0"/><circle cx="20" cy="-15" r="7" fill="#e9b949"/><circle cx="-20" cy="15" r="7" fill="#8bb08a"/>`,
+ blatt:()=>`<g transform="rotate(-6)"><rect x="-26" y="-34" width="52" height="68" rx="2" fill="#fff" ${st(2)}/><path d="M-16,-20 H16 M-16,-10 H16 M-16,0 H8" stroke="#5f86b3" stroke-width="1.8" opacity=".75"/><path d="M-12,14 L-4,24 L12,6" fill="none" stroke="#3f7f55" stroke-width="3"/></g>`,
+ bild:()=>`<g transform="rotate(5)"><rect x="-30" y="-24" width="60" height="48" rx="2" fill="#fff" ${st(2)}/><circle cx="-10" cy="-8" r="8" fill="#e9b949"/><path d="M-26,18 L-8,2 L4,12 L14,2 L26,18Z" fill="#8bb08a" ${st(1.4)}/></g>`,
+ flasche:()=>`<rect x="-12" y="-30" width="24" height="60" rx="9" fill="#9cc7e2" ${st(2.2)}/><rect x="-8" y="-38" width="16" height="10" rx="3" fill="#4f9aa0" ${st(2)}/><path d="M-12,-2 H12" stroke="${OUT}" stroke-width="1.6"/>`,
+ tuer:()=>`<rect x="-40" y="-56" width="80" height="112" rx="4" fill="#c79a68" ${st(2.4)}/><rect x="-30" y="-46" width="60" height="44" rx="2" fill="#d9b88a" ${st(1.6)}/><circle cx="26" cy="14" r="4.2" fill="#e9b949" ${st(1.6)}/>`,
+ tor:()=>`<path d="M-50,40 V-24 H50 V40" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M-50,40 V-24 H50 V40" fill="none" stroke="${OUT}" stroke-width="1.8" opacity=".5"/><path d="M-44,-18 V38 M-30,-18 V38 M-16,-18 V38 M-2,-18 V38 M12,-18 V38 M26,-18 V38 M40,-18 V38 M-48,-6 H48 M-48,10 H48 M-48,26 H48" stroke="#fff" stroke-width="1.6" opacity=".75"/>`,
+ klingel:()=>`<path d="M0,-22 Q-20,-22 -20,2 L-24,16 H24 L20,2 Q20,-22 0,-22Z" fill="#e9b949" ${st(2.2)}/><circle cx="0" cy="22" r="5" fill="#e9b949" ${st(1.8)}/>`
+};
+L.PROPKEYS=Object.keys(PROPS);
+function prop(kind,x,y,s,r){if(!PROPS[kind])throw new Error('Prop fehlt: '+kind);return `<g transform="translate(${r1(x)},${r1(y)}) rotate(${r||0}) scale(${s||1})">${PROPS[kind]()}</g>`;}
+
+/* ---------- Schauplätze ---------- */
+const cloud=(x,y,s=1)=>`<g transform="translate(${x},${y}) scale(${s})" fill="#fff" opacity=".85"><ellipse cx="0" cy="0" rx="34" ry="13"/><ellipse cx="-16" cy="-8" rx="17" ry="12"/><ellipse cx="12" cy="-10" rx="20" ry="14"/></g>`;
+const win=(x,y,w,h,c='#cfe7ee')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="${c}" stroke="#a98f6f" stroke-width="3"/><path d="M${x+w/2},${y} V${y+h} M${x},${y+h/2} H${x+w}" stroke="#a98f6f" stroke-width="2.4"/>`;
+const BG={
+ hof:{top:'#d6ebf0',svg:()=>`<rect width="${W}" height="${H}" fill="#d6ebf0"/>${cloud(110,52,1)}${cloud(470,38,.8)}
+  <rect x="-10" y="86" width="270" height="150" fill="#f0dcc0"/><path d="M-14,88 L134,56 L272,88Z" fill="#c9764a"/><rect x="-10" y="86" width="270" height="8" fill="#b4623a" opacity=".55"/>
+  ${win(18,112,44,46)}${win(80,112,44,46)}${win(142,112,44,46)}${win(204,112,44,46)}${win(18,172,44,40)}${win(80,172,44,40)}${win(204,172,44,40)}<rect x="142" y="172" width="44" height="64" rx="3" fill="#a9825a" stroke="#8c6a45" stroke-width="3"/>
+  <rect x="520" y="130" width="14" height="120" fill="#8a6a4b"/><circle cx="527" cy="108" r="46" fill="#8fb87a"/><circle cx="496" cy="132" r="30" fill="#7da86a"/><circle cx="556" cy="130" r="32" fill="#9cc588"/>
+  <rect x="0" y="226" width="${W}" height="104" fill="#e6dbc4"/><rect x="0" y="226" width="${W}" height="12" fill="#bcd48f"/><path d="M20,290 Q300,262 580,290" fill="none" stroke="#fff" stroke-width="5" opacity=".8"/><circle cx="300" cy="300" r="40" fill="none" stroke="#fff" stroke-width="4" opacity=".7"/>`},
+ klasse:{top:'#f5e8cc',svg:()=>`<rect width="${W}" height="${H}" fill="#f5e8cc"/>
+  <rect x="0" y="236" width="${W}" height="94" fill="#dfc79f"/><rect x="0" y="232" width="${W}" height="8" fill="#c9a97a"/>
+  <rect x="204" y="40" width="192" height="112" rx="5" fill="#a9825a" stroke="#8c6a45" stroke-width="3"/><rect x="212" y="48" width="176" height="96" rx="3" fill="#4d7a6b"/>
+  <path d="M226,76 q10,-12 22,0 t22,0 M226,104 h58 M300,92 h72 M300,114 h46" stroke="#fff" stroke-width="3.2" fill="none" opacity=".75" stroke-linecap="round"/><rect x="212" y="146" width="176" height="6" fill="#8c6a45"/><circle cx="300" cy="24" r="0"/>
+  ${win(14,50,66,88)}${win(520,50,66,88)}<rect x="8" y="136" width="78" height="8" rx="3" fill="#c9a97a"/><rect x="514" y="136" width="78" height="8" rx="3" fill="#c9a97a"/>
+  <g transform="translate(150,28)"><circle r="17" fill="#fff" stroke="#8c6a45" stroke-width="3"/><path d="M0,0 V-10 M0,0 L7,4" stroke="${OUT}" stroke-width="2.4" stroke-linecap="round"/></g>
+  <rect x="404" y="30" width="44" height="58" rx="2" fill="#f4a8b4" stroke="#c97a8a" stroke-width="2" transform="rotate(4 426 59)"/><rect x="150" y="62" width="42" height="52" rx="2" fill="#cfe7ee" stroke="#8aa8b4" stroke-width="2" transform="rotate(-4 171 88)"/>`},
+ tisch:{top:'#efe3d2',svg:()=>`<rect width="${W}" height="${H}" fill="#efe3d2"/>
+  <rect x="0" y="206" width="${W}" height="124" fill="#e5d3b9"/><rect x="0" y="202" width="${W}" height="8" fill="#cfb998"/>
+  ${win(500,44,70,92,'#d6ebf0')}<rect x="40" y="34" width="86" height="64" rx="3" fill="#fff" stroke="#c9b48c" stroke-width="2.4"/><path d="M52,52 h56 M52,66 h40 M52,80 h50" stroke="#5f86b3" stroke-width="3" opacity=".6" stroke-linecap="round"/>
+  <rect x="396" y="40" width="64" height="48" rx="3" fill="#f4e6b8" stroke="#c9b48c" stroke-width="2.4"/><circle cx="428" cy="60" r="10" fill="#e9b949"/><path d="M404,82 l16,-12 l10,8 l12,-10 l12,14Z" fill="#8bb08a"/>
+  <path d="M188,40 h46 v52 h-46z" fill="#cfe7ee" stroke="#8aa8b4" stroke-width="2.2" transform="rotate(3 211 66)"/>`},
+ flur:{top:'#dfe9e3',svg:()=>`<rect width="${W}" height="${H}" fill="#dfe9e3"/>
+  <rect x="0" y="196" width="${W}" height="134" fill="#c5d6cc"/><rect x="0" y="190" width="${W}" height="10" fill="#a9c0b4"/>
+  <rect x="14" y="66" width="572" height="10" rx="5" fill="#a9825a" stroke="#8c6a45" stroke-width="2"/>
+  ${[44,118,216,300,384,480,552].map(x=>`<circle cx="${x}" cy="82" r="5" fill="#8c6a45"/>`).join('')}
+  <g transform="translate(44,128) scale(.9)">${PROPS.jackeRot()}</g><g transform="translate(118,128) scale(.9)">${PROPS.jacke()}</g><g transform="translate(300,128) scale(.9)">${PROPS.jackeGelb()}</g><g transform="translate(552,128) scale(.9)">${PROPS.jacke()}</g><g transform="translate(480,134) scale(.9)">${PROPS.jackeRot()}</g>
+  <rect x="0" y="262" width="${W}" height="68" fill="#b8805a"/><rect x="0" y="258" width="${W}" height="8" fill="#9a6644"/>`},
+ spiel:{top:'#f8e6c9',svg:()=>`<rect width="${W}" height="${H}" fill="#f8e6c9"/>
+  <path d="M0,22 Q150,44 300,22 T600,22" fill="none" stroke="#a98f6f" stroke-width="2.4"/>${Array.from({length:12},(_,i)=>{const x=24+i*50,y=22+Math.sin(i*.52)*9+ (i%2?6:0);return `<path d="M${x-9},${y} L${x+9},${y} L${x},${y+19}Z" fill="${['#d9574a','#e9b949','#4f9aa0','#8bb08a','#d97b9a'][i%5]}" stroke="${OUT}" stroke-width="1.4"/>`;}).join('')}
+  <rect x="14" y="84" width="150" height="118" rx="6" fill="#d8b185" stroke="#a9825a" stroke-width="3"/><path d="M14,143 H164" stroke="#a9825a" stroke-width="3"/>
+  <rect x="26" y="98" width="30" height="40" fill="#d9574a" stroke="${OUT}" stroke-width="1.6"/><rect x="62" y="108" width="26" height="30" fill="#4f9aa0" stroke="${OUT}" stroke-width="1.6"/><rect x="94" y="94" width="34" height="44" fill="#e9b949" stroke="${OUT}" stroke-width="1.6"/><rect x="34" y="156" width="40" height="40" rx="5" fill="#8bb08a" stroke="${OUT}" stroke-width="1.6"/><rect x="86" y="160" width="60" height="36" rx="4" fill="#5f86b3" stroke="${OUT}" stroke-width="1.6"/>
+  <ellipse cx="520" cy="230" rx="64" ry="38" fill="#d97b9a" stroke="${OUT}" stroke-width="2.4"/><ellipse cx="560" cy="204" rx="40" ry="30" fill="#4f9aa0" stroke="${OUT}" stroke-width="2.4"/>
+  <rect x="0" y="262" width="${W}" height="68" fill="#bcd7d0"/><rect x="0" y="258" width="${W}" height="8" fill="#98bdb4"/><path d="M30,296 H110 M150,306 H260 M310,296 H400 M450,306 H560" stroke="#fff" stroke-width="5" opacity=".6" stroke-linecap="round"/>`}
+};
+L.BGKEYS=Object.keys(BG);
+
+/* ---------- Szene zusammenbauen ---------- */
+const POS={1:[300],2:[160,440],3:[100,300,500]},SCL={1:1.18,2:1.08,3:.84};
+const VBH=236;
+function upperPt(R,p){ // Punkt p (Figurkoordinaten) durch die Oberkörper-Transformation
+ const sc=R.sc||1,lean=(R.lean||0)*Math.PI/180;
+ let x=p[0]-120,y=p[1]-L.VH;x*=sc;y*=sc;
+ const c=Math.cos(lean),s=Math.sin(lean);const rx=x*c-y*s,ry=x*s+y*c;
+ return [rx+120,ry+L.VH+(R.dy||0)];}
+L.scene=function(def){
+ const n=def.figs.length,xs=POS[n],s=SCL[n],fy=H-VBH*s;
+ const bg=BG[def.bg];if(!bg)throw new Error('Schauplatz fehlt: '+def.bg);
+ let out=bg.svg(),holds='',figs='';
+ def.figs.forEach((f,i)=>{
+  const cx=xs[i],dir=f.dir!==undefined?f.dir:(i<n-1?1:-1);
+  const R=L.rigFor(f.face,f.pose,{gaze:f.gaze,lean:f.lean,over:f.over});
+  const kid=L.CAST[f.k];
+  let svg=L.figure(kid,null,0,{rig:R,noBg:true,view:`0 24 240 ${VBH}`});
+  svg=svg.replace('<svg class="fig"',`<svg x="${r1(cx-120*s)}" y="${r1(fy)}" width="${r1(240*s)}" height="${r1(VBH*s)}" aria-hidden="true" class="fig"`).replace(/ role="[^"]*"/,'').replace(/ aria-label="[^"]*"/,'');
+  figs+=dir<0?`<g transform="translate(${cx},0) scale(-1,1) translate(${-cx},0)">${svg}</g>`:svg;
+  if(f.hold){const hp=f.hold.at||L.HOLD[f.pose];if(hp){const q=upperPt(R,hp);const px=cx+(q[0]-120)*s*(dir<0?-1:1)+(f.hold.dx||0),py=fy+(q[1]-24)*s+(f.hold.dy||0);holds+=prop(f.hold.prop,px,py,(f.hold.s||1)*s*1.05,f.hold.r||0);}}
+ });
+ out+=figs;
+ (def.front||[]).forEach(p=>{out+=prop(p.k,p.x,p.y,p.s||1,p.r||0);});
+ out+=holds;
+ (def.over||[]).forEach(p=>{out+=prop(p.k,p.x,p.y,p.s||1,p.r||0);});
+ if(def.table)out+=`<g><rect x="-6" y="${def.tableY||288}" width="${W+12}" height="${H}" fill="#d9b185" stroke="${OUT}" stroke-width="2.4"/><path d="M0,${(def.tableY||288)+14} H${W}" stroke="#c49a6a" stroke-width="2"/></g>`+(def.onTable||[]).map(p=>prop(p.k,p.x,p.y,p.s||1,p.r||0)).join('');
+ return {top:bg.top,svg:`<svg class="scn" viewBox="0 0 ${W} ${H}" role="img" aria-label="${(def.alt||'Szene').replace(/"/g,'&quot;')}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">${out}</svg>`,n};
+};
+})(GDLIB);
+
+/* ===== Fallpool Streit-Stopp: 60 Fälle in 4 Bereichen =====
+ roles: 'mf' = Rolle A männlich, B weiblich ('x' = egal). Platzhalter {A} {B} {C} = Namen der Rollen.
+ figs[i]: [Rolle, Mimik, Pose, Optionen]; bub: [Figur-Index, Text, Art]  (Art: say | shout | act | react)
+*/
+(function(G){
+const f=(r,face,pose,o)=>Object.assign({r,face,pose},o||{});
+const b=(i,t,k)=>({f:i,t,k:k||'say'});
+const C={check:[],regler:[],loesung:[],sag:[]};
+
+/* ---------------- STREIT-CHECK ---------------- */
+const K=(id,roles,bg,sit,figs,bub,stm,x)=>C.check.push(Object.assign({id,area:'check',roles,bg,sit,figs,bub,stm},x||{}));
+const know=(t,why)=>({t,know:1,why:why||'Das haben wir gesehen oder gehört.'});
+const guess=(t,why)=>({t,know:0,why:why||'Das ist eine Vermutung. Wir wissen es nicht sicher.'});
+
+K('c01','mf','hof','{A} läuft über den Schulhof und stößt {B} an.',
+ [f(0,'ueberrascht','seite',{gaze:'to',lean:3}),f(1,'wuetend','zeigen',{lean:-2})],
+ [b(1,'Du hast mich extra geschubst!','shout'),b(0,'Ich hab dich gar nicht gesehen!')],
+ [know('{B} wurde angestoßen.','Das ist passiert.'),know('{A} sagt, dass er {B} nicht gesehen hat.','{A} hat das gesagt.'),guess('{A} wollte {B} absichtlich ärgern.','Das vermutet {B}. Wir wissen es nicht.'),guess('Es war Absicht.','Ob es Absicht war, wissen wir noch nicht.')]);
+K('c02','mf','klasse','Der Radiergummi von {A} ist weg. {B} saß vorhin am Nachbartisch.',
+ [f(0,'aengstlich','zeigen',{gaze:'to'}),f(1,'ueberrascht','abwehr')],
+ [b(0,'{B} hat meinen Radiergummi geklaut!','shout')],
+ [know('Der Radiergummi von {A} ist nicht mehr da.'),know('{B} saß vorhin am Nachbartisch.'),guess('{B} hat den Radiergummi genommen.','Das vermutet {A}. Gesehen hat es niemand.'),guess('{B} wollte {A} ärgern.')],{front:[{k:'maeppchen',x:300,y:296,s:.8}]});
+K('c03','mf','flur','Die Jacke von {B} liegt auf dem Boden. {A} steht daneben.',
+ [f(0,'neutral','seite',{gaze:'down'}),f(1,'enttaeuscht','zeigenWeg')],
+ [b(0,'Ich war das nicht!')],
+ [know('Die Jacke liegt auf dem Boden.'),know('{A} sagt, dass er es nicht war.'),guess('{A} hat die Jacke runtergeworfen.','Das ist eine Vermutung. Sie kann auch runtergefallen sein.'),guess('Jemand hat die Jacke extra auf den Boden geworfen.')],{front:[{k:'jacke',x:300,y:300,s:.9,r:80}]});
+K('c04','mm','hof','Beim Fußball ruft {A}: „Foul!“ {B} sagt etwas anderes.',
+ [f(0,'wuetendMild','zeigen'),f(1,'ueberrascht','offen')],
+ [b(0,'Das war ein Foul!','shout'),b(1,'Quatsch, ich hab den Ball gespielt!')],
+ [know('{A} und {B} sehen die Situation unterschiedlich.'),know('{A} findet, dass es ein Foul war.'),guess('{B} hat {A} absichtlich getreten.','Das wissen wir nicht. Wir haben es nicht gesehen.'),guess('Es war wirklich ein Foul.','Zwei Kinder sehen es verschieden. Wir wissen es nicht sicher.')],{front:[{k:'ball',x:300,y:296,s:.9}]});
+K('c05','xx','tisch','{A} sitzt auf dem Platz von {B}. {B} guckt genervt.',
+ [f(0,'neutral','tisch',{gaze:'front'}),f(1,'genervt','verschraenkt')],
+ [],
+ [know('{A} sitzt auf {B}s Platz.'),know('{B} guckt genervt.','Das sehen wir im Gesicht.'),guess('{A} will {B} nerven.','Das wissen wir nicht. Vielleicht hat {A} es nicht gewusst.'),guess('{A} weiß, dass das {B}s Platz ist.')],{table:true,onTable:[{k:'heftOffen',x:150,y:312,s:.7},{k:'stifte',x:450,y:312,s:.6,r:-20}]});
+K('c06','xxm','hof','{A} und {B} lachen, als {C} vorbeigeht.',
+ [f(0,'lachen','zeigen',{gaze:'to'}),f(1,'lachen','seite',{gaze:'to',dir:-1}),f(2,'traurig','seite',{gaze:'down'})],
+ [b(0,'Hahaha!','shout')],
+ [know('{A} und {B} lachen.'),know('{C} geht mit gesenktem Kopf vorbei.'),guess('Sie lachen über {C}.','Das ist eine Vermutung. Sie können auch über etwas anderes lachen.'),guess('{C} ist jetzt traurig.','Wie {C} sich fühlt, wissen wir nicht sicher.')]);
+K('c07','mf','spiel','Der Turm aus Bausteinen ist umgefallen. {A} schaut {B} böse an.',
+ [f(0,'wuetendMild','zeigen',{gaze:'to'}),f(1,'ueberrascht','abwehr')],
+ [],
+ [know('Der Turm ist umgefallen.'),know('{A} schaut {B} böse an.'),guess('{B} hat den Turm umgeworfen.','Das wissen wir nicht. Gesehen haben wir es nicht.'),guess('Es war Absicht.')],{front:[{k:'bausteineKaputt',x:300,y:298,s:1}]});
+K('c08','ff','flur','{A} stellt sich beim Händewaschen vor {B}. {B} sagt, sie war zuerst da.',
+ [f(0,'neutral','seite'),f(1,'genervt','verschraenkt')],
+ [b(1,'Ich war zuerst da!','shout')],
+ [know('{A} steht jetzt vor {B}.'),know('{B} sagt, dass sie zuerst da war.','Das hat {B} gesagt.'),guess('{A} hat sich extra vorgedrängelt.'),guess('{B} war wirklich zuerst da.','Wir haben es nicht gesehen. Wir wissen nur, was {B} sagt.')].map(s=>s)); 
+K('c09','ff','hof','{A} hat ein Springseil in der Hand. {B} sagt, dass es ihr gehört.',
+ [f(0,'neutral','haelt',{hold:{prop:'rope',s:.8}}),f(1,'enttaeuscht','zeigen',{gaze:'to'})],
+ [b(1,'Das ist meins!','shout'),b(0,'Das lag da einfach!')],
+ [know('{A} hat ein Springseil in der Hand.'),know('{B} sagt, dass das Seil ihr gehört.'),guess('Das Seil gehört {B}.','Wir wissen es nicht. Wir wissen nur, was {B} sagt.'),guess('{A} hat das Seil weggenommen.')]);
+K('c10','fx','hof','{A} fragt {B}, ob sie zusammen spielen. {B} geht wortlos weiter.',
+ [f(0,'freundlich','offen'),f(1,'neutral','seite',{gaze:'away',dir:-1})],
+ [b(0,'Spielst du mit mir?')],
+ [know('{B} antwortet nicht.'),know('{B} geht weiter.'),guess('{B} will nicht mit {A} spielen.','Das ist eine Vermutung. Es gibt auch andere Gründe.'),guess('{B} hat {A} nicht gehört.','Das wissen wir nicht.')]);
+K('c11','xf','tisch','{A} schreibt allein. {B} schaut zu und beschwert sich.',
+ [f(0,'konzentriert','tisch',{gaze:'down'}),f(1,'enttaeuscht','tischZeigen',{gaze:'to'})],
+ [b(1,'Ich darf nie was machen!','shout')],
+ [know('{A} hält den Stift.'),know('{B} sagt, dass sie nie etwas machen darf.'),guess('{A} will {B} ausschließen.','Das wissen wir nicht. {A} konzentriert sich vielleicht nur.'),guess('{B} hat noch gar nichts geschrieben.','Das haben wir nicht gesehen.')],{table:true,onTable:[{k:'heftOffen',x:230,y:312,s:.8},{k:'stift',x:330,y:314,s:.6}]});
+K('c12','mf','hof','Der Ball trifft {B} am Rücken. {A} hat gerade geschossen.',
+ [f(0,'ueberrascht','seite',{gaze:'to'}),f(1,'aengstlich','abwehr',{gaze:'away'})],
+ [],
+ [know('{A} hat geschossen.'),know('Der Ball hat {B} am Rücken getroffen.'),guess('{A} hat auf {B} gezielt.','Das wissen wir nicht.'),guess('{B} hat starke Schmerzen.','Wie es {B} geht, wissen wir noch nicht. Wir können nachfragen.')],{front:[{k:'ball',x:350,y:296,s:.8}]});
+K('c13','xxf','klasse','{A} und {B} flüstern. Als {C} dazukommt, hören beide auf zu reden.',
+ [f(0,'neutral','seite',{gaze:'to'}),f(1,'neutral','seite',{gaze:'front'}),f(2,'unsicher','seite',{gaze:'to',dir:-1})],
+ [],
+ [know('{A} und {B} hören auf zu reden.'),know('{C} schaut die beiden an.'),guess('Sie haben über {C} geredet.','Das ist eine Vermutung. Sie können über etwas ganz anderes geredet haben.'),guess('Sie wollen {C} nicht dabeihaben.')]);
+K('c14','mx','hof','{A} sagt zu {B}: „Du bist schlecht im Fußball.“ {B} lacht.',
+ [f(0,'spott','zeigen',{gaze:'to'}),f(1,'verlegen','seite',{gaze:'down'})],
+ [b(0,'Du bist so schlecht im Fußball!','shout'),b(1,'Ha ha …','say')],
+ [know('{A} hat gesagt, dass {B} schlecht im Fußball ist.'),know('{B} lacht.'),guess('{B} findet den Spruch lustig.','Wer lacht, findet es nicht unbedingt lustig. Das wissen wir nicht.'),guess('Der Spruch tut {B} nicht weh.')],{front:[{k:'ball',x:300,y:296,s:.8}]});
+
+/* ---------------- STREIT-REGLER ---------------- */
+// lvl = Start (0 ruhig, 1 angespannt, 2 Streit, 3 eskaliert); out = up|down|var; why = Begründung; wiseVar = Zusatz bei „kann unterschiedlich sein“
+const R=(id,roles,bg,sit,figs,bub,react,lvl,out,why,x)=>C.regler.push(Object.assign({id,area:'regler',roles,bg,sit,figs,bub,react,lvl,out,why},x||{}));
+R('r01','mf','klasse','{A} nimmt {B}s Radiergummi, ohne zu fragen.',
+ [f(0,'neutral','haelt',{hold:{prop:'radierer'}}),f(1,'wuetend','zeigen',{gaze:'to'})],
+ [],{f:1,k:'shout',t:'Gib sofort her, du Blödmann!'},1,'up',
+ 'Du darfst sauer sein. Die Beleidigung könnte den Streit aber noch größer machen.');
+R('r02','mf','klasse','{A} nimmt {B}s Radiergummi, ohne zu fragen.',
+ [f(0,'neutral','haelt',{hold:{prop:'radierer'}}),f(1,'entschlossen','stopp',{gaze:'to'})],
+ [],{f:1,k:'say',t:'Stopp, der gehört mir. Gib ihn bitte zurück.'},1,'down',
+ 'Damit sagst du klar, was du möchtest, ohne zusätzlich anzugreifen.');
+R('r03','mm','hof','Das Fußballspiel ist aus. {A} hat mit seiner Mannschaft verloren.',
+ [f(0,'enttaeuscht','seite'),f(1,'spott','zeigen',{gaze:'to'})],
+ [],{f:1,k:'shout',t:'Ha ha, ihr Verlierer!'},1,'up',
+ 'Wer gerade verloren hat, ist oft schon enttäuscht. Spott kann das schnell größer machen.',{front:[{k:'ball',x:300,y:296,s:.9}]});
+R('r04','mm','hof','Das Fußballspiel ist aus. {A} hat mit seiner Mannschaft verloren.',
+ [f(0,'enttaeuscht','seite'),f(1,'freundlich','offen',{gaze:'to'})],
+ [],{f:1,k:'say',t:'Gutes Spiel! Wollen wir morgen nochmal?'},1,'down',
+ 'Das zeigt Respekt. Der Ärger kann dadurch kleiner werden.',{front:[{k:'ball',x:300,y:296,s:.9}]});
+R('r05','xx','flur','{A} drängelt sich beim Händewaschen vor.',
+ [f(0,'neutral','schieben',{gaze:'to'}),f(1,'wuetend','schieben',{gaze:'to'})],
+ [b(0,'Ich bin dran!','shout')],{f:1,k:'act',t:'{B} schubst {A} zurück.'},2,'up',
+ 'Schubsen verletzt und kann schnell eine Rauferei auslösen. Besser ist es, laut „Stopp“ zu sagen oder Hilfe zu holen.');
+R('r06','xx','flur','{A} drängelt sich beim Händewaschen vor.',
+ [f(0,'neutral','schieben',{gaze:'to'}),f(1,'entschlossen','stopp',{gaze:'to'})],
+ [b(0,'Ich bin dran!','shout')],{f:1,k:'say',t:'Ich war zuerst da. Stell dich bitte hinten an.'},2,'var',
+ 'Das ist klar und ohne Beleidigung gesagt. Ob {A} zuhört, wissen wir aber nicht. Manchmal klappt es sofort, manchmal braucht es noch Hilfe.');
+R('r07','xx','hof','{A} sagt etwas Gemeines zu {B}.',
+ [f(0,'spott','zeigen',{gaze:'to'}),f(1,'wuetend','zeigen',{gaze:'to'})],
+ [b(0,'Du bist so doof!','shout')],{f:1,k:'shout',t:'Selber doof!'},2,'up',
+ 'Beleidigung gegen Beleidigung macht den Streit meistens lauter und größer.');
+R('r08','xx','hof','{A} sagt etwas Gemeines zu {B}.',
+ [f(0,'spott','zeigen',{gaze:'to'}),f(1,'angespannt','seite',{gaze:'away',dir:-1})],
+ [b(0,'Du bist so doof!','shout')],{f:1,k:'act',t:'{B} atmet tief durch und geht ein paar Schritte weg.'},2,'down',
+ 'Abstand nehmen kann helfen, damit es ruhiger wird. Später könnt ihr darüber reden oder Hilfe holen.');
+R('r09','xx','klasse','{A} lacht über einen Fehler in {B}s Heft.',
+ [f(0,'lachen','zeigen',{gaze:'to'}),f(1,'verlegen','seite',{gaze:'down'})],
+ [b(0,'Haha, das ist falsch!','shout')],{f:1,k:'say',t:'Das finde ich nicht lustig. Hör bitte auf.'},1,'var',
+ 'Damit setzt du eine klare Grenze. Manche hören dann auf, andere machen weiter. Wenn es weitergeht, hol dir Unterstützung.',{front:[{k:'heftKritzel',x:300,y:296,s:.85}]});
+R('r10','xx','klasse','{A} unterbricht {B} schon wieder beim Erzählen.',
+ [f(0,'neutral','zeigen',{gaze:'to'}),f(1,'genervt','seite',{gaze:'to'})],
+ [b(0,'Und dann …! Und dann …!','shout')],{f:1,k:'shout',t:'LASS MICH AUSREDEN!'},1,'var',
+ 'Dass du sauer bist, ist verständlich. Laut zu werden kann helfen, aber auch alles noch lauter machen. Ruhig und klar klappt oft besser.');
+R('r11','xx','spiel','{A} und {B} streiten, wie das Spiel geht. Sie haben die Regel verschieden verstanden.',
+ [f(0,'wuetendMild','zeigen',{gaze:'to'}),f(1,'unsicher','offen',{gaze:'to'})],
+ [b(0,'Das geht aber so nicht!','shout')],{f:1,k:'say',t:'Ach so, ich habe das anders verstanden. Lass uns die Regel nochmal anschauen.'},1,'down',
+ 'Nachfragen und gemeinsam schauen beruhigt oft. Beide können die Regel nochmal lesen.',{front:[{k:'spiel',x:300,y:300,s:.8}]});
+R('r12','xx','tisch','{A} hat {B}s Stift aus Versehen abgebrochen.',
+ [f(0,'aengstlich','abwehr',{gaze:'to'}),f(1,'enttaeuscht','zeigen',{gaze:'to'})],
+ [b(1,'Mein Lieblingsstift!','shout')],{f:0,k:'say',t:'Das war ein Versehen. Tut mir leid! Kann ich helfen?'},2,'down',
+ 'Erklären, dass es ein Versehen war, und Hilfe anbieten kann den Ärger kleiner machen.',{table:true,onTable:[{k:'stiftKaputt',x:300,y:312,s:.9}]});
+R('r13','xx','tisch','{A} hat {B}s Stift aus Versehen abgebrochen.',
+ [f(0,'spott','zeigen',{gaze:'to'}),f(1,'enttaeuscht','zeigen',{gaze:'to'})],
+ [b(1,'Mein Lieblingsstift!','shout')],{f:0,k:'say',t:'Selbst schuld, warum liegt der da rum?'},2,'up',
+ 'Wer die Schuld auf den anderen schiebt, macht den Streit meistens größer.',{table:true,onTable:[{k:'stiftKaputt',x:300,y:312,s:.9}]});
+R('r14','xx','hof','{A} hat ein Springseil genommen. {B} will es zurückhaben.',
+ [f(0,'trotzig','haelt',{hold:{prop:'rope',s:.8}}),f(1,'wuetend','schieben',{gaze:'to'})],
+ [b(0,'Das ist jetzt meins!','shout')],{f:1,k:'act',t:'{B} zieht fest am Seil.'},2,'up',
+ 'Ziehen und Reißen kann schnell wehtun und den Streit körperlich machen. Besser sprechen oder Hilfe holen.');
+R('r15','xx','hof','{A} will {B} provozieren.',
+ [f(0,'spott','zeigen',{gaze:'to'}),f(1,'angespannt','faeuste',{gaze:'to'})],
+ [b(0,'Na los, schlag doch!','shout')],{f:1,k:'say',t:'Nein. Ich hole jetzt die Pausenaufsicht.'},2,'down',
+ 'Hilfe holen ist kein Petzen. Du lässt dich nicht provozieren und sorgst dafür, dass sich jemand kümmert.');
+R('r16','xx','tisch','{A} will bei der Partnerarbeit alles allein machen. {B} will auch etwas tun.',
+ [f(0,'konzentriert','tisch',{gaze:'down'}),f(1,'genervt','tischZeigen',{gaze:'to'})],
+ [b(1,'Ich will auch mal!','shout')],{f:1,k:'say',t:'Wir können abwechseln. Erst du, dann ich.'},1,'down',
+ 'Abwechseln ist ein Vorschlag, mit dem beide etwas bekommen. Das kann den Streit beruhigen.',{table:true,onTable:[{k:'heftOffen',x:300,y:312,s:.8}]});
+
+/* ---------------- LÖSUNGSFINDER ---------------- */
+// opts: [Text, Urteil, Erklärung]  Urteil: gut | auch | vorsicht | hilfe
+const S=(id,roles,bg,sit,figs,bub,opts,x)=>C.loesung.push(Object.assign({id,area:'loesung',roles,bg,sit,figs,bub,opts:opts.map(o=>({t:o[0],v:o[1],why:o[2]}))},x||{}));
+S('l01','mxx','hof','Mehrere Kinder spielen Fußball. {A} möchte mitspielen, aber die Mannschaften sind schon voll.',
+ [f(0,'unsicher','offen',{gaze:'to'}),f(1,'neutral','seite',{gaze:'front'}),f(2,'konzentriert','seite',{gaze:'front',dir:-1})],
+ [b(1,'Wir sind schon voll.')],
+ [['Kann ich bei der nächsten Runde mitspielen?','gut','Nachfragen zeigt, was du möchtest. Das kann gut klappen.'],
+  ['Dann suche ich mir erst mal etwas anderes zum Spielen.','gut','Auch das ist eine gute Möglichkeit. Du kannst später nochmal fragen.'],
+  ['Ihr lasst mich nie mitspielen!','vorsicht','Das klingt wie ein Vorwurf. Das könnte den Streit größer machen.'],
+  ['Ich laufe einfach mit und spiele mit, ohne zu fragen.','vorsicht','Dann kann Streit entstehen, weil die anderen sich übergangen fühlen.']],{front:[{k:'ball',x:290,y:300,s:.8}]});
+S('l02','xm','tisch','{B} hat {A}s Lineal ausgeliehen, ohne zu fragen.',
+ [f(0,'genervt','zeigen',{gaze:'to'}),f(1,'neutral','haelt',{hold:{prop:'lineal',s:.8,at:[166,200]}})],
+ [],
+ [['Ich sage: „Ich möchte, dass du vorher fragst.“','gut','Du sagst klar, was du dir wünschst.'],
+  ['Ich frage, ob er es noch braucht, und sage, wann ich es zurückhaben möchte.','gut','So wissen beide, wie es weitergeht.'],
+  ['Ich sage nichts, leihe ihm aber nie wieder etwas.','vorsicht','So bleibt der Ärger und er weiß nicht, warum.'],
+  ['Ich nehme mir später auch einfach etwas von ihm.','vorsicht','Das könnte den Streit größer machen.']],{table:true});
+S('l03','fm','tisch','{A} und {B} arbeiten zusammen. Jeder will nur seine eigene Idee machen.',
+ [f(0,'trotzig','verschraenkt',{gaze:'to'}),f(1,'genervt','verschraenkt',{gaze:'to'})],
+ [b(0,'Wir machen meine Idee!','shout'),b(1,'Nein, meine!','shout')],
+ [['Wir probieren erst deine Idee und dann meine.','gut','Abwechseln ist ein fairer Kompromiss.'],
+  ['Wir fragen die Lehrerin, wie wir uns einigen können.','gut','Eine Erwachsene kann helfen, wenn ihr nicht weiterkommt.'],
+  ['Wir nehmen von jeder Idee etwas.','gut','Auch das kann beide zufrieden machen.'],
+  ['Ich mache einfach allein weiter.','vorsicht','Dann arbeitet ihr nicht zusammen. Das kann den Streit größer machen.']],{table:true,onTable:[{k:'heftOffen',x:300,y:312,s:.8}]});
+S('l04','fm','klasse','{A} sitzt auf dem Platz von {B}.',
+ [f(0,'neutral','tisch',{gaze:'front'}),f(1,'genervt','verschraenkt',{gaze:'to'})],
+ [],
+ [['Das ist mein Platz. Kannst du bitte aufstehen?','gut','Freundlich und klar. Das kann direkt klappen.'],
+  ['Ich frage die Lehrerin, wer wo sitzen soll.','gut','Eine Erwachsene kann entscheiden, wenn ihr euch nicht einigt.'],
+  ['Ich setze mich heute woanders hin und sage morgen nochmal etwas.','auch','Das ist auch eine Möglichkeit, wenn dir der Platz heute nicht so wichtig ist.'],
+  ['Ich ziehe an ihrem Stuhl.','vorsicht','Ziehen kann wehtun und den Streit größer machen.']],{table:true});
+S('l05','mxx','spiel','Drei Kinder spielen Karten. {A} fragt, ob er mitspielen darf. {B} sagt: „Du nicht!“',
+ [f(0,'unsicher','offen',{gaze:'to'}),f(1,'spott','verschraenkt',{gaze:'to'}),f(2,'neutral','seite',{gaze:'front',dir:-1})],
+ [b(1,'Du darfst nicht mitspielen!','shout')],
+ [['Warum nicht? Was müsste ich tun, damit ich mitspielen darf?','gut','Nachfragen kann helfen, den Grund zu verstehen.'],
+  ['Ich suche mir andere Kinder zum Spielen.','auch','Das ist auch eine Möglichkeit, wenn es dir heute reicht.'],
+  ['Ich erzähle einer Lehrerin, dass die Gruppe mich ausschließt.','hilfe','Wenn dich jemand oft ausschließt, ist Hilfe holen sinnvoll.'],
+  ['Dann seid ihr eben alle gemein!','vorsicht','Das könnte den Streit größer machen.']],{front:[{k:'karten',x:300,y:300,s:.9}]});
+S('l06','mmm','hof','{A} wird jeden Tag von {B} und {C} geärgert. Sie machen blöde Sprüche. {A} hat schon oft „Stopp“ gesagt.',
+ [f(0,'traurig','seite',{gaze:'down'}),f(1,'spott','zeigen',{gaze:'to',dir:1}),f(2,'lachen','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Da kommt die Heulsuse!','shout'),b(2,'Haha!','shout')],
+ [['Ich sage klar „Stopp“ und hole mir Unterstützung von einem Erwachsenen.','hilfe','Wenn jemand immer wieder weitermacht, ist Hilfe holen richtig.'],
+  ['Ich erzähle es meiner Lehrerin oder einem Erwachsenen, dem ich vertraue.','hilfe','Hier musst du das nicht alleine lösen.'],
+  ['Ich halte es aus und sage nichts mehr.','vorsicht','Das lässt dich damit allein. Hier ist Hilfe sinnvoll.'],
+  ['Ich ärgere sie auch jeden Tag.','vorsicht','Das macht den Streit größer. Hilfe holen wäre besser.']],{needHelp:1});
+S('l07','mmx','hof','Beim Fußball tritt {B} {A} immer wieder gegen das Bein. {A} hat laut „Stopp!“ gesagt, aber {B} macht weiter.',
+ [f(0,'aengstlich','abwehr',{gaze:'to'}),f(1,'trotzig','zeigen',{gaze:'to',dir:-1})],
+ [b(0,'Stopp! Das tut weh!','shout')],
+ [['Ich gehe sofort zur Pausenaufsicht und erzähle, was passiert ist.','hilfe','Bei Tritten und Schmerzen ist Hilfe holen sinnvoll.'],
+  ['Ich gehe zu anderen Kindern und höre mit dem Spiel auf.','gut','Abstand nehmen ist in so einer Situation gut. Danach solltest du es trotzdem melden.'],
+  ['Ich trete zurück.','vorsicht','Dann wird es körperlich und es kann noch mehr wehtun.'],
+  ['Ich spiele weiter und sage nichts.','vorsicht','Hier musst du das nicht aushalten. Hol dir Unterstützung.']],{needHelp:1,front:[{k:'ball',x:300,y:300,s:.8}]});
+S('l08','xm','klasse','{A} hat schon zweimal „Stopp, hör auf!“ gesagt. {B} piekst trotzdem weiter mit dem Stift.',
+ [f(0,'genervt','stopp',{gaze:'to'}),f(1,'spott','zeigen',{gaze:'to',dir:-1})],
+ [b(0,'Stopp! Hör auf!','shout')],
+ [['Ich sage noch einmal laut „Stopp“ und gehe dann zur Lehrerin.','hilfe','Wenn „Stopp“ nicht hilft, ist Hilfe holen der nächste Schritt.'],
+  ['Ich setze mich woanders hin.','gut','Abstand kann helfen. Sage es der Lehrerin trotzdem.'],
+  ['Ich pieks zurück.','vorsicht','Das könnte den Streit größer machen.'],
+  ['Ich sage nichts mehr, vielleicht hört er irgendwann auf.','vorsicht','Wenn jemand deine Grenze nicht achtet, brauchst du Unterstützung.']],{needHelp:1});
+S('l09','xmm','hof','Zwei größere Kinder stellen sich vor {A} und sagen: „Gib uns dein Pausenbrot!“ {A} fühlt sich bedroht.',
+ [f(0,'aengstlich','abwehr',{gaze:'to'}),f(1,'spott','verschraenkt',{gaze:'to',dir:1}),f(2,'spott','verschraenkt',{gaze:'to',dir:-1})],
+ [b(1,'Gib her, sonst gibt’s Ärger!','shout')],
+ [['Ich sage laut „Nein!“ und gehe zu einem Erwachsenen.','hilfe','Du musst dein Brot nicht abgeben. Hilfe holen ist hier richtig.'],
+  ['Ich gehe schnell zu Kindern in der Nähe und bleibe bei ihnen.','gut','Nicht allein bleiben hilft. Sage danach einem Erwachsenen Bescheid.'],
+  ['Ich gebe das Brot her und sage niemandem etwas.','vorsicht','Dann geht es vielleicht morgen weiter. Hilfe holen ist wichtig.'],
+  ['Ich schlage zu.','vorsicht','Das könnte gefährlich werden. Hol dir Unterstützung.']],{needHelp:1});
+S('l10','xxf','tisch','In der Gruppenarbeit streiten {A}, {B} und {C}, wer was macht.',
+ [f(0,'genervt','offen',{gaze:'to'}),f(1,'trotzig','verschraenkt',{gaze:'front'}),f(2,'unsicher','seite',{gaze:'to',dir:-1})],
+ [b(0,'Ich will schreiben!','shout'),b(1,'Ich auch!','shout')],
+ [['Wir schreiben auf, wer was macht, und wechseln dann ab.','gut','Ein Plan hilft, dass jeder dran kommt.'],
+  ['Wir losen, wer anfängt.','gut','Losen ist oft fair.'],
+  ['Wir fragen die Lehrerin, ob sie uns hilft, uns zu einigen.','auch','Das ist auch möglich, wenn ihr nicht weiterkommt.'],
+  ['Wer am lautesten ist, darf entscheiden.','vorsicht','Das ist nicht fair und macht den Streit meistens größer.']],{table:true,onTable:[{k:'blatt',x:300,y:316,s:.7}]});
+S('l11','mf','tisch','{B} hat {A}s Mäppchen runtergeworfen. Alle Stifte liegen auf dem Boden. Es war ein Versehen.',
+ [f(0,'wuetendMild','zeigen',{gaze:'to'}),f(1,'aengstlich','abwehr',{gaze:'to'})],
+ [b(1,'Oh nein, das wollte ich nicht!')],
+ [['Ich sage: „Das ärgert mich. Hilfst du mir beim Aufheben?“','gut','Du sagst, wie es dir geht, und was du brauchst.'],
+  ['Ich hebe die Stifte selbst auf und sage: „Pass nächstes Mal bitte auf.“','auch','Auch das kann den Streit beenden.'],
+  ['Ich werfe ihr Mäppchen auch runter.','vorsicht','Das könnte den Streit größer machen.'],
+  ['Ich sage: „Du machst immer alles kaputt!“','vorsicht','Wenn du „immer“ sagst, fühlt sich der andere angegriffen.']],{front:[{k:'stifte',x:300,y:300,s:.9,r:20}]});
+S('l12','mxx','spiel','{A} hat beim Spiel verloren und ist sehr wütend.',
+ [f(0,'wuetend','faeuste'),f(1,'freundlich','seite',{gaze:'to',dir:-1})],
+ [b(1,'Ich habe gewonnen!')],
+ [['Ich gehe kurz weg, bis ich ruhiger bin.','gut','Abstand kann helfen, wenn man sehr wütend ist.'],
+  ['Ich sage: „Ich bin gerade sauer. Spielen wir nochmal?“','gut','Du sagst ehrlich, wie es dir geht, und schlägst etwas vor.'],
+  ['Ich sage: „Du hast geschummelt!“, obwohl ich es nicht sicher weiß.','vorsicht','Das ist eine Vermutung. Der andere fühlt sich schnell angegriffen.'],
+  ['Ich schmeiße das Spiel um.','vorsicht','Dann geht etwas kaputt und der Streit wird größer.']],{front:[{k:'spiel',x:300,y:300,s:.8}]});
+S('l13','mm','hof','{A} und {B} streiten beim Fußball über die Regeln. Jeder sagt etwas anderes.',
+ [f(0,'wuetendMild','zeigen',{gaze:'to'}),f(1,'trotzig','zeigen',{gaze:'to',dir:-1})],
+ [b(0,'So geht das!','shout'),b(1,'Nein, so!','shout')],
+ [['Wir einigen uns vorher auf eine Regel.','gut','Wenn alle dieselbe Regel kennen, gibt es weniger Streit.'],
+  ['Wir fragen die Lehrerin oder die Pausenaufsicht.','gut','Eine Erwachsene kann entscheiden, wenn ihr nicht weiterkommt.'],
+  ['Das Kind mit dem Ball bestimmt.','vorsicht','Das ist für die anderen nicht fair. Das könnte den Streit größer machen.'],
+  ['Wir probieren erst die Regel von {A}, dann die von {B}.','auch','Das kann ein Kompromiss sein.']],{front:[{k:'ball',x:300,y:300,s:.8}]});
+S('l14','mf','hof','{A} ist {B} im Vorbeilaufen in den Rücken gerannt. {B} ist hingefallen.',
+ [f(0,'aengstlich','offen',{gaze:'to'}),f(1,'enttaeuscht','abwehr',{gaze:'to',dir:-1})],
+ [],
+ [['Ich frage, ob alles okay ist.','gut','Nachfragen zeigt, dass es dir wichtig ist.'],
+  ['Ich sage: „Das war keine Absicht. Tut mir leid.“','gut','Das hilft, wenn es wirklich ein Versehen war.'],
+  ['Ich renne weg, damit ich keinen Ärger bekomme.','vorsicht','Dann denkt {B} vielleicht, es war Absicht. Das kann den Streit größer machen.'],
+  ['Ich sage: „Selber schuld, warum stehst du da?“','vorsicht','Das könnte den Streit größer machen.']]);
+S('l15','mmm','hof','{B} und {C} lachen {A} aus. {A} geht weg und ist traurig. Du hast es gesehen.',
+ [f(0,'traurig','seite',{gaze:'down'}),f(1,'lachen','zeigen',{gaze:'to',dir:1}),f(2,'lachen','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Haha, wie peinlich!','shout')],
+ [['Ich gehe zu {A} und frage, ob alles okay ist.','gut','Zu zeigen, dass jemand zu ihm hält, kann viel helfen.'],
+  ['Ich sage: „Hört auf, das ist nicht lustig.“','gut','Das setzt eine klare Grenze. Das ist mutig.'],
+  ['Ich hole eine Lehrerin.','hilfe','Wenn sich ein Kind nicht allein wehren kann, ist Hilfe holen richtig.'],
+  ['Ich lache mit, damit sie mich nicht auch auslachen.','vorsicht','Das macht es für {A} noch schlimmer.']],{roleD:1});
+S('l16','mm','hof','{A} und {B} schubsen sich heftig. Du siehst es und bist erschrocken.',
+ [f(0,'wuetend','schieben',{gaze:'to'}),f(1,'wuetend','schieben',{gaze:'to',dir:-1})],
+ [b(0,'Lass das!','shout'),b(1,'Du fängst an!','shout')],
+ [['Ich rufe laut „Stopp!“ und hole sofort eine Lehrerin.','hilfe','Wenn es körperlich wird, ist Hilfe holen richtig.'],
+  ['Ich laufe zur Pausenaufsicht und sage, dass zwei Kinder sich schubsen.','hilfe','Das ist sinnvoll. Du musst nicht dazwischen gehen.'],
+  ['Ich gehe dazwischen und ziehe die beiden auseinander.','vorsicht','Dabei kannst du dich selbst verletzen. Erwachsene helfen besser.'],
+  ['Ich stehe daneben und feuere an.','vorsicht','Das macht den Streit größer. Besser: Hilfe holen.']],{needHelp:1});
+
+/* ---------------- SAG'S ANDERS ---------------- */
+// who: Figur-Index, die den neuen Satz sagt; opts: [Text, Urteil, Erklärung]  Urteil: gut | auch | vorsicht
+const Z=(id,roles,bg,sit,figs,bub,who,opts,x)=>C.sag.push(Object.assign({id,area:'sag',roles,bg,sit,figs,bub,who,opts:opts.map(o=>({t:o[0],v:o[1],why:o[2]}))},x||{}));
+Z('s01','xx','hof','{A} will in Ruhe sein. {B} nervt weiter.',
+ [f(0,'genervt','stopp',{gaze:'to'}),f(1,'neutral','zeigen',{gaze:'to',dir:-1})],
+ [b(0,'HAU AB!','shout')],0,
+ [['Ich möchte gerade meine Ruhe.','gut','Damit sagst du klar, was du brauchst.'],
+  ['Lass mich kurz allein, bitte.','gut','Freundlich und klar.'],
+  ['Ich geh jetzt woanders hin.','auch','Das ist auch eine Möglichkeit. Du nimmst Abstand.'],
+  ['Ich schubse dich weg.','vorsicht','Schubsen kann wehtun und den Streit größer machen.']]);
+Z('s02','xx','klasse','{B} reißt {A} den Stift aus der Hand.',
+ [f(0,'enttaeuscht','stopp',{gaze:'to'}),f(1,'trotzig','haelt',{gaze:'to',dir:-1,hold:{prop:'stift',s:.7}})],
+ [b(1,'Gib das her!','shout')],0,
+ [['Stopp. Der gehört mir. Gib ihn bitte zurück.','gut','Klar und ohne zu beleidigen.'],
+  ['Ich brauche ihn gerade. Du bekommst ihn gleich.','gut','Du sagst, was du brauchst, und schlägst etwas vor.'],
+  ['Du bist ein Dieb!','vorsicht','Wer „Dieb“ sagt, greift an. Das könnte den Streit größer machen.'],
+  ['Hol ihn dir doch!','vorsicht','Das lädt zum Streiten ein.']]);
+Z('s03','xx','spiel','Beim Spiel sagt {B}: „Du schummelst immer!“',
+ [f(0,'unsicher','offen',{gaze:'to'}),f(1,'wuetendMild','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Du schummelst immer!','shout')],0,
+ [['Ich habe nicht geschummelt. Wir können nochmal in die Regel schauen.','gut','Du sagst, wie du es siehst, und schlägst etwas vor.'],
+  ['Das finde ich nicht fair, dass du „immer“ sagst.','auch','Das ist klar. Aber vielleicht hilft ein Vorschlag mehr.'],
+  ['Du schummelst ja selber!','vorsicht','Das könnte den Streit größer machen.'],
+  ['Dann spiel ich nicht mehr mit dir!','vorsicht','Das beendet das Spiel, aber nicht den Streit.']],{front:[{k:'spiel',x:300,y:300,s:.8}]});
+Z('s04','xx','tisch','{B} tippt {A} die ganze Zeit an die Schulter. {B} ruft: „Du nervst!“',
+ [f(0,'genervt','offen',{gaze:'to'}),f(1,'trotzig','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Du nervst!','shout')],0,
+ [['Mich stört, wenn du mich dauernd antippst. Hör bitte auf.','gut','Du sagst, was dich stört und was du möchtest.'],
+  ['Ich möchte jetzt in Ruhe arbeiten.','gut','Klar und ruhig.'],
+  ['Dann geh doch weg!','auch','Das sagt eine Grenze, ist aber ziemlich scharf.'],
+  ['Du nervst viel mehr!','vorsicht','Das könnte den Streit größer machen.']],{table:true});
+Z('s05','xx','spiel','{A} und {B} wollen beide dasselbe Spiel. {B} ruft: „Das ist MEINS!“',
+ [f(0,'trotzig','haelt',{gaze:'to',hold:{prop:'spiel',s:.45,at:[120,206]},pose:'haeltBeide'}),f(1,'wuetend','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Das ist MEINS!','shout')],0,
+ [['Ich hatte es zuerst. Wir können abwechseln.','gut','Du sagst, was stimmt, und machst einen Vorschlag.'],
+  ['Ich möchte es nur kurz haben. Danach bekommst du es.','gut','Ein klarer Vorschlag.'],
+  ['Es liegt hier, also gehört es allen!','auch','Das ist eine Meinung, aber ein Vorschlag wäre klarer.'],
+  ['Dann behalte ich es erst recht!','vorsicht','Das könnte den Streit größer machen.']]);
+Z('s06','xx','hof','{B} ist sauer und sagt: „Mit dir spiele ich nie wieder!“',
+ [f(0,'traurig','seite',{gaze:'to'}),f(1,'wuetend','verschraenkt',{gaze:'away',dir:-1})],
+ [b(1,'Mit dir spiele ich nie wieder!','shout')],0,
+ [['Das macht mich traurig. Können wir kurz reden?','gut','Du sagst, wie es dir geht, und bietest ein Gespräch an.'],
+  ['Okay, vielleicht später.','auch','Du lässt etwas Abstand. Auch das kann gut sein.'],
+  ['Dann spiel ich auch nie wieder mit dir!','vorsicht','Das könnte den Streit größer machen.'],
+  ['Dann sag ich es der ganzen Klasse!','vorsicht','Damit machst du den Streit öffentlich und größer.']]);
+Z('s07','xx','klasse','{B} ruft: „Halt die Klappe!“ {A} wollte noch etwas sagen.',
+ [f(0,'verlegen','seite',{gaze:'to'}),f(1,'wuetend','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Halt die Klappe!','shout')],0,
+ [['Lass mich bitte ausreden.','gut','Kurz, klar und höflich.'],
+  ['Ich möchte das nur kurz sagen. Dann bist du dran.','gut','Du bietest an, dass auch der andere sprechen kann.'],
+  ['Halt selber die Klappe!','vorsicht','Das könnte den Streit größer machen.'],
+  ['Ich sage gar nichts mehr.','auch','Das kann manchmal sinnvoll sein. Aber was du sagen wolltest, bleibt ungesagt.']]);
+Z('s08','xx','hof','{B} sagt: „Du hast das extra gemacht!“ Für {A} war es ein Versehen.',
+ [f(0,'aengstlich','offen',{gaze:'to'}),f(1,'wuetend','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Du hast das extra gemacht!','shout')],0,
+ [['Das war keine Absicht. Tut mir leid. Ist alles okay?','gut','Du erklärst es und fragst nach.'],
+  ['Ich habe es nicht extra gemacht. Du kannst mich gern fragen.','gut','Du sagst, was stimmt, und lädst zum Reden ein.'],
+  ['Doch, extra!','vorsicht','Wenn es nicht stimmt, macht es den Streit größer.'],
+  ['Du spinnst doch!','vorsicht','Das könnte den Streit größer machen.']]);
+Z('s09','xx','hof','{B} lacht und sagt zu {A}: „Du bist so doof!“',
+ [f(0,'verlegen','seite',{gaze:'to'}),f(1,'spott','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Du bist so doof!','shout')],0,
+ [['Ich finde das nicht lustig. Hör bitte auf.','gut','Du sagst klar, was du nicht willst.'],
+  ['Das hat wehgetan. Bitte sag das nicht mehr.','gut','Du sagst, wie es bei dir ankommt.'],
+  ['Du bist doofer!','vorsicht','Das könnte den Streit größer machen.'],
+  ['Ich sag es der Lehrerin, wenn du nicht aufhörst.','auch','Das kann auch helfen. Hilfe holen ist kein Petzen.']]);
+Z('s10','xx','flur','{B} drängelt und ruft: „Weg da, ich bin dran!“',
+ [f(0,'genervt','stopp',{gaze:'to'}),f(1,'trotzig','schieben',{gaze:'to',dir:-1})],
+ [b(1,'Weg da, ich bin dran!','shout')],0,
+ [['Ich war zuerst da. Stell dich bitte hinten an.','gut','Klar und ruhig.'],
+  ['Wir können abwechseln. Erst ich, dann du.','gut','Ein Vorschlag, mit dem beide etwas bekommen.'],
+  ['Hör auf zu drängeln, sonst schubs ich dich.','vorsicht','Drohen kann den Streit größer machen.'],
+  ['Ich gehe lieber ganz hinten hin.','auch','Auch das ist eine Möglichkeit, wenn es dir heute nicht wichtig ist.']]);
+Z('s11','xxx','hof','{B} sagt zu {A}: „Du darfst nicht mitspielen!“',
+ [f(0,'unsicher','offen',{gaze:'to'}),f(1,'spott','verschraenkt',{gaze:'to',dir:-1})],
+ [b(1,'Du darfst nicht mitspielen!','shout')],0,
+ [['Ich möchte gern mitspielen. Was könnte ich machen?','gut','Du sagst, was du willst, und fragst nach.'],
+  ['Okay. Fragst du mich nachher nochmal?','auch','Du bleibst ruhig. Das kann gut sein.'],
+  ['Dann seid ihr alle doof!','vorsicht','Das könnte den Streit größer machen.'],
+  ['Ich hole die Lehrerin.','auch','Das kann sinnvoll sein, wenn dich die Kinder oft ausschließen.']]);
+Z('s12','xx','hof','{B} kitzelt {A} immer weiter, obwohl {A} „Nein“ gesagt hat.',
+ [f(0,'angespannt','stopp',{gaze:'to'}),f(1,'lachen','schieben',{gaze:'to',dir:-1})],
+ [b(0,'Nein!','shout')],0,
+ [['Stopp. Ich will das nicht. Wenn du nicht aufhörst, hole ich Hilfe.','gut','Du sagst klar „Stopp“ und sagst, was du als Nächstes tust.'],
+  ['Hör bitte sofort auf. Mein Nein gilt.','gut','Deutlich. Du darfst Nein sagen.'],
+  ['Ach, mach ruhig weiter …','vorsicht','Wenn du es nicht willst, ist es wichtig, das klar zu sagen.'],
+  ['Ich lache einfach mit.','vorsicht','Dann merkt der andere nicht, dass du es nicht willst.']]);
+Z('s13','xx','klasse','{B} lacht {A} aus, weil {A} etwas noch nicht kann.',
+ [f(0,'verlegen','seite',{gaze:'to'}),f(1,'lachen','zeigen',{gaze:'to',dir:-1})],
+ [b(1,'Hahaha, das kannst du nicht!','shout')],0,
+ [['Das finde ich nicht lustig. Ich übe das noch.','gut','Du setzt eine Grenze und sagst, wie es weitergeht.'],
+  ['Ich kann es noch nicht, aber ich lerne es.','auch','Das ist stark. Du darfst Fehler machen.'],
+  ['Wenn du lachst, hau ich dich!','vorsicht','Drohen kann den Streit größer machen.'],
+  ['Du kannst das auch nicht!','vorsicht','Das könnte den Streit größer machen.']]);
+Z('s14','xx','hof','{A} hat schon dreimal „Stopp“ gesagt, aber {B} macht trotzdem weiter.',
+ [f(0,'entschlossen','stoppBeide',{gaze:'to'}),f(1,'spott','zeigen',{gaze:'to',dir:-1})],
+ [b(0,'Stopp!','shout')],0,
+ [['Ich habe dreimal Stopp gesagt. Ich hole jetzt Hilfe.','gut','Wenn Stopp nicht hilft, ist Hilfe holen der nächste Schritt.'],
+  ['Stopp! Ich sage es jetzt der Lehrerin.','gut','Klar und ohne Drohung. Hilfe holen ist kein Petzen.'],
+  ['Dann sag ich es eben nie wieder.','vorsicht','Dann bleibst du damit allein. Hol dir Unterstützung.'],
+  ['Dann hau ich dich jetzt auch!','vorsicht','Das könnte gefährlich werden. Besser: Hilfe holen.']]);
+
+/* Klare Aussagen: Vermutungen enthalten Signalwörter (bestimmt, vielleicht, wahrscheinlich) */
+const _S={"c01": [["{B} wurde angestoßen.", "{A} sagt: „Ich habe dich nicht gesehen.“"], ["{A} hat {B} bestimmt extra geschubst.", "{A} wollte {B} vielleicht ärgern."]], "c02": [["Der Radiergummi von {A} ist weg.", "{B} saß vorhin am Nachbartisch."], ["{B} hat den Radiergummi bestimmt genommen.", "{B} wollte {A} vielleicht ärgern."]], "c03": [["Die Jacke liegt auf dem Boden.", "{A} sagt: „Ich war das nicht.“"], ["{A} hat die Jacke bestimmt runtergeworfen.", "Jemand hat die Jacke vielleicht extra runtergeworfen."]], "c04": [["{A} ruft: „Foul!“", "{B} sagt: „Ich habe den Ball gespielt.“"], ["{B} hat {A} bestimmt mit Absicht getreten.", "Es war wahrscheinlich wirklich ein Foul."]], "c05": [["{A} sitzt auf {B}s Platz.", "{B} guckt genervt."], ["{A} will {B} bestimmt nerven.", "{A} wusste vielleicht nicht, dass das {B}s Platz ist."]], "c06": [["{A} und {B} lachen.", "{C} geht mit gesenktem Kopf vorbei."], ["{A} und {B} lachen bestimmt über {C}.", "{C} ist vielleicht traurig."]], "c07": [["Der Turm ist umgefallen.", "{A} schaut {B} böse an."], ["{B} hat den Turm bestimmt umgeworfen.", "{B} hat es vielleicht extra gemacht."]], "c08": [["{A} steht jetzt vor {B}.", "{B} sagt: „Ich war zuerst da.“"], ["{A} hat sich bestimmt extra vorgedrängelt.", "{B} war vielleicht wirklich zuerst da."]], "c09": [["{A} hat ein Springseil in der Hand.", "{B} sagt: „Das ist meins.“"], ["Das Seil gehört vielleicht {B}.", "{A} hat das Seil bestimmt weggenommen."]], "c10": [["{B} antwortet nicht.", "{B} geht weiter."], ["{B} will bestimmt nicht mit {A} spielen.", "{B} hat {A} vielleicht nicht gehört."]], "c11": [["{A} hält den Stift.", "{B} sagt: „Ich darf nie was machen.“"], ["{A} will {B} bestimmt ausschließen.", "{B} hat vielleicht noch gar nichts geschrieben."]], "c12": [["{A} hat geschossen.", "Der Ball hat {B} am Rücken getroffen."], ["{A} hat bestimmt auf {B} gezielt.", "{B} hat vielleicht starke Schmerzen."]], "c13": [["{A} und {B} hören auf zu reden.", "{C} schaut die beiden an."], ["{A} und {B} haben bestimmt über {C} geredet.", "Sie wollen {C} vielleicht nicht dabeihaben."]], "c14": [["{A} sagt: „Du bist schlecht im Fußball.“", "{B} lacht."], ["{B} findet den Spruch bestimmt lustig.", "Der Spruch tut {B} vielleicht nicht weh."]]};
+C.check.forEach(c=>{const s=_S[c.id];c.stm=[...s[0].map(t=>({t,know:1})),...s[1].map(t=>({t,know:0}))];});
+const _A={"c01": [1, "War das Absicht oder ein Versehen?", "Du hast mich extra geschubst!"], "c02": [0, "Hast du meinen Radiergummi gesehen?", "Du hast meinen Radiergummi geklaut!"], "c03": [1, "Weißt du, wie meine Jacke auf den Boden gekommen ist?", "Du hast meine Jacke runtergeworfen!"], "c04": [0, "Wie hast du den Ball erwischt? Erzähl mal.", "Du hast mich extra getreten!"], "c05": [1, "Ist das dein Platz? Ich sitze hier sonst.", "Du willst mich nur ärgern!"], "c06": [2, "Worüber lacht ihr?", "Ihr lacht mich aus!"], "c07": [0, "Ist der Turm aus Versehen umgefallen?", "Du hast meinen Turm kaputt gemacht!"], "c08": [1, "Hast du mich nicht gesehen? Ich war zuerst da.", "Du drängelst dich extra vor!"], "c09": [1, "Wo hast du das Seil gefunden? Ich glaube, es ist meins.", "Du hast mein Seil geklaut!"], "c10": [0, "Hast du mich gehört? Magst du mitspielen?", "Du magst mich nicht!"], "c11": [1, "Darf ich auch mal schreiben?", "Du lässt mich nie etwas machen!"], "c12": [1, "War das ein Versehen? Hast du mich gesehen?", "Du hast mich mit Absicht getroffen!"], "c13": [2, "Worüber redet ihr? Darf ich mitreden?", "Ihr redet über mich!"], "c14": [0, "Ich habe das gesagt. Ist das für dich okay?", "Du lachst ja, also ist alles gut!"]};
+C.check.forEach(c=>{const a=_A[c.id];c.next={who:a[0],ask:a[1],acc:a[2]};});
+G.CASES=C;
+})(window.STREIT=window.STREIT||{});
+
+/* ===== Streit-Stopp – Spiellogik ===== */
+(function(){
+'use strict';
+const L=GDLIB,CAST=L.CAST,CASES=window.STREIT.CASES;
+const $=s=>document.querySelector(s);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const ROUND=8;
+const AREAS={
+ check:{key:'check',name:'STREIT-CHECK',desc:'Was wissen wir wirklich?',step:'schau',demo:'c01',q:'Was wissen wir? Was vermuten wir? Was tun wir jetzt?'},
+ regler:{key:'regler',name:'STREIT-REGLER',desc:'Was macht den Streit größer oder kleiner?',step:'stopp',demo:'r04',q:'Was macht diese Reaktion mit dem Streit?'},
+ loesung:{key:'loesung',name:'LÖSUNGSFINDER',desc:'Was könnte jetzt helfen?',step:'loesung',demo:'l03',q:'Was könnte jetzt helfen? Du kannst mehrere Wege wählen.'},
+ sag:{key:'sag',name:'SAG’S ANDERS',desc:'Klar sagen, was du meinst.',step:'sag',demo:'s09',q:'Wie könntest du das klar sagen, ohne den Streit größer zu machen?'}
+};
+const ORDER=['check','regler','loesung','sag'];
+const S={sound:true,area:null,tasks:[],i:0,done:0,seen:{check:[],regler:[],loesung:[],sag:[]},lastA:[],cur:null,locked:false};
+
+/* ---------- Icons ---------- */
+const svgI=(p,vb='0 0 24 24',cls='ico')=>`<svg class="${cls}" viewBox="${vb}" aria-hidden="true" focusable="false">${p}</svg>`;
+const O='#5a4033';
+const ICO={
+ spk:svgI('<path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'),
+ mute:svgI('<path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'),
+ home:svgI('<path d="M3 11l9-8 9 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v10h13V10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>'),
+ info:svgI('<circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 11v6" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="7.3" r="1.6" fill="currentColor"/>'),
+ next:svgI('<path d="M5 12h13M12 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'),
+ play:svgI('<path d="M8 5v14l11-7z" fill="currentColor"/>'),
+ redo:svgI('<path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>'),
+ grid:svgI('<rect x="3.5" y="3.5" width="7" height="7" rx="2" fill="currentColor"/><rect x="13.5" y="3.5" width="7" height="7" rx="2" fill="currentColor"/><rect x="3.5" y="13.5" width="7" height="7" rx="2" fill="currentColor"/><rect x="13.5" y="13.5" width="7" height="7" rx="2" fill="currentColor"/>')
+};
+/* Marker */
+const MK={
+ gut:svgI('<circle cx="12" cy="12" r="10" fill="#3f7f55"/><path d="M6.5 12.5l4 4 7-8.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>','0 0 24 24','mk'),
+ auch:svgI('<circle cx="12" cy="12" r="10" fill="#2f6a72"/><path d="M7 12h10M12 7v10" stroke="#fff" stroke-width="3" stroke-linecap="round"/>','0 0 24 24','mk'),
+ hilfe:svgI('<circle cx="12" cy="12" r="10" fill="#3d6fa3"/><path d="M8 17v-6a1.2 1.2 0 012.4 0v-3a1.2 1.2 0 012.4 0v3-1.4a1.2 1.2 0 012.4 0V17a3 3 0 01-3 3h-1.2A3 3 0 018 17z" fill="#fff"/>','0 0 24 24','mk'),
+ vorsicht:svgI('<circle cx="12" cy="12" r="10" fill="#c9764a"/><path d="M12 6l5 6h-3.2v6h-3.6v-6H7z" fill="#fff"/>','0 0 24 24','mk'),
+ umleg:svgI('<circle cx="12" cy="12" r="10" fill="#e9b949" stroke="#a77a10" stroke-width="1.5"/><path d="M12 11v6" stroke="#3d2f28" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="7.3" r="1.6" fill="#3d2f28"/>','0 0 24 24','mk'),
+ weiss:svgI('<circle cx="12" cy="12" r="10" fill="#3f7f55"/><path d="M6.5 12.5l4 4 7-8.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>','0 0 24 24','mk')
+};
+const MKLAB={gut:'Das könnte funktionieren.',auch:'Auch das wäre eine Möglichkeit.',hilfe:'Hier wäre es sinnvoll, Unterstützung zu holen.',vorsicht:'Das könnte den Streit noch größer machen.'};
+/* Streit-Stopp Schritte */
+const STEPICO={
+ stopp:`<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M13 3h14l10 10v14L27 37H13L3 27V13z" fill="#c9553f" stroke="${O}" stroke-width="2.4" stroke-linejoin="round"/><path d="M14 22v-8a1.8 1.8 0 013.6 0v-3a1.8 1.8 0 013.6 0v3-1.2a1.8 1.8 0 013.6 0V22l1.2-2.4a1.8 1.8 0 013.1 1.6L26 28a6 6 0 01-5 3h-1.5a6 6 0 01-5.4-3.4z" fill="#fff" stroke="${O}" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+ schau:`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#dcecec" stroke="${O}" stroke-width="2.4"/><path d="M5.5 20C10 12 15 9.5 20 9.5S30 12 34.5 20C30 28 25 30.5 20 30.5S10 28 5.5 20z" fill="#fff" stroke="${O}" stroke-width="2.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="6.2" fill="#2f6a72" stroke="${O}" stroke-width="1.8"/><circle cx="22" cy="18" r="2" fill="#fff"/></svg>`,
+ sag:`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#efe0ee" stroke="${O}" stroke-width="2.4"/><path d="M9 11h22a3 3 0 013 3v10a3 3 0 01-3 3H20l-7 6v-6H9a3 3 0 01-3-3V14a3 3 0 013-3z" fill="#fff" stroke="${O}" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 17.5h16M12 22h10" stroke="#7c4a77" stroke-width="2.4" stroke-linecap="round"/></svg>`,
+ loesung:`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#dcefdf" stroke="${O}" stroke-width="2.4"/><path d="M19 8h3v26h-3z" fill="#c79a68" stroke="${O}" stroke-width="1.8"/><path d="M10 10h16l4 3.5-4 3.5H10z" fill="#e9b949" stroke="${O}" stroke-width="2" stroke-linejoin="round"/><path d="M30 20H14l-4 3.5 4 3.5h16z" fill="#fff" stroke="${O}" stroke-width="2" stroke-linejoin="round"/></svg>`
+};
+const STEPS=[['stopp','STOPP','Nicht sofort weiter reagieren.'],['schau','SCHAU','Was ist passiert? Was weiß ich, was vermute ich?'],['sag','SAG','Was stört mich? Was brauche ich? Wo ist meine Grenze?'],['loesung','LÖSUNG','Was könnte jetzt helfen?']];
+const stepBar=(on,full)=>`<div class="steps" role="list" aria-label="Streit-Stopp: Stopp, Schau, Sag, Lösung">`+STEPS.map(s=>`<div class="step${on===s[0]?' on':''}" role="listitem">${STEPICO[s[0]]}<span class="lbl">${s[1]}${full?`<small>${s[2]}</small>`:''}</span></div>`).join('')+`</div>`;
+const SG=svgI('<path d="M5 3h3v18H5z" fill="currentColor"/><path d="M9 5h11l-2.5 3L20 11H9z" fill="currentColor" opacity=".85"/>','0 0 24 24','sg');
+
+/* ---------- Sprache ---------- */
+const SP={ok:false,voice:null};
+try{SP.ok='speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';}catch(e){}
+function pickVoice(){try{const vs=speechSynthesis.getVoices();SP.voice=vs.find(v=>/^de[-_]DE/i.test(v.lang))||vs.find(v=>/^de/i.test(v.lang))||null;}catch(e){}}
+if(SP.ok){pickVoice();try{speechSynthesis.addEventListener('voiceschanged',pickVoice);}catch(e){}}
+else document.body.classList.add('nospeech');
+function stopSay(){if(SP.ok){try{speechSynthesis.cancel();}catch(e){}}}
+function say(t){if(!SP.ok||!S.sound||!t)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';if(SP.voice)u.voice=SP.voice;u.rate=.9;u.pitch=1.05;speechSynthesis.speak(u);}catch(e){}}
+const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const spk=(txt,mini)=>`<button type="button" class="spk${mini?' mini':''}" data-say="${esc(txt)}" aria-label="Vorlesen">${ICO.spk}</button>`;
+
+/* ---------- Fälle instanziieren ---------- */
+function poss(n){return n+(/[sßxz]$/i.test(n)?'’':'s');}
+function inst(c){
+ const roles=c.roles.split('');const used=[];const kids=[];
+ roles.forEach((g,ri)=>{
+  const ok=idx=>!used.includes(idx)&&(g==='x'||CAST[idx].g===g);
+  let cand=CAST.map((_,i)=>i).filter(ok);
+  if(ri===0){const f=cand.filter(i=>!S.lastA.slice(-8).includes(i));if(f.length)cand=f;}
+  const k=cand[Math.floor(Math.random()*cand.length)];used.push(k);kids.push(k);});
+ S.lastA.push(kids[0]);
+ const nm=['A','B','C'].map((_,i)=>kids[i]!==undefined?CAST[kids[i]].n:'');
+ const sub=t=>String(t).replace(/\{([ABC])\}s\b/g,(m,r)=>poss(nm['ABC'.indexOf(r)])).replace(/\{([ABC])\}/g,(m,r)=>nm['ABC'.indexOf(r)]);
+ const def={bg:c.bg,figs:c.figs.map(f=>{const o={k:kids[f.r],face:f.face,pose:f.pose,gaze:f.gaze,lean:f.lean,dir:f.dir,over:f.over,hold:f.hold};return o;}),front:c.front,table:c.table,onTable:c.onTable,alt:sub(c.sit)};
+ return {c,kids,nm,sub,def,sit:sub(c.sit)};
+}
+function pickCases(area){
+ const pool=CASES[area].map(c=>c.id);
+ let seen=S.seen[area];let un=shuffle(pool.filter(id=>!seen.includes(id)));
+ let chosen=un.slice(0,ROUND);
+ if(chosen.length<ROUND){const rest=shuffle(pool.filter(id=>!chosen.includes(id)));chosen=chosen.concat(rest.slice(0,ROUND-chosen.length));S.seen[area]=chosen.slice();}
+ else S.seen[area]=seen.concat(chosen);
+ return shuffle(chosen).map(id=>CASES[area].find(c=>c.id===id));
+}
+
+/* ---------- Szene mit Sprechblasen ---------- */
+function sceneHTML(it,extra){ // extra: {bubbles:[{f,t,k,cls}]}
+ const sc=L.scene(it.def);const n=it.def.figs.length;
+ const bubs=(it.c.bub||[]).map(b=>({f:b.f,t:it.sub(b.t),k:b.k||'say'}));
+ (extra||[]).forEach(e=>{for(let i=bubs.length-1;i>=0;i--)if(bubs[i].f===e.f&&e.replace)bubs.splice(i,1);bubs.push(e);});
+ return {sc,bubs,html:`<div class="scene" style="background:${sc.top}"><div class="bubrow" id="bubrow" style="grid-template-columns:repeat(${n},1fr)">${bubRow(n,bubs)}</div>${sc.svg}</div>`};
+}
+function bubRow(n,bubs){let h='';for(let i=0;i<n;i++){h+=`<div class="bcol">`+bubs.filter(b=>b.f===i).map(b=>`<div class="bub ${b.k||'say'}${b.cls?' '+b.cls:''}"${b.id?` id="${b.id}"`:''}>${esc(b.t)}</div>`).join('')+`</div>`;}return h;}
+function spokenScene(it,bubs){return it.sit+' '+bubs.filter(b=>b.k!=='act').map(b=>it.nm[0]&&b.t).join(' ');}
+
+/* ---------- Start ---------- */
+function show(id){['start','game','end'].forEach(s=>{$('#'+s).hidden=s!==id;});stopSay();window.scrollTo(0,0);}
+function setSound(on){S.sound=on;document.body.classList.toggle('mute',!on);document.querySelectorAll('[data-act=snd]').forEach(b=>{b.innerHTML=(on?ICO.spk:ICO.mute)+'<span class="sr">Ton</span>';b.setAttribute('aria-pressed',String(!on));b.setAttribute('aria-label',on?'Vorlesen ist an':'Vorlesen ist aus');});if(!on)stopSay();}
+function topline(home){return `<div class="topline">${home?`<button type="button" class="iconbtn" data-act="home" aria-label="Zur Startseite">${ICO.home}<span>Start</span></button>`:''}<button type="button" class="iconbtn" id="sndBtn" data-act="snd"></button><button type="button" class="iconbtn" data-act="info" aria-label="Kurz erklärt">${ICO.info}<span>Kurz erklärt</span></button></div>`;}
+function buildStart(){
+ const cards=ORDER.map(k=>{const A=AREAS[k];const c=CASES[k].find(x=>x.id===A.demo);const it=inst(c);const sc=L.scene(it.def);
+  return `<button type="button" class="mcard a-${k}" data-area="${k}"><span class="art" style="background:${sc.top}">${sc.svg.replace(' role="img"','').replace(/aria-label="[^"]*"/,'aria-hidden="true"')}</span><span class="txt"><span class="nm">${STEPICO[A.step].replace('<svg','<svg class="stepi"')}${A.name}</span><span class="ds">${A.desc}</span><span class="go">${ICO.play}Los geht’s</span></span></button>`;}).join('');
+ $('#start').innerHTML=topline(false)+`<div class="hero"><h1>${STEPICO.stopp.replace('<svg','<svg class="ico"')}Streit-Stopp</h1><p class="sub">Konflikte erkennen &amp; Lösungen finden</p><p class="intro">Streit passiert. Entscheidend ist, was wir daraus machen. ${spk('Streit-Stopp. Konflikte erkennen und Lösungen finden. Streit passiert. Entscheidend ist, was wir daraus machen.')}</p></div>${stepBar(null,false)}<div class="cards">${cards}</div><div class="startfoot"><button type="button" class="bigbtn alt" data-act="info">${ICO.info}Kurz erklärt</button></div>`;
+ setSound(S.sound);
+}
+function modal(html){const m=$('#modal');m.innerHTML=`<div class="mbox" role="dialog" aria-modal="true" aria-label="Kurz erklärt">${html}<div class="actions"><button type="button" class="bigbtn" data-act="closeModal">Verstanden</button></div></div>`;m.hidden=false;m.querySelector('button.bigbtn').focus();}
+function closeModal(){$('#modal').hidden=true;}
+function showInfo(){
+ const t='Im Spiel übst du vier Dinge. Beim Streit-Check findest du heraus, was wir wirklich wissen und was wir nur vermuten. Beim Streit-Regler siehst du, was einen Streit größer oder kleiner macht. Beim Lösungsfinder suchst du Wege, die helfen können. Bei Sag’s anders findest du klare Sätze. Es gibt keine Punkte und keine Zeit. Hilfe holen ist kein Petzen.';
+ modal(`<h2>Kurz erklärt ${spk(t)}</h2><p>Streit ist normal. Wichtig ist: <b>Was könnte jetzt helfen?</b> Nicht: Wer ist schuld?</p><ul>${STEPS.map(s=>`<li>${STEPICO[s[0]]}<span><b>${s[1]}</b><br>${s[2]}</span></li>`).join('')}</ul><p>Es gibt keine Punkte und keine Zeit. Oft gibt es mehr als einen guten Weg. Wenn jemand wehtut, nicht aufhört oder du dich bedroht fühlst: <b>Hol dir Unterstützung. Das ist kein Petzen.</b></p>`);
+}
+
+/* ---------- Runde ---------- */
+function startRound(area){
+ S.area=area;S.i=0;S.done=0;S.tasks=pickCases(area).map(inst);
+ buildGame();renderTask();show('game');
+}
+function buildGame(){
+ const A=AREAS[S.area];
+ $('#game').innerHTML=`<div class="gbar"><button type="button" class="iconbtn" data-act="home" aria-label="Zur Startseite">${ICO.home}<span>Start</span></button>${stepBar(A.step,false)}<div class="prog"><span id="progT"></span><div class="dots" id="dots" aria-hidden="true"></div></div><button type="button" class="iconbtn" id="sndBtn" data-act="snd"></button><button type="button" class="iconbtn" data-act="info" aria-label="Kurz erklärt">${ICO.info}</button></div><div class="stage a-${S.area}" id="stage"></div>`;
+ setSound(S.sound);
+}
+function updateProg(){
+ $('#progT').textContent=`${AREAS[S.area].name} · Fall ${S.i+1} von ${ROUND}`;
+ $('#dots').innerHTML=S.tasks.map((_,i)=>`<i class="${i<S.done?'d':i===S.i?'c':''}"></i>`).join('');
+}
+function renderTask(){
+ stopSay();S.locked=false;S.cur={};S.tk=(S.tk||0)+1;
+ const it=S.tasks[S.i];updateProg();
+ ({check:rCheck,regler:rRegler,loesung:rLoesung,sag:rSag})[S.area](it);
+}
+function nextTask(){S.done=S.i+1;S.i++;if(S.i>=ROUND){updateProg();showEnd();}else{renderTask();window.scrollTo({top:0,behavior:'auto'});}}
+function showEnd(){
+ const A=AREAS[S.area];
+ $('#end').innerHTML=topline(true)+`<div class="endbox"><h1>Streit-Stopp geschafft!</h1><p>Du hast verschiedene Wege kennengelernt, mit Streit umzugehen. ${spk('Streit-Stopp geschafft! Du hast verschiedene Wege kennengelernt, mit Streit umzugehen.')}</p>${stepBar(null,false)}<p class="hint">Bereich: ${A.name}</p><div class="btns"><button type="button" class="bigbtn" data-act="again">${ICO.redo}Noch eine Runde</button><button type="button" class="bigbtn alt" data-act="areas">${ICO.grid}Anderen Bereich wählen</button><button type="button" class="bigbtn alt" data-act="home">${ICO.home}Zur Startseite</button></div></div>`;
+ setSound(S.sound);show('end');$('#end .bigbtn').focus();
+}
+const stage=()=>$('#stage');
+function panelHead(it,q,bubs){const sp=spokenScene(it,bubs);return `<div class="situ">${spk(sp+' '+q)}<span>${esc(it.sit)}</span></div><h2 class="q">${esc(q)}</h2>`;}
+function setFb(html){const f=$('#fb');f.innerHTML=html;}
+function finish(label){S.locked=true;const a=$('#actions');a.innerHTML=`<button type="button" class="bigbtn" id="nextBtn" data-act="next">${S.i===ROUND-1?'Fertig':label||'Weiter'}${ICO.next}</button>`;$('#nextBtn').focus({preventScroll:false});}
+
+/* ---------- 1 STREIT-CHECK (zwei getrennte Schritte) ---------- */
+function rCheck(it){
+ const stm=shuffle(it.c.stm.map((s,i)=>({id:i,t:it.sub(s.t),know:!!s.know,sel:false,seen:false,
+  why:s.know?'Das haben wir gesehen oder gehört. Das ist sicher.':'Das denken wir uns nur („bestimmt“, „vielleicht“). Sicher wissen wir es nicht.'})));
+ S.cur={stm,phase:1,revealed:false,pick:null,ops:shuffle([{k:'ask'},{k:'look'},{k:'acc'}])};
+ const sc=sceneHTML(it);S.cur.bubs=sc.bubs;
+ stage().innerHTML=sc.html+`<div class="panel">${panelHead(it,AREAS.check.q,sc.bubs)}<div class="work" id="work"></div><div class="fb" id="fb" aria-live="polite"></div><div class="actions" id="actions"></div></div>`;
+ drawCheck(it);
+}
+function chkCard(c,mode,extra){
+ let cls='stm',mk='',why='',dis='';
+ if(mode==='pick'){cls+=c.sel?' selc':'';}
+ else if(mode==='know'){cls+=c.know?' ok':' dim';mk=c.know?MK.weiss:'';why=c.know?`<span class="why">${esc(c.why)}</span>`:'';dis='disabled';}
+ else if(mode==='guess'){cls+=c.seen?' guessed':'';mk=c.seen?MK.umleg:'';why=c.seen?`<span class="why">${esc(c.why)}</span>`:'';}
+ return `<div class="cardw"><button type="button" class="${cls}" data-card="${c.id}" ${mode==='pick'?`aria-pressed="${c.sel}"`:''} ${dis}>${mk}<span>${esc(c.t)}${why}</span></button>${spk(c.t,true)}</div>`;
+}
+function drawCheck(it){
+ const C=S.cur,stm=C.stm,w=$('#work'),act=$('#actions');
+ if(C.phase===1&&!C.revealed){
+  w.innerHTML=`<div class="phase know"><div class="ph">${STEPICO.schau.replace('<svg','<svg class="zi"')}<span><b>Schritt 1 von 3: DAS WISSEN WIR</b><small>Tippe alle Sätze an, die wir gesehen oder gehört haben. Das ist sicher.</small></span></div><div class="pool">${stm.map(c=>chkCard(c,'pick')).join('')}</div></div>`;
+  act.innerHTML=`<button type="button" class="bigbtn" data-act="checkIt" ${stm.some(c=>c.sel)?'':'disabled'}>Prüfen</button>`;
+ }else if(C.phase===1){
+  w.innerHTML=`<div class="phase know"><div class="ph">${STEPICO.schau.replace('<svg','<svg class="zi"')}<span><b>DAS WISSEN WIR</b><small>Das ist sicher.</small></span></div><div class="pool">${stm.filter(c=>c.know).map(c=>chkCard(c,'know')).join('')}</div></div>`;
+  act.innerHTML=`<button type="button" class="bigbtn" data-act="checkNext">Weiter: Was vermuten wir?${ICO.next}</button>`;
+ }else{
+  if(C.phase===3){drawAsk(it);return;}
+  const g=stm.filter(c=>!c.know),all=g.every(c=>c.seen);
+  w.innerHTML=`<div class="phase know ok"><div class="ph">${MK.weiss}<span><b>DAS WISSEN WIR</b><small>${stm.filter(c=>c.know).map(c=>esc(c.t)).join(' · ')}</small></span></div></div><div class="phase guess"><div class="ph">${QMARK}<span><b>Schritt 2 von 3: DAS VERMUTEN WIR</b><small>Das denken wir uns nur. Sicher wissen wir es nicht. Tippe jeden Satz an.</small></span></div><div class="pool">${g.map(c=>chkCard(c,'guess')).join('')}</div></div>`;
+  act.innerHTML=all?`<button type="button" class="bigbtn" id="nextBtn" data-act="checkAsk">Weiter: Und jetzt?${ICO.next}</button>`:'';
+ }
+}
+const QMARK=svgI('<circle cx="12" cy="12" r="10.5" fill="#fbeee3" stroke="#a34e22" stroke-width="1.8"/><path d="M8.7 9.2a3.4 3.4 0 116 2c-1.2.8-2.7 1.4-2.7 3.2" fill="none" stroke="#a34e22" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.8" r="1.5" fill="#a34e22"/>','0 0 24 24','zi');
+function checkIt(it){
+ const C=S.cur;C.revealed=true;
+ const wrong=C.stm.filter(c=>c.sel!==c.know).length;
+ setFb(wrong===0?'<b>Genau hingeschaut!</b>Das ist alles sicher: Wir haben es gesehen oder gehört.':'<b>So sieht es aus.</b>Hier sind alle sicheren Sätze. Bei den anderen wissen wir es nicht genau. Die kommen jetzt dran.');
+ drawCheck(it);
+}
+function drawAsk(it){
+ const C=S.cur,n=it.c.next,who=it.nm[n.who],pick=C.pick;
+ const opt={ask:{t:`Ich frage: „${it.sub(n.ask)}“`,v:'gut',why:'Eine Frage hilft, herauszufinden, was wirklich war. Niemand wird beschuldigt.'},
+  look:{t:'Ich schaue genau hin und frage jemanden, der es gesehen hat.',v:'auch',why:'Auch so finden wir mehr heraus, bevor wir etwas glauben.'},
+  acc:{t:`Ich sage: „${it.sub(n.acc)}“`,v:'vorsicht',why:'Eine Vermutung wie ein Vorwurf zu sagen, kann den Streit noch größer machen.'}};
+ C.opt=opt;
+ const know=C.stm.filter(c=>c.know).map(c=>`<li>${esc(c.t)}</li>`).join(''),guess=C.stm.filter(c=>!c.know).map(c=>`<li>${esc(c.t)}</li>`).join('');
+ $('#work').innerHTML=`<div class="phase concl"><div class="ph">${STEPICO.loesung.replace('<svg','<svg class="zi"')}<span><b>Schritt 3 von 3: UND JETZT?</b><small>${esc(who)} denkt etwas, das noch nicht sicher ist. Was könnte jetzt helfen?</small></span></div><div class="sum"><div><b>Das wissen wir:</b><ul>${know}</ul></div><div><b>Das wissen wir noch nicht:</b><ul>${guess}</ul></div></div><div class="opts">${C.ops.map(o=>`<div class="opt"><button type="button" class="ob${pick===o.k?' r-'+opt[o.k].v+' sel':''}" data-ca="${o.k}" aria-pressed="${pick===o.k}"><span class="t" style="display:flex;gap:10px;align-items:center">${SG}<span>${esc(opt[o.k].t)}</span></span></button>${spk(opt[o.k].t,true)}</div>`).join('')}</div></div>`;
+ $('#actions').innerHTML=pick?`<button type="button" class="bigbtn" id="nextBtn" data-act="next">${S.i===ROUND-1?'Fertig':'Weiter'}${ICO.next}</button>`:'';
+}
+function checkAsk(it){S.cur.phase=3;setFb('');drawAsk(it);}
+function pickAsk(k,it){const C=S.cur;C.pick=k;drawAsk(it);const o=C.opt[k];
+ setFb(`<b>${MKLAB[o.v]}</b>${esc(o.why)}<div class="hl">${MK.weiss}<span><b>Merke:</b> Erst sicher wissen, dann entscheiden. Was wir nur vermuten, können wir nachfragen.</span></div>`);
+ const b=document.querySelector(`[data-ca="${k}"]`);if(b)b.focus();}
+function checkNext(it){const C=S.cur;C.phase=2;setFb('');drawCheck(it);const f=document.querySelector('.phase.guess .stm');if(f)f.focus();}
+function onCheckClick(t,it){
+ const cd=t.closest('[data-card]');if(!cd||S.locked)return false;
+ const C=S.cur,c=C.stm.find(x=>x.id===+cd.dataset.card);
+ if(C.phase===1&&!C.revealed){c.sel=!c.sel;drawCheck(it);const n=document.querySelector(`[data-card="${c.id}"]`);if(n)n.focus();return true;}
+ if(C.phase===2&&!c.know){c.seen=true;drawCheck(it);const n=document.querySelector(`[data-card="${c.id}"]`);if(n)n.focus();
+  if(C.stm.filter(x=>!x.know).every(x=>x.seen)){setFb('<b>Das sind Vermutungen.</b>Vielleicht stimmen sie, vielleicht nicht. Und jetzt: Was tun wir damit?');const nb=$('#nextBtn');if(nb)nb.focus();}
+  return true;}
+ return false;
+}
+
+/* ---------- 2 STREIT-REGLER ---------- */
+const LV=['ruhig','angespannt','Streit','eskaliert'];
+const LVCOL=['#6aa57a','#e9b949','#e08a4e','#b8453a'];
+function gaugeSVG(){
+ const cx=150,cy=150,R=130,r=80;let seg='';
+ for(let i=0;i<4;i++){const a0=(180+i*45)*Math.PI/180,a1=(180+(i+1)*45)*Math.PI/180;const p=(a,rr)=>`${(cx+rr*Math.cos(a)).toFixed(1)},${(cy+rr*Math.sin(a)).toFixed(1)}`;
+  seg+=`<path d="M${p(a0,R)} A${R},${R} 0 0 1 ${p(a1,R)} L${p(a1,r)} A${r},${r} 0 0 0 ${p(a0,r)}Z" fill="${LVCOL[i]}" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`;
+  const am=(180+i*45+22.5)*Math.PI/180;seg+=`<text x="${(cx+105*Math.cos(am)).toFixed(1)}" y="${(cy+105*Math.sin(am)+5).toFixed(1)}" text-anchor="middle" font-size="15" font-weight="900" fill="#3d2f28">${i+1}</text>`;}
+ return `<svg viewBox="0 0 300 175" role="img" aria-label="Streit-Regler mit vier Stufen: ruhig, angespannt, Streit, eskaliert"><path d="M10 150 A140 140 0 0 1 290 150" fill="none"/>${seg}<g class="needle" id="needle" style="transform:rotate(${angle(0)}deg)"><path d="M146,150 L150,34 L154,150Z" fill="#3d2f28" stroke="${O}" stroke-width="1.5" stroke-linejoin="round"/></g><circle cx="150" cy="150" r="13" fill="#fffaf0" stroke="${O}" stroke-width="4"/></svg>`;
+}
+const angle=lv=>-67.5+lv*45;
+function setNeedle(lv){const n=$('#needle');if(n)n.style.transform=`rotate(${angle(lv)}deg)`;}
+function legend(lv){return LV.map((n,i)=>`<span class="${i===lv?'on':''}"><b>${i+1}</b><br>${n}</span>`).join('');}
+const AR={
+ up:svgI('<path d="M12 4l8 9h-5v7H9v-7H4z" fill="currentColor"/>','0 0 24 24'),
+ down:svgI('<path d="M12 20l-8-9h5V4h6v7h5z" fill="currentColor"/>','0 0 24 24'),
+ var:svgI('<path d="M3 12l5-5v3.5h8V7l5 5-5 5v-3.5H8V17z" fill="currentColor"/>','0 0 24 24')
+};
+function rRegler(it){
+ const c=it.c;const hasThird=true;S.cur={lv:c.lvl};
+ const react={f:c.react.f,t:it.sub(c.react.t),k:c.react.k==='act'?'act':c.react.k,cls:'mine'};
+ const sc=sceneHTML(it,[Object.assign({},react,{cls:'react',replace:false})]);
+ const rt=it.sub(c.react.t);const who=it.nm[c.react.f===0?0:1];
+ const rtxt=c.react.k==='act'?rt:`${CAST[it.kids[c.figs[c.react.f].r]].n}: „${rt}“`;
+ stage().innerHTML=sc.html+`<div class="panel"><div class="situ">${spk(it.sit+' '+rtxt+' '+AREAS.regler.q)}<span>${esc(it.sit)}</span></div><div class="react"><span>${esc(rtxt)}</span></div><h2 class="q">${AREAS.regler.q}</h2><div class="gauge" id="gauge">${gaugeSVG()}<div class="glegend" id="glegend">${legend(c.lvl)}</div></div><div class="work three" id="work"><button type="button" class="rb up" data-r="up">${AR.up}<span>STREIT WIRD GRÖSSER</span></button><button type="button" class="rb down" data-r="down">${AR.down}<span>STREIT WIRD KLEINER / RUHIGER</span></button><button type="button" class="rb var" data-r="var">${AR.var}<span>KANN UNTERSCHIEDLICH SEIN</span></button></div><div class="fb" id="fb" aria-live="polite"></div><div class="actions" id="actions"></div></div>`;
+ requestAnimationFrame(()=>requestAnimationFrame(()=>setNeedle(c.lvl)));
+}
+function answerRegler(r,it){
+ if(S.locked)return;S.locked=true;const c=it.c;
+ document.querySelectorAll('.rb').forEach(b=>{b.disabled=true;if(b.dataset.r===r)b.classList.add('picked');});
+ let end=c.lvl;if(c.out==='up')end=Math.min(3,c.lvl+1);else if(c.out==='down')end=Math.max(0,c.lvl-1);
+ const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const lg=n=>{const g=$('#glegend');if(g)g.innerHTML=legend(n);};
+ const tk=S.tk;const later=(f,ms)=>setTimeout(()=>{if(S.tk===tk)f();},ms);
+ if(c.out==='var'){const lo=Math.max(0,c.lvl-1),hi=Math.min(3,c.lvl+1);setNeedle(lo);later(()=>setNeedle(hi),reduce?0:900);later(()=>{setNeedle(c.lvl);lg(c.lvl);},reduce?0:1800);}
+ else{setNeedle(end);lg(end);}
+ const head={up:'Das könnte den Streit noch größer machen.',down:'Das könnte den Streit kleiner und ruhiger machen.',var:'Das kann unterschiedlich sein.'}[c.out];
+ const pre=r===c.out?'Gut erkannt! ':'Wir sehen es hier etwas anders. ';
+ setFb(`<b>${pre}${head}</b>${esc(it.sub(c.why))}`);
+ finish();
+}
+
+/* ---------- 3 LÖSUNGSFINDER ---------- */
+function rLoesung(it){
+ const opts=shuffle(it.c.opts.map((o,i)=>({id:i,t:it.sub(o.t),v:o.v,why:it.sub(o.why),sel:false})));
+ S.cur={opts};const sc=sceneHTML(it);S.cur.bubs=sc.bubs;
+ stage().innerHTML=sc.html+`<div class="panel">${panelHead(it,AREAS.loesung.q,sc.bubs)}<div class="work opts" id="work"></div><div class="fb" id="fb" aria-live="polite"></div><div class="actions" id="actions"></div></div>`;
+ drawLoesung(it);
+}
+function drawLoesung(it){
+ const done=S.locked,{opts}=S.cur;
+ $('#work').innerHTML=(done?'':'<p class="hint">Tippe auf die Wegweiser, die dir passend erscheinen.</p>')+opts.map(o=>{
+  const r=done?` r-${o.v}${o.sel?' sel':''}`:'';
+  const lab=done?`<span class="lab">${MK[o.v]}${MKLAB[o.v]}${o.sel?' (deine Wahl)':''}</span><span class="why">${esc(o.why)}</span>`:'';
+  return `<div class="opt"><button type="button" class="ob${r}" data-o="${o.id}" aria-pressed="${o.sel}" ${done?'disabled':''}>${SG}<span class="t">${esc(o.t)}${lab}</span></button>${spk(o.t,true)}</div>`;}).join('');
+ if(!done)$('#actions').innerHTML=`<button type="button" class="bigbtn" data-act="lsg" ${opts.some(o=>o.sel)?'':'disabled'}>So probiere ich es</button>`;
+}
+function doLoesung(it){
+ const {opts}=S.cur;S.locked=true;drawLoesung(it);
+ const good=opts.filter(o=>o.v!=='vorsicht').length;const sel=opts.filter(o=>o.sel);
+ const onlyRisky=sel.every(o=>o.v==='vorsicht');
+ let m=[];
+ if(onlyRisky)m.push('<b>Schau dir auch die anderen Wege an.</b>Manche könnten besser helfen.');
+ else m.push(good>1?'<b>Hier gibt es mehr als eine gute Möglichkeit.</b>Was passt, hängt auch davon ab, was du dir zutraust und wie die Situation ist.':'<b>Das könnte helfen.</b>');
+ if(it.c.needHelp)m.push('<div class="hl">'+MK.hilfe+'<span><b>Hier musst du das nicht alleine lösen.</b>Hol dir Unterstützung. Das ist kein Petzen.</span></div>');
+ else if(opts.some(o=>o.v==='hilfe'))m.push('<div class="hl">'+MK.hilfe+'<span>Hilfe holen ist kein Petzen. Es ist eine gute Möglichkeit, wenn es allein nicht klappt.</span></div>');
+ setFb(m.join(''));finish();
+}
+
+/* ---------- 4 SAG'S ANDERS ---------- */
+function rSag(it){
+ const opts=shuffle(it.c.opts.map((o,i)=>({id:i,t:it.sub(o.t),v:o.v,why:it.sub(o.why)})));
+ S.cur={opts,pick:null,tried:0};
+ const first=(it.c.bub||[]).find(b=>b.f===it.c.who);
+ const sc=sceneHTML(it);S.cur.bubs=sc.bubs;
+ const lead=first?`Das wurde gesagt: „${it.sub(first.t)}“`:'';
+ stage().innerHTML=sc.html+`<div class="panel">${panelHead(it,AREAS.sag.q,sc.bubs)}<div class="work opts" id="work"></div><div class="fb" id="fb" aria-live="polite"></div><div class="actions" id="actions"></div></div>`;
+ drawSag(it);
+}
+function drawSag(it){
+ const {opts,pick}=S.cur;
+ $('#work').innerHTML=`<p class="hint">${pick===null?'Tippe einen Satz an. Er erscheint dann in der Sprechblase.':'Du kannst auch andere Sätze ausprobieren.'}</p>`+opts.map(o=>`<div class="opt"><button type="button" class="ob${pick===o.id?' r-'+o.v+' sel':''}" data-s="${o.id}" aria-pressed="${pick===o.id}"><span class="t">${SG}<span>${esc(o.t)}</span></span></button>${spk(o.t,true)}</div>`.replace('<span class="t">'+SG,'<span class="t" style="display:flex;gap:10px;align-items:center">'+SG)).join('');
+}
+function pickSag(id,it){
+ const o=S.cur.opts.find(x=>x.id===id);S.cur.pick=id;S.cur.tried++;
+ const row=$('#bubrow'),n=it.def.figs.length;const who=it.c.who;
+ const cls=o.v==='gut'?'':o.v==='auch'?'alt':'warn';
+ const bubs=(it.c.bub||[]).filter(b=>b.f!==who).map(b=>({f:b.f,t:it.sub(b.t),k:b.k||'say'}));
+ bubs.push({f:who,t:o.t,k:'say',cls:'mine '+cls});
+ row.innerHTML=bubRow(n,bubs);
+ drawSag(it);
+ const head={gut:MKLAB.gut,auch:MKLAB.auch,vorsicht:MKLAB.vorsicht}[o.v];
+ const hint=it.c.id==='s12'||it.c.id==='s14'?'<div class="hl">'+MK.hilfe+'<span><b>Hier musst du das nicht alleine lösen.</b>Hol dir Unterstützung. Das ist kein Petzen.</span></div>':'';
+ setFb(`<b>${head}</b>${esc(o.why)}${hint}`);
+ if(S.cur.tried===1)finish();
+}
+
+/* ---------- Ereignisse ---------- */
+document.addEventListener('click',e=>{
+ const t=e.target;
+ const sp=t.closest('.spk');if(sp){say(sp.dataset.say);return;}
+ const act=t.closest('[data-act]');
+ const it=S.tasks[S.i];
+ if(act){const a=act.dataset.act;
+  if(a==='snd'){setSound(!S.sound);return;}
+  if(a==='info'){showInfo();return;}
+  if(a==='closeModal'){closeModal();return;}
+  if(a==='home'){buildStart();show('start');return;}
+  if(a==='areas'){buildStart();show('start');return;}
+  if(a==='again'){startRound(S.area);return;}
+  if(a==='next'){nextTask();return;}
+  if(a==='checkIt'){checkIt(it);return;}
+  if(a==='checkNext'){checkNext(it);return;}
+  if(a==='checkAsk'){checkAsk(it);return;}
+  if(a==='lsg'){doLoesung(it);return;}}
+ const ar=t.closest('[data-area]');if(ar){startRound(ar.dataset.area);return;}
+ if(!it||$('#game').hidden)return;
+ if(S.area==='check'){const ca=t.closest('[data-ca]');if(ca){pickAsk(ca.dataset.ca,it);return;}onCheckClick(t,it);return;}
+ const rb=t.closest('[data-r]');if(rb&&S.area==='regler'){answerRegler(rb.dataset.r,it);return;}
+ const ob=t.closest('[data-o]');if(ob&&S.area==='loesung'&&!S.locked){const o=S.cur.opts.find(x=>x.id===+ob.dataset.o);o.sel=!o.sel;drawLoesung(it);const nb=document.querySelector(`[data-o="${o.id}"]`);if(nb)nb.focus();return;}
+ const sb=t.closest('[data-s]');if(sb&&S.area==='sag'){pickSag(+sb.dataset.s,it);const nb=document.querySelector(`[data-s="${sb.dataset.s}"]`);if(nb)nb.focus();return;}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal').hidden)closeModal();});
+window.__ss={S,CASES,inst,startRound,buildStart,pickCases,AREAS,ROUND,renderTask,answerRegler,pickSag,doLoesung,checkIt,nextTask,sceneHTML};
+buildStart();show('start');
+})();
+
+</script>
+</body>
+</html>
